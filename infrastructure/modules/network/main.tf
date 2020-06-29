@@ -32,7 +32,7 @@ resource "aws_subnet" "public" {
 
   tags = merge(
     local.common_tags,
-    map("Name", "${var.name}-${var.environment}-${data.aws_availability_zones.available.names[count.index]}-public")
+    map("Name", "${local.full_name}-${data.aws_availability_zones.available.names[count.index]}-public")
   )
 }
 
@@ -51,7 +51,7 @@ resource "aws_nat_gateway" "nat" {
 
   tags = merge(
     local.common_tags,
-    map("Name", "${var.name}-${var.environment}-${data.aws_availability_zones.available.names[count.index]}")
+    map("Name", "${local.full_name}-${data.aws_availability_zones.available.names[count.index]}")
   )
 }
 
@@ -61,7 +61,7 @@ resource "aws_route_table" "private_route_table" {
 
   tags = merge(
     local.common_tags,
-    map("Name", "${var.name}-${var.environment}-${data.aws_availability_zones.available.names[count.index]}-private")
+    map("Name", "${local.full_name}-${data.aws_availability_zones.available.names[count.index]}-private")
   )
 }
 
@@ -82,7 +82,7 @@ resource "aws_subnet" "private" {
 
   tags = merge(
     local.common_tags,
-    map("Name", "${var.name}-${var.environment}-${data.aws_availability_zones.available.names[count.index]}-private")
+    map("Name", "${local.full_name}-${data.aws_availability_zones.available.names[count.index]}-private")
   )
 }
 
