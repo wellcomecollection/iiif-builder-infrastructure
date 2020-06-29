@@ -5,6 +5,8 @@ locals {
     "Terraform"   = true
     "Name"        = "${var.name}-${var.environment}"
   }
+
+  full_name = "${var.name}-${var.environment}"
 }
 
 variable "cidr_block" {
