@@ -86,3 +86,13 @@ variable "domain" {
 variable "zone_id" {
   description = "Route53 zone Id"
 }
+
+variable "port_mappings" {
+  type = list(object({
+    containerPort = number
+    hostPort      = number
+    protocol      = string
+  }))
+
+  default = []
+}

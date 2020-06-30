@@ -21,11 +21,7 @@ module "application_container_definition" {
 
   tags = local.common_tags
 
-  port_mappings = [{
-    containerPort = 8000
-    hostPort      = 8000
-    protocol      = "tcp"
-  }]
+  port_mappings = var.port_mappings
 }
 
 # Create task definition
