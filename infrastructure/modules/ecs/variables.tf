@@ -17,12 +17,8 @@ variable "environment" {
   description = "Environment for resources (e.g. staging, production)"
 }
 
-variable "docker_repository_url" {
-  description = "URL to repository containing docker image"
-}
-
-variable "docker_tag" {
-  description = "Docker tag to use"
+variable "docker_image" {
+  description = "Image to use for main container"
 }
 
 variable "cpu" {
@@ -42,6 +38,7 @@ variable "container_port" {
 }
 
 variable "service_discovery_namespace_id" {
+  default = null
 }
 
 variable "service_subnets" {
