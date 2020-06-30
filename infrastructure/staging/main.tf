@@ -63,7 +63,7 @@ module "iiif-builder" {
   service_subnets                = local.vpc_private_subnets
   service_security_group_ids     = [data.aws_security_group.default.id] # correct?
 
-  healthcheck_path = "/" # confirm
+  healthcheck_path = "/management/healthcheck" # confirm
 
   lb_listener_arn = module.load_balancer.https_listener_arn
   lb_zone_id      = module.load_balancer.lb_zone_id
