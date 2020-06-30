@@ -15,11 +15,17 @@ module "application_container_definition" {
   source = "git::https://github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/container_definition?ref=v2.6.3"
   name   = local.full_name
 
-  image = "${var.docker_repository_url}:${var.docker_tag}"
+  image = var.docker_image
 
   log_configuration = module.log_router_container.container_log_configuration
 
   tags = local.common_tags
+
+  port_mappings = [{
+    containerPort = 8000
+    hostPort      = 8000
+    protocol      = "tcp"
+  }]
 }
 
 # Create task definition
@@ -38,12 +44,19 @@ module "task_definition" {
   task_name    = local.full_name
 }
 
+# secrets
+# module "app_container_secrets_permissions" {
+#   source    = "git::github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/secrets?ref=v2.6.3"
+#   secrets   = var.secret_env_vars
+#   role_name = module.task_definition.task_execution_role_name
+# }
+
 # Create service
 module "service" {
   source = "git::https://github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/service?ref=v2.6.3"
 
   cluster_arn  = var.ecs_cluster_arn
-  service_name = local.local.full_name
+  service_name = local.full_name
 
   task_definition_arn = module.task_definition.arn
 
@@ -52,26 +65,34 @@ module "service" {
   subnets            = var.service_subnets
   security_group_ids = var.service_security_group_ids
 
-  target_group_arn = aws_alb_target_group.default.arn
+  target_group_arn = aws_alb_target_group.service.arn
   container_port   = var.container_port
-  container_name   = local.namespace
+  container_name   = local.full_name
 }
 
 resource "aws_alb_target_group" "service" {
   # We use snake case in a lot of places, but ALB Target Group names can
   # only contain alphanumerics and hyphens.
-  name = replace(local.full_name, "_", "-")
-
+  name        = replace(local.full_name, "_", "-")
   target_type = "ip"
+  protocol    = "HTTP"
 
-  protocol = "HTTP"
-  port     = var.container_port
-  vpc_id   = var.vpc_id
+  deregistration_delay = 10
+  port                 = var.container_port
+  vpc_id               = var.vpc_id
 
   health_check {
-    protocol = "HTTP"
-    path     = var.healthcheck_path
-    matcher  = "200"
+    path                = var.healthcheck_path
+    port                = var.container_port
+    protocol            = "HTTP"
+    matcher             = 200
+    timeout             = 5
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
@@ -97,7 +118,7 @@ resource "aws_alb_listener_rule" "https" {
 }
 
 resource "aws_route53_record" "service" {
-  count   = "${var.hostname == "" ? 0 : 1}"
+  count   = var.hostname == "" ? 0 : 1
   zone_id = var.zone_id
   name    = "${var.hostname}.${var.domain}"
   type    = "A"
