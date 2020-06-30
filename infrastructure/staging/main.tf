@@ -52,8 +52,8 @@ module "iiif-builder" {
   environment = local.environment
   vpc_id      = local.vpc_id
 
-  docker_image   = "crccheck/hello-world" #"${var.data.terraform_remote_state.common.outputs.iiif_builder_url}:staging"
-  container_port = 8000
+  docker_image   = "${data.terraform_remote_state.common.outputs.iiif_builder_url}:staging"
+  container_port = 80
 
   cpu      = 256
   memory   = 512
@@ -73,6 +73,13 @@ module "iiif-builder" {
   hostname          = "stage-iiif"
   domain            = "dlcs.io"
   zone_id           = data.aws_route53_zone.external.id
+
+  
+  port_mappings = [{
+    containerPort = 80
+    hostPort      = 80
+    protocol      = "tcp"
+  }]
 }
 
 resource "aws_ecs_cluster" "iiif_builder" {
