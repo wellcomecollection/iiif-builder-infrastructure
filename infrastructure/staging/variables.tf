@@ -8,6 +8,7 @@ locals {
     "Environment" = local.environment
     "Terraform"   = true
     "Name"        = local.full_name
+    "Project"     = local.name
   }
 
   vpc_id = "vpc-0422549322a611c44"
