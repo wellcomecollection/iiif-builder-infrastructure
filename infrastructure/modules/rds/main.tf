@@ -15,15 +15,15 @@ resource "aws_security_group" "postgres_access" {
     to_port     = "5432"
     cidr_blocks = var.db_ingress_cidrs
   }
-  tags = local.common_tags
+  
+  tags = merge(
+    local.common_tags,
+    map("Name", "${local.full_name}-postgress-access")
+  )
 }
 
-data "aws_ssm_parameter" "database_password" {
-  name = var.db_password_ssm_key
-}
-
-data "aws_ssm_parameter" "database_username" {
-  name = var.db_username_ssm_key
+data "aws_secretsmanager_secret_version" "admin_creds" {
+  secret_id = var.db_creds_secret_key
 }
 
 resource "aws_db_instance" "postgres" {
@@ -32,8 +32,8 @@ resource "aws_db_instance" "postgres" {
   identifier                 = local.full_name
   instance_class             = var.db_instance_class
   allocated_storage          = var.db_storage
-  username                   = data.aws_ssm_parameter.database_username.value
-  password                   = data.aws_ssm_parameter.database_password.value
+  username                   = jsondecode(data.aws_secretsmanager_secret_version.admin_creds.secret_string)["admin_username"]
+  password                   = jsondecode(data.aws_secretsmanager_secret_version.admin_creds.secret_string)["admin_password"]
   storage_type               = "gp2"
   backup_retention_period    = "7"
   skip_final_snapshot        = true

@@ -1,3 +1,28 @@
+# TODO - don't use the default security group
+# resource "aws_security_group" "efs" {
+#   name        = "iiif-builder-security-group"
+#   description = "Allow traffic"
+#   vpc_id      = module.network.vpc_id
+
+#   ingress {
+#     from_port = 0
+#     to_port   = 0
+#     protocol  = "-1"
+#     self      = true
+#   }
+
+#   egress {
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = "-1"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
+
+#   tags = {
+#     Name = "iiif-builder-security-group"
+#   }
+# }
+
 data "aws_security_group" "default" {
   vpc_id = local.vpc_id
   name   = "default"
@@ -21,25 +46,24 @@ module "load_balancer" {
   lb_controlled_ingress_cidrs = ["0.0.0.0/0"]
 }
 
-# module "rds" {
-#   source = "../modules/rds"
+module "rds" {
+  source = "../modules/rds"
 
-#   name        = local.name
-#   environment = local.environment
-#   vpc_id      = local.vpc_id
+  name        = local.name
+  environment = local.environment
+  vpc_id      = local.vpc_id
 
-#   db_instance_class = "db.m4.large"
-#   db_storage        = 250
-#   db_subnets        = local.vpc_private_subnets
-#   db_ingress_cidrs  = local.vpc_private_cidr
+  db_instance_class = "db.m4.large"
+  db_storage        = 250
+  db_subnets        = local.vpc_private_subnets
+  db_ingress_cidrs  = local.vpc_private_cidr
 
-#   db_security_group_ids = [
-#     data.aws_security_group.default.id,
-#   ]
+  db_security_group_ids = [
+    data.aws_security_group.default.id,
+  ]
 
-#   db_password_ssm_key = "/aws/reference/secretsmanager/staging/iiif-builder/db_password"
-#   db_username_ssm_key = "/aws/reference/secretsmanager/staging/iiif-builder/db_username"
-# }
+  db_creds_secret_key = "staging/iiif-builder/db_admin"
+}
 
 data "aws_route53_zone" "external" {
   name = "dlcs.io"
@@ -55,15 +79,15 @@ module "iiif-builder" {
   docker_image   = "${data.terraform_remote_state.common.outputs.iiif_builder_url}:staging"
   container_port = 80
 
-  cpu      = 256
-  memory   = 512
+  cpu    = 256
+  memory = 512
 
-  ecs_cluster_arn                = aws_ecs_cluster.iiif_builder.arn
+  ecs_cluster_arn = aws_ecs_cluster.iiif_builder.arn
   #service_discovery_namespace_id = aws_service_discovery_private_dns_namespace.namespace.id
-  service_subnets                = local.vpc_private_subnets
-  service_security_group_ids     = [data.aws_security_group.default.id] # correct?
+  service_subnets            = local.vpc_private_subnets
+  service_security_group_ids = [data.aws_security_group.default.id] # correct?
 
-  healthcheck_path = "/management/healthcheck" # confirm
+  healthcheck_path = "/management/healthcheck"
 
   lb_listener_arn = module.load_balancer.https_listener_arn
   lb_zone_id      = module.load_balancer.lb_zone_id
@@ -74,7 +98,6 @@ module "iiif-builder" {
   domain            = "dlcs.io"
   zone_id           = data.aws_route53_zone.external.id
 
-  
   port_mappings = [{
     containerPort = 80
     hostPort      = 80

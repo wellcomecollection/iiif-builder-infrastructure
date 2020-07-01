@@ -38,12 +38,8 @@ variable "db_ingress_cidrs" {
   description = "A list of CIDRs that can access the RDS instance"
 }
 
-variable "db_password_ssm_key" {
-  description = "Key of SSM param containing DB password"
-}
-
-variable "db_username_ssm_key" {
-  description = "Key of SSM param containing DB username"
+variable "db_creds_secret_key" {
+  description = "Key of Secret containing admin DB credentials"
 }
 
 variable "db_security_group_ids" {
