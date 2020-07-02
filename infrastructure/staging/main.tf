@@ -1,33 +1,3 @@
-# TODO - don't use the default security group
-# resource "aws_security_group" "efs" {
-#   name        = "iiif-builder-security-group"
-#   description = "Allow traffic"
-#   vpc_id      = module.network.vpc_id
-
-#   ingress {
-#     from_port = 0
-#     to_port   = 0
-#     protocol  = "-1"
-#     self      = true
-#   }
-
-#   egress {
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-
-#   tags = {
-#     Name = "iiif-builder-security-group"
-#   }
-# }
-
-data "aws_security_group" "default" {
-  vpc_id = local.vpc_id
-  name   = "default"
-}
-
 module "load_balancer" {
   source = "../modules/load_balancer"
 
@@ -38,7 +8,7 @@ module "load_balancer" {
   vpc_id         = local.vpc_id
 
   service_lb_security_group_ids = [
-    data.aws_security_group.default.id,
+    data.terraform_remote_state.common.outputs.staging_security_group_id,
   ]
 
   certificate_domain = "dlcs.io"
@@ -59,7 +29,7 @@ module "rds" {
   db_ingress_cidrs  = local.vpc_private_cidr
 
   db_security_group_ids = [
-    data.aws_security_group.default.id,
+    data.terraform_remote_state.common.outputs.staging_security_group_id,
   ]
 
   db_creds_secret_key = "iiif-builder/staging/db_admin"
@@ -85,7 +55,7 @@ module "iiif-builder" {
   ecs_cluster_arn = aws_ecs_cluster.iiif_builder.arn
   #service_discovery_namespace_id = aws_service_discovery_private_dns_namespace.namespace.id
   service_subnets            = local.vpc_private_subnets
-  service_security_group_ids = [data.aws_security_group.default.id]
+  service_security_group_ids = [data.terraform_remote_state.common.outputs.staging_security_group_id, ]
 
   healthcheck_path = "/management/healthcheck"
 
