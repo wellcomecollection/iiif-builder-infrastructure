@@ -52,10 +52,10 @@ module "iiif-builder" {
   cpu    = 256
   memory = 512
 
-  ecs_cluster_arn = aws_ecs_cluster.iiif_builder.arn
-  #service_discovery_namespace_id = aws_service_discovery_private_dns_namespace.namespace.id
-  service_subnets            = local.vpc_private_subnets
-  service_security_group_ids = [data.terraform_remote_state.common.outputs.staging_security_group_id, ]
+  ecs_cluster_arn                = aws_ecs_cluster.iiif_builder.arn
+  service_discovery_namespace_id = data.terraform_remote_state.common.outputs.service_discovery_namespace_id
+  service_subnets                = local.vpc_private_subnets
+  service_security_group_ids     = [data.terraform_remote_state.common.outputs.staging_security_group_id, ]
 
   healthcheck_path = "/management/healthcheck"
 
@@ -84,8 +84,3 @@ resource "aws_ecs_cluster" "iiif_builder" {
   name = local.full_name
   tags = local.common_tags
 }
-
-# resource "aws_service_discovery_private_dns_namespace" "namespace" {
-#   name = local.full_name
-#   vpc  = local.vpc_id
-# }
