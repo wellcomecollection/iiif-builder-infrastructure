@@ -60,3 +60,15 @@ module "bastion" {
     "62.254.125.26/32" # Glasgow VPN
   ]
 }
+
+resource "aws_service_discovery_private_dns_namespace" "iiif_builder" {
+  name        = "iiif_builder"
+  description = "Private ServiceDiscovery namespace for iiif-builder apps"
+  vpc         = local.vpc_id
+
+  tags = {
+    Terraform = true
+    Name      = "iiif-builder",
+    Project   = "iiif-builder"
+  }
+}
