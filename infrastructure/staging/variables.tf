@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 locals {
   # Common tags to be assigned to all resources
   environment = "stage"
@@ -27,6 +29,8 @@ locals {
     "172.56.160.0/19",
     "172.56.192.0/19",
   ]
+
+  account_id = data.aws_caller_identity.current.account_id
 }
 
 variable "region" {

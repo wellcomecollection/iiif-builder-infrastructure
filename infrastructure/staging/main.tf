@@ -62,7 +62,7 @@ module "rds" {
     data.aws_security_group.default.id,
   ]
 
-  db_creds_secret_key = "staging/iiif-builder/db_admin"
+  db_creds_secret_key = "iiif-builder/staging/db_admin"
 }
 
 data "aws_route53_zone" "external" {
@@ -85,7 +85,7 @@ module "iiif-builder" {
   ecs_cluster_arn = aws_ecs_cluster.iiif_builder.arn
   #service_discovery_namespace_id = aws_service_discovery_private_dns_namespace.namespace.id
   service_subnets            = local.vpc_private_subnets
-  service_security_group_ids = [data.aws_security_group.default.id] # correct?
+  service_security_group_ids = [data.aws_security_group.default.id]
 
   healthcheck_path = "/management/healthcheck"
 
@@ -103,6 +103,11 @@ module "iiif-builder" {
     hostPort      = 80
     protocol      = "tcp"
   }]
+
+  secret_env_vars = {
+    ConnectionStrings__Dds                = "iiif-builder/staging/ddsinstrumentation-connstr"
+    ConnectionStrings__DdsInstrumentation = "iiif-builder/staging/dds-connstr"
+  }
 }
 
 resource "aws_ecs_cluster" "iiif_builder" {

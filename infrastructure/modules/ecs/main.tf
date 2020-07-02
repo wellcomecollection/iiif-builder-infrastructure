@@ -15,13 +15,14 @@ module "application_container_definition" {
   source = "git::https://github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/container_definition?ref=v2.6.3"
   name   = local.full_name
 
-  image = var.docker_image
+  image         = var.docker_image
+  port_mappings = var.port_mappings
+
+  secrets = var.secret_env_vars
 
   log_configuration = module.log_router_container.container_log_configuration
 
   tags = local.common_tags
-
-  port_mappings = var.port_mappings
 }
 
 # Create task definition
@@ -41,11 +42,11 @@ module "task_definition" {
 }
 
 # secrets
-# module "app_container_secrets_permissions" {
-#   source    = "git::github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/secrets?ref=v2.6.3"
-#   secrets   = var.secret_env_vars
-#   role_name = module.task_definition.task_execution_role_name
-# }
+module "app_container_secrets_permissions" {
+  source    = "git::github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/secrets?ref=v2.6.3"
+  secrets   = var.secret_env_vars
+  role_name = module.task_definition.task_execution_role_name
+}
 
 # Create service
 module "service" {
