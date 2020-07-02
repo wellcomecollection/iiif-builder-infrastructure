@@ -96,3 +96,9 @@ variable "port_mappings" {
 
   default = []
 }
+
+variable "secret_env_vars" {
+  description = "Path of secrets to be passed from SecretManager"
+  type        = map(string)
+  default     = {}
+}
