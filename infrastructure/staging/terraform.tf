@@ -1,4 +1,8 @@
 provider "aws" {
+  assume_role {
+    role_arn = "arn:aws:iam::653428163053:role/digirati-developer"
+  }
+
   version = "~> 2.46"
   region  = var.region
 }
@@ -10,5 +14,7 @@ terraform {
     bucket = "dlcs-remote-state"
     key    = "iiif-builder/stage/terraform.tfstate"
     region = "eu-west-1"
+
+    role_arn = "arn:aws:iam::653428163053:role/digirati-developer"
   }
 }

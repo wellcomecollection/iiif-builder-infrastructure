@@ -1,6 +1,6 @@
 provider "aws" {
   assume_role {
-    role_arn = "arn:aws:iam::653428163053:role/digirati-admin"
+    role_arn = "arn:aws:iam::653428163053:role/digirati-developer"
   }
 
   version = "~> 2.46"
