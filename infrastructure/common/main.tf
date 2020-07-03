@@ -32,6 +32,13 @@ resource "aws_ecr_repository" "iiif_builder" {
   }
 }
 
+resource "aws_ecr_repository" "dashboard" {
+  name = "iiif-builder-dashboard"
+  tags = {
+    Terraform = true
+  }
+}
+
 data "template_file" "public_key" {
   template = file("files/key.pub")
 }

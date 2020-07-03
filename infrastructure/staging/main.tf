@@ -11,7 +11,7 @@ module "load_balancer" {
     data.terraform_remote_state.common.outputs.staging_security_group_id,
   ]
 
-  certificate_domain = "dlcs.io"
+  certificate_domain = local.domain
 
   lb_controlled_ingress_cidrs = ["0.0.0.0/0"]
 }
@@ -36,7 +36,7 @@ module "rds" {
 }
 
 data "aws_route53_zone" "external" {
-  name = "dlcs.io"
+  name = local.domain
 }
 
 module "iiif-builder" {
@@ -64,8 +64,8 @@ module "iiif-builder" {
   lb_fqdn         = module.load_balancer.lb_dns_name
   #path_patterns     = ["/iiif/*"]
   listener_priority = 10
-  hostname          = "stage-iiif"
-  domain            = "dlcs.io"
+  hostname          = "iiif-stage"
+  domain            = local.domain
   zone_id           = data.aws_route53_zone.external.id
 
   port_mappings = [{

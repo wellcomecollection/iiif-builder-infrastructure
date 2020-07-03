@@ -13,6 +13,7 @@ locals {
     "Project"     = local.name
   }
 
+  # todo - take from remote state
   vpc_id = "vpc-0422549322a611c44"
   vpc_private_subnets = [
     "subnet-061cc8889c4af6419",
@@ -31,6 +32,8 @@ locals {
   ]
 
   account_id = data.aws_caller_identity.current.account_id
+
+  domain = "dlcs.io"
 }
 
 variable "region" {
