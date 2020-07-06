@@ -131,6 +131,8 @@ module "dashboard" {
     ConnectionStrings__DdsInstrumentation = "iiif-builder/staging/dds-connstr"
     AzureAd__TenantId                     = "iiif-builder/staging/azuread-tenantid"
     AzureAd__ClientId                     = "iiif-builder/staging/azuread-clientid"
+    Storage-Production__ClientId          = "iiif-builder/common/storage/clientid"
+    Storage-Production__ClientSecret      = "iiif-builder/common/storage/clientsecret"
   }
 
   env_vars = {
