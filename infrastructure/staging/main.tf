@@ -129,3 +129,7 @@ module "dashboard" {
     AzureAd__ClientId                     = "iiif-builder/staging/azuread-clientid"
   }
 }
+
+data "aws_iam_role" "dashboard_task_role" {
+  name = module.dashboard.task_role_name
+}
