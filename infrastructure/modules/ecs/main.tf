@@ -18,7 +18,8 @@ module "application_container_definition" {
   image         = var.docker_image
   port_mappings = var.port_mappings
 
-  secrets = var.secret_env_vars
+  secrets     = var.secret_env_vars
+  environment = var.env_vars
 
   log_configuration = module.log_router_container.container_log_configuration
 

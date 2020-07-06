@@ -84,6 +84,10 @@ module "iiif-builder" {
     ConnectionStrings__Dds                = "iiif-builder/staging/ddsinstrumentation-connstr"
     ConnectionStrings__DdsInstrumentation = "iiif-builder/staging/dds-connstr"
   }
+
+  env_vars = {
+    "ASPNETCORE_ENVIRONMENT" = "Staging"
+  }
 }
 
 # dds-dashboard application
@@ -127,6 +131,10 @@ module "dashboard" {
     ConnectionStrings__DdsInstrumentation = "iiif-builder/staging/dds-connstr"
     AzureAd__TenantId                     = "iiif-builder/staging/azuread-tenantid"
     AzureAd__ClientId                     = "iiif-builder/staging/azuread-clientid"
+  }
+
+  env_vars = {
+    "ASPNETCORE_ENVIRONMENT" = "Staging"
   }
 }
 

@@ -102,3 +102,9 @@ variable "secret_env_vars" {
   type        = map(string)
   default     = {}
 }
+
+variable "env_vars" {
+  description = "Variables to be set as environment variables"
+  type        = map(string)
+  default     = {}
+}
