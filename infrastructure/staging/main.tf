@@ -133,6 +133,8 @@ module "dashboard" {
     AzureAd__ClientId                     = "iiif-builder/staging/azuread-clientid"
     Storage-Production__ClientId          = "iiif-builder/common/storage/clientid"
     Storage-Production__ClientSecret      = "iiif-builder/common/storage/clientsecret"
+    Dlcs__ApiKey                          = "iiif-builder/staging/dlcs-apikey"
+    Dlcs__ApiSecret                       = "iiif-builder/staging/dlcs-apisecret"
   }
 
   env_vars = {
