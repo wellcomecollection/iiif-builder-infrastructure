@@ -143,3 +143,15 @@ module "dashboard" {
 data "aws_iam_role" "dashboard_task_role" {
   name = module.dashboard.task_role_name
 }
+
+resource "aws_iam_role_policy" "orchestrator_read_wellcomecollection_storage_bucket" {
+  name   = "${local.full_name}-read-wellcomecollection-storage-bucket"
+  role   = module.dashboard.task_role_name
+  policy = data.aws_iam_policy_document.wellcomecollection_storage_bucket_read.json
+}
+
+resource "aws_iam_role_policy" "orchestrator_read_wellcomecollection_storage_staging_bucket" {
+  name   = "${local.full_name}-read-wellcomecollection-storage-staging-bucket"
+  role   = module.dashboard.task_role_name
+  policy = data.aws_iam_policy_document.wellcomecollection_storage_staging_bucket_read.json
+}
