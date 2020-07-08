@@ -6,6 +6,14 @@ output "dashboard_url" {
   value = aws_ecr_repository.dashboard.repository_url
 }
 
+output "workflow_processor_url" {
+  value = aws_ecr_repository.workflow_processor.repository_url
+}
+
+output "job_processor_url" {
+  value = aws_ecr_repository.job_processor.repository_url
+}
+
 output "staging_security_group_id" {
   value = aws_security_group.staging.id
 }
