@@ -1,6 +1,6 @@
 # dds-dashboard application
 module "dashboard" {
-  source = "../modules/ecs"
+  source = "../modules/ecs/web"
 
   name        = "iiif-builder-dashboard"
   environment = local.environment

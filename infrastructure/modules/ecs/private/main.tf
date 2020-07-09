@@ -63,67 +63,6 @@ module "service" {
   subnets            = var.service_subnets
   security_group_ids = var.service_security_group_ids
 
-  target_group_arn = aws_alb_target_group.service.arn
-  container_port   = var.container_port
-  container_name   = local.full_name
-}
-
-resource "aws_alb_target_group" "service" {
-  # We use snake case in a lot of places, but ALB Target Group names can
-  # only contain alphanumerics and hyphens.
-  name        = replace(local.full_name, "_", "-")
-  target_type = "ip"
-  protocol    = "HTTP"
-
-  deregistration_delay = 10
-  port                 = var.container_port
-  vpc_id               = var.vpc_id
-
-  health_check {
-    path                = var.healthcheck_path
-    port                = var.container_port
-    protocol            = "HTTP"
-    matcher             = 200
-    timeout             = 5
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-resource "aws_alb_listener_rule" "https" {
-  count        = length(var.path_patterns)
-  listener_arn = var.lb_listener_arn
-  priority     = var.listener_priority + count.index
-
-  action {
-    type             = "forward"
-    target_group_arn = aws_alb_target_group.service.arn
-  }
-
-  condition {
-    field  = "host-header"
-    values = ["${var.hostname == "" ? var.domain : "${var.hostname}.${var.domain}"}"]
-  }
-
-  condition {
-    field  = "path-pattern"
-    values = ["${element(var.path_patterns, count.index)}"]
-  }
-}
-
-resource "aws_route53_record" "service" {
-  count   = var.hostname == "" ? 0 : 1
-  zone_id = var.zone_id
-  name    = "${var.hostname}.${var.domain}"
-  type    = "A"
-
-  alias {
-    name                   = var.lb_fqdn
-    zone_id                = var.lb_zone_id
-    evaluate_target_health = false
-  }
+  container_port = var.container_port
+  container_name = local.full_name
 }

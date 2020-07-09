@@ -1,12 +1,11 @@
-# main IIIF-Builder application
-module "iiif-builder" {
-  source = "../modules/ecs/web"
+module "job-processor" {
+  source = "../modules/ecs/private"
 
-  name        = local.name
+  name        = "job-processor"
   environment = local.environment
   vpc_id      = local.vpc_id
 
-  docker_image   = "${data.terraform_remote_state.common.outputs.iiif_builder_url}:staging"
+  docker_image   = "${data.terraform_remote_state.common.outputs.job_processor_url}:staging"
   container_port = 80
 
   cpu    = 256
@@ -18,21 +17,6 @@ module "iiif-builder" {
   service_security_group_ids     = [data.terraform_remote_state.common.outputs.staging_security_group_id, ]
 
   healthcheck_path = "/management/healthcheck"
-
-  lb_listener_arn = module.load_balancer.https_listener_arn
-  lb_zone_id      = module.load_balancer.lb_zone_id
-  lb_fqdn         = module.load_balancer.lb_dns_name
-  #path_patterns     = ["/iiif/*"]
-  listener_priority = 10
-  hostname          = "iiif-stage"
-  domain            = local.domain
-  zone_id           = data.aws_route53_zone.external.id
-
-  port_mappings = [{
-    containerPort = 80
-    hostPort      = 80
-    protocol      = "tcp"
-  }]
 
   secret_env_vars = {
     ConnectionStrings__Dds                = "iiif-builder/staging/ddsinstrumentation-connstr"
