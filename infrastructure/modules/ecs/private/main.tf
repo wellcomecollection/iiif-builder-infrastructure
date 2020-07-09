@@ -64,6 +64,5 @@ module "service" {
   subnets            = var.service_subnets
   security_group_ids = var.service_security_group_ids
 
-  container_port = var.container_port
   container_name = local.full_name
 }
