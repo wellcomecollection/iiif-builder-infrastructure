@@ -33,10 +33,6 @@ variable "ecs_cluster_arn" {
   description = "ARN of cluster to host services on"
 }
 
-variable "container_port" {
-  type = number
-}
-
 variable "service_discovery_namespace_id" {
   default = null
 }

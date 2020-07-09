@@ -6,7 +6,6 @@ module "workflow-processor" {
   vpc_id      = local.vpc_id
 
   docker_image   = "${data.terraform_remote_state.common.outputs.workflow_processor_url}:staging"
-  container_port = 80
 
   cpu    = 256
   memory = 512
