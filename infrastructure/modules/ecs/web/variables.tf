@@ -58,9 +58,11 @@ variable "vpc_id" {
 variable "lb_listener_arn" {
 }
 
-variable "lb_zone_id" {}
+variable "lb_zone_id" {
+}
 
-variable "lb_fqdn" {}
+variable "lb_fqdn" {
+}
 
 variable "path_patterns" {
   type        = list(string)
@@ -75,12 +77,11 @@ variable "listener_priority" {
 }
 
 variable "hostname" {
-  description = "(Optional) Hostname to register in Route53"
-  default     = ""
+  description = "Hostname to register in Route53"
 }
 
 variable "domain" {
-  description = "Path patterns to match in ALB"
+  description = "Main domain"
 }
 
 variable "zone_id" {
