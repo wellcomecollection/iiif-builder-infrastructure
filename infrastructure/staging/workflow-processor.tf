@@ -16,8 +16,6 @@ module "workflow-processor" {
   service_subnets                = local.vpc_private_subnets
   service_security_group_ids     = [data.terraform_remote_state.common.outputs.staging_security_group_id, ]
 
-  healthcheck_path = "/management/healthcheck"
-
   secret_env_vars = {
     ConnectionStrings__Dds                = "iiif-builder/staging/ddsinstrumentation-connstr"
     ConnectionStrings__DdsInstrumentation = "iiif-builder/staging/dds-connstr"
@@ -25,5 +23,13 @@ module "workflow-processor" {
 
   env_vars = {
     "ASPNETCORE_ENVIRONMENT" = "Staging"
+  }
+
+  healthcheck = {
+    command     = ["CMD-SHELL", "curl -f http://localhost:80/management/healthcheck"]
+    interval    = 30
+    retries     = 5
+    timeout     = 5
+    startPeriod = 30
   }
 }

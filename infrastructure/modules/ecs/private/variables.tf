@@ -49,9 +49,6 @@ variable "service_security_group_ids" {
   type = list(string)
 }
 
-variable "healthcheck_path" {
-}
-
 variable "vpc_id" {
 }
 
@@ -75,4 +72,16 @@ variable "env_vars" {
   description = "Variables to be set as environment variables"
   type        = map(string)
   default     = {}
+}
+
+variable "healthcheck" {
+  type = object({
+    command     = list(string)
+    retries     = number
+    timeout     = number
+    interval    = number
+    startPeriod = number
+  })
+
+  default = null
 }
