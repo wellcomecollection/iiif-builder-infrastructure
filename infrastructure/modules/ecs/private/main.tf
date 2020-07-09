@@ -17,6 +17,7 @@ module "application_container_definition" {
 
   image         = var.docker_image
   port_mappings = var.port_mappings
+  healthcheck   = var.healthcheck
 
   secrets     = var.secret_env_vars
   environment = var.env_vars
