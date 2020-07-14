@@ -1,5 +1,5 @@
 # main IIIF-Builder application
-module "iiif-builder" {
+module "iiif_builder" {
   source = "../modules/ecs/web"
 
   name        = local.name

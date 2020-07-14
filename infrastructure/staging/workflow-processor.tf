@@ -1,4 +1,4 @@
-module "workflow-processor" {
+module "workflow_processor" {
   source = "../modules/ecs/private"
 
   name        = "workflow-processor"
