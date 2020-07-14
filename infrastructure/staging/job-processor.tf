@@ -1,4 +1,4 @@
-module "job-processor" {
+module "job_processor" {
   source = "../modules/ecs/private"
 
   name        = "job-processor"
