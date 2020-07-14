@@ -5,7 +5,7 @@ module "workflow-processor" {
   environment = local.environment
   vpc_id      = local.vpc_id
 
-  docker_image   = "${data.terraform_remote_state.common.outputs.workflow_processor_url}:staging"
+  docker_image = "${data.terraform_remote_state.common.outputs.workflow_processor_url}:staging"
 
   cpu    = 256
   memory = 512
@@ -16,8 +16,8 @@ module "workflow-processor" {
   service_security_group_ids     = [data.terraform_remote_state.common.outputs.staging_security_group_id, ]
 
   secret_env_vars = {
-    ConnectionStrings__Dds                = "iiif-builder/staging/ddsinstrumentation-connstr"
-    ConnectionStrings__DdsInstrumentation = "iiif-builder/staging/dds-connstr"
+    ConnectionStrings__DdsInstrumentation = "iiif-builder/staging/ddsinstrumentation-connstr"
+    ConnectionStrings__Dds                = "iiif-builder/staging/dds-connstr"
   }
 
   env_vars = {

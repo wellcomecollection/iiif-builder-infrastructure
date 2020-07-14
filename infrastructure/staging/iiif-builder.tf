@@ -35,8 +35,8 @@ module "iiif-builder" {
   }]
 
   secret_env_vars = {
-    ConnectionStrings__Dds                = "iiif-builder/staging/ddsinstrumentation-connstr"
-    ConnectionStrings__DdsInstrumentation = "iiif-builder/staging/dds-connstr"
+    ConnectionStrings__DdsInstrumentation = "iiif-builder/staging/ddsinstrumentation-connstr"
+    ConnectionStrings__Dds                = "iiif-builder/staging/dds-connstr"
   }
 
   env_vars = {
