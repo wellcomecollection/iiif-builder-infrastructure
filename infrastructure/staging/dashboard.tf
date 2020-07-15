@@ -105,7 +105,7 @@ module "dashboard_stageprod" {
   lb_zone_id      = module.load_balancer.lb_zone_id
   lb_fqdn         = module.load_balancer.lb_dns_name
 
-  listener_priority = 20
+  listener_priority = 60
   hostname          = "dds-stageprd"
   domain            = local.domain
   zone_id           = data.aws_route53_zone.external.id
@@ -132,9 +132,9 @@ module "dashboard_stageprod" {
   }
 }
 
-# data "aws_iam_role" "dashboardstgprd_task_role" {
-#   name = module.dashboard_stageprod.task_role_name
-# }
+data "aws_iam_role" "dashboardstgprd_task_role" {
+  name = module.dashboard_stageprod.task_role_name
+}
 
 # wellcome-collection bucket (in diff aws account)
 resource "aws_iam_role_policy" "dashboardstgprd_read_wellcomecollection_storage_bucket" {
