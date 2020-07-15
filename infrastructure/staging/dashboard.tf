@@ -39,8 +39,8 @@ module "dashboard" {
     ConnectionStrings__Dds                = "iiif-builder/staging/dds-connstr"
     AzureAd__TenantId                     = "iiif-builder/staging/azuread-tenantid"
     AzureAd__ClientId                     = "iiif-builder/staging/azuread-clientid"
-    Storage-Production__ClientId          = "iiif-builder/common/storage/clientid"
-    Storage-Production__ClientSecret      = "iiif-builder/common/storage/clientsecret"
+    Storage__ClientId                     = "iiif-builder/common/storage/clientid"
+    Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
     Dlcs__ApiKey                          = "iiif-builder/staging/dlcs-apikey"
     Dlcs__ApiSecret                       = "iiif-builder/staging/dlcs-apisecret"
   }
