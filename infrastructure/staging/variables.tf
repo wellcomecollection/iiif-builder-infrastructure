@@ -1,11 +1,12 @@
 data "aws_caller_identity" "current" {}
 
 locals {
-  # Common tags to be assigned to all resources
-  environment = "stage"
-  name        = "iiif-builder"
-  full_name   = "${local.name}-${local.environment}"
+  environment     = "stage"
+  environment_alt = "stageprd"
+  name            = "iiif-builder"
+  full_name       = "${local.name}-${local.environment}"
 
+  # Common tags to be assigned to most resources
   common_tags = {
     "Environment" = local.environment
     "Terraform"   = true
