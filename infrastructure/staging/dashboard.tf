@@ -56,26 +56,25 @@ data "aws_iam_role" "dashboard_task_role" {
 
 # wellcome-collection staging bucket (in diff aws account)
 resource "aws_iam_role_policy" "dashboard_read_wellcomecollection_storage_staging_bucket" {
-  name   = "${local.full_name}-read-wellcomecollection-storage-staging-bucket"
+  name   = "dashboard-stage-read-wellcomecollection-storage-staging-bucket"
   role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.wellcomecollection_storage_staging_bucket_read.json
 }
 
-# storage maps
 resource "aws_iam_role_policy" "dashboard_readwrite_storagemaps_bucket" {
-  name   = "${local.full_name}-readwrite-wellcomecollection-stage-iiif-storagemaps-bucket"
+  name   = "dashboard-stage-readwrite-stage-storagemaps-bucket"
   role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.storagemaps_readwrite.json
 }
 
 resource "aws_iam_role_policy" "dashboard_readwrite_presentation_bucket" {
-  name   = "${local.full_name}-readwrite-wellcomecollection-stage-iiif-presentation-bucket"
+  name   = "dashboard-stage-readwrite-stage-presentation-bucket"
   role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.presentation_readwrite.json
 }
 
 resource "aws_iam_role_policy" "dashboard_readwrite_text_bucket" {
-  name   = "${local.full_name}-readwrite-wellcomecollection-stage-iiif-text-bucket"
+  name   = "dashboard-stage-readwrite-stage-text-bucket"
   role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.text_readwrite.json
 }
@@ -117,8 +116,8 @@ module "dashboard_stageprod" {
   }]
 
   secret_env_vars = {
-    ConnectionStrings__DdsInstrumentation = "iiif-builder/staging/ddsinstrumentation-connstr"
-    ConnectionStrings__Dds                = "iiif-builder/staging/dds-connstr"
+    ConnectionStrings__DdsInstrumentation = "iiif-builder/staging/ddsinstrumentationstgprd-connstr"
+    ConnectionStrings__Dds                = "iiif-builder/staging/ddsstgprd-connstr"
     AzureAd__TenantId                     = "iiif-builder/staging/azuread-tenantid"
     AzureAd__ClientId                     = "iiif-builder/staging/azuread-clientid"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
@@ -138,26 +137,26 @@ data "aws_iam_role" "dashboardstgprd_task_role" {
 
 # wellcome-collection bucket (in diff aws account)
 resource "aws_iam_role_policy" "dashboardstgprd_read_wellcomecollection_storage_bucket" {
-  name   = "${local.full_name}-read-wellcomecollection-storage-bucket"
+  name   = "dashboard-stageprd-read-wellcomecollection-storage-staging-bucket"
   role   = module.dashboard_stageprod.task_role_name
   policy = data.aws_iam_policy_document.wellcomecollection_storage_bucket_read.json
 }
 
 # storage maps
 resource "aws_iam_role_policy" "dashboardstgprd_readwrite_storagemaps_bucket" {
-  name   = "${local.full_name}-readwrite-wellcomecollection-stage-iiif-storagemaps-bucket"
+  name   = "dashboard-stageprd-readwrite-stage-storagemaps-bucket"
   role   = module.dashboard_stageprod.task_role_name
   policy = data.aws_iam_policy_document.storagemaps_readwrite.json
 }
 
 resource "aws_iam_role_policy" "dashboardstgprd_readwrite_presentation_bucket" {
-  name   = "${local.full_name}-readwrite-wellcomecollection-stage-iiif-presentation-bucket"
+  name   = "dashboard-stageprd-readwrite-stage-presentation-bucket"
   role   = module.dashboard_stageprod.task_role_name
   policy = data.aws_iam_policy_document.presentation_readwrite.json
 }
 
 resource "aws_iam_role_policy" "dashboardstgprd_readwrite_text_bucket" {
-  name   = "${local.full_name}-readwrite-wellcomecollection-stage-iiif-text-bucket"
+  name   = "dashboard-stageprd-readwrite-stage-text-bucket"
   role   = module.dashboard_stageprod.task_role_name
   policy = data.aws_iam_policy_document.text_readwrite.json
 }
