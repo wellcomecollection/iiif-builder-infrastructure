@@ -79,8 +79,8 @@ module "iiif_builder_stageprod" {
   }]
 
   secret_env_vars = {
-    ConnectionStrings__DdsInstrumentation = "iiif-builder/staging/ddsinstrumentation-connstr"
-    ConnectionStrings__Dds                = "iiif-builder/staging/dds-connstr"
+    ConnectionStrings__DdsInstrumentation = "iiif-builder/staging/ddsinstrumentationstgprd-connstr"
+    ConnectionStrings__Dds                = "iiif-builder/staging/ddsstgprd-connstr"
   }
 
   env_vars = {
