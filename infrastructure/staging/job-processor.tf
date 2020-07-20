@@ -44,6 +44,12 @@ resource "aws_iam_role_policy" "jobprocessor_readwrite_storagemaps_bucket" {
   policy = data.aws_iam_policy_document.storagemaps_readwrite.json
 }
 
+resource "aws_iam_role_policy" "jobprocessor_readwrite_presentation_bucket" {
+  name   = "jobprocessor-stage-readwrite-stage-presentation-bucket"
+  role   = module.job_processor.task_role_name
+  policy = data.aws_iam_policy_document.presentation_readwrite.json
+}
+
 # dlcsjobprocessor, staging hosted pointing at Prod storage
 module "job_processor_stageprod" {
   source = "../modules/ecs/private"
@@ -88,4 +94,11 @@ resource "aws_iam_role_policy" "jobprocessorstgprd_readwrite_storagemaps_bucket"
   name   = "jobprocessor-stageprd-readwrite-stage-storagemaps-bucket"
   role   = module.job_processor_stageprod.task_role_name
   policy = data.aws_iam_policy_document.storagemaps_readwrite.json
+}
+
+
+resource "aws_iam_role_policy" "jobprocessorstgprd_readwrite_presentation_bucket" {
+  name   = "jobprocessor-stageprd-readwrite-stage-presentation-bucket"
+  role   = module.job_processor_stageprod.task_role_name
+  policy = data.aws_iam_policy_document.presentation_readwrite.json
 }

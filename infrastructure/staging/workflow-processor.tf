@@ -93,19 +93,19 @@ module "workflow_processor_stageprod" {
 }
 
 resource "aws_iam_role_policy" "workflowprocessorstgprd_readwrite_storagemaps_bucket" {
-  name   = "workflowprocessor-stage-readwrite-stage-storagemaps-bucket"
+  name   = "workflowprocessor-stageprd-readwrite-stage-storagemaps-bucket"
   role   = module.workflow_processor_stageprod.task_role_name
   policy = data.aws_iam_policy_document.storagemaps_readwrite.json
 }
 
 resource "aws_iam_role_policy" "workflowprocessorstgprd_readwrite_presentation_bucket" {
-  name   = "workflowprocessor-stage-readwrite-stage-presentation-bucket"
+  name   = "workflowprocessor-stageprd-readwrite-stage-presentation-bucket"
   role   = module.workflow_processor_stageprod.task_role_name
   policy = data.aws_iam_policy_document.presentation_readwrite.json
 }
 
 resource "aws_iam_role_policy" "workflowprocessorstgprd_readwrite_text_bucket" {
-  name   = "workflowprocessor-stage-readwrite-stage-text-bucket"
+  name   = "workflowprocessor-stageprd-readwrite-stage-text-bucket"
   role   = module.workflow_processor_stageprod.task_role_name
   policy = data.aws_iam_policy_document.text_readwrite.json
 }
