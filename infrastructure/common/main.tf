@@ -25,6 +25,24 @@ resource "aws_security_group" "staging" {
   }
 }
 
+module "load_balancer" {
+  source = "../modules/load_balancer"
+
+  name        = "iiif-builder"
+  environment = "stage"
+
+  public_subnets = local.vpc_public_subnets
+  vpc_id         = local.vpc_id
+
+  service_lb_security_group_ids = [
+    aws_security_group.staging.id,
+  ]
+
+  certificate_domain = "dlcs.io"
+
+  lb_controlled_ingress_cidrs = ["0.0.0.0/0"]
+}
+
 resource "aws_ecr_repository" "iiif_builder" {
   name = "iiif-builder"
   tags = {

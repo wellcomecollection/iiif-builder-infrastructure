@@ -1,21 +1,3 @@
-module "load_balancer" {
-  source = "../modules/load_balancer"
-
-  name        = local.name
-  environment = local.environment
-
-  public_subnets = local.vpc_public_subnets
-  vpc_id         = local.vpc_id
-
-  service_lb_security_group_ids = [
-    data.terraform_remote_state.common.outputs.staging_security_group_id,
-  ]
-
-  certificate_domain = local.domain
-
-  lb_controlled_ingress_cidrs = ["0.0.0.0/0"]
-}
-
 module "rds" {
   source = "../modules/rds"
 

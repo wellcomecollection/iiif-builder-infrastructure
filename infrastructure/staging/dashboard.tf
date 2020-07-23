@@ -19,9 +19,9 @@ module "dashboard" {
 
   healthcheck_path = "/management/healthcheck"
 
-  lb_listener_arn = module.load_balancer.https_listener_arn
-  lb_zone_id      = module.load_balancer.lb_zone_id
-  lb_fqdn         = module.load_balancer.lb_dns_name
+  lb_listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
+  lb_zone_id      = data.terraform_remote_state.common.outputs.lb_zone_id
+  lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
   listener_priority = 20
   hostname          = "dds-stage"
@@ -100,9 +100,9 @@ module "dashboard_stageprod" {
 
   healthcheck_path = "/management/healthcheck"
 
-  lb_listener_arn = module.load_balancer.https_listener_arn
-  lb_zone_id      = module.load_balancer.lb_zone_id
-  lb_fqdn         = module.load_balancer.lb_dns_name
+  lb_listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
+  lb_zone_id      = data.terraform_remote_state.common.outputs.lb_zone_id
+  lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
   listener_priority = 60
   hostname          = "dds-stageprd"

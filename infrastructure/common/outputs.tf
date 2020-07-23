@@ -25,3 +25,15 @@ output "service_discovery_namespace_id" {
 output "service_discovery_namespace_arn" {
   value = aws_service_discovery_private_dns_namespace.iiif_builder.arn
 }
+
+output "lb_listener_arn" {
+  value = module.load_balancer.https_listener_arn
+}
+
+output "lb_zone_id"{
+  value = module.load_balancer.lb_zone_id
+}
+
+output "lb_fqdn"{ 
+  value = module.load_balancer.lb_dns_name
+}
