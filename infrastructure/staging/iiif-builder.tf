@@ -19,9 +19,10 @@ module "iiif_builder" {
 
   healthcheck_path = "/management/healthcheck"
 
-  lb_listener_arn   = module.load_balancer.https_listener_arn
-  lb_zone_id        = module.load_balancer.lb_zone_id
-  lb_fqdn           = module.load_balancer.lb_dns_name
+  lb_listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
+  lb_zone_id      = data.terraform_remote_state.common.outputs.lb_zone_id
+  lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
+
   listener_priority = 10
   hostname          = "iiif-stage"
   domain            = local.domain
@@ -64,9 +65,10 @@ module "iiif_builder_stageprod" {
 
   healthcheck_path = "/management/healthcheck"
 
-  lb_listener_arn   = module.load_balancer.https_listener_arn
-  lb_zone_id        = module.load_balancer.lb_zone_id
-  lb_fqdn           = module.load_balancer.lb_dns_name
+  lb_listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
+  lb_zone_id      = data.terraform_remote_state.common.outputs.lb_zone_id
+  lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
+
   listener_priority = 50
   hostname          = "iiif-stageprd"
   domain            = local.domain
