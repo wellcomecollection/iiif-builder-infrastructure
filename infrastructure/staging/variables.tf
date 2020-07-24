@@ -14,12 +14,6 @@ locals {
     "Project"     = local.name
   }
 
-  vpc_private_cidr = [
-    "172.56.128.0/19",
-    "172.56.160.0/19",
-    "172.56.192.0/19",
-  ]
-
   account_id = data.aws_caller_identity.current.account_id
 
   domain = "dlcs.io"
