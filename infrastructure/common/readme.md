@@ -19,6 +19,7 @@ Contains any infrastructure that is common to both the Staging and Production en
 | workflow_processor_url          | URL for workflow-processor ECR repo           |
 | job_processor_url               | URL for job-processor ECR repo                |
 | staging_security_group_id       | id of 'staging' security group                |
+| production_security_group_id    | id of 'production' security group             |
 | service_discovery_namespace_id  | id of service discovery namespace             |
 | service_discovery_namespace_arn | arn of service discovery namespace            |
 | lb_listener_arn                 | arn of https listener                         |
