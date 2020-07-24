@@ -1,7 +1,7 @@
 resource "aws_security_group" "staging" {
   name        = "iiif-builder-staging-security-group"
   description = "Allow traffic"
-  vpc_id      = local.vpc_id
+  vpc_id      = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
 
   ingress {
     from_port = 0
@@ -29,10 +29,10 @@ module "load_balancer" {
   source = "../modules/load_balancer"
 
   name        = "iiif-builder"
-  environment = "stage"
+  environment = "shared"
 
-  public_subnets = local.vpc_public_subnets
-  vpc_id         = local.vpc_id
+  public_subnets = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_public_subnets
+  vpc_id         = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
 
   service_lb_security_group_ids = [
     aws_security_group.staging.id,
@@ -95,8 +95,8 @@ module "bastion" {
   instance_type = "t2.micro"
   ami           = "ami-047bb4163c506cd98"
 
-  vpc_id                     = local.vpc_id
-  subnets                    = local.vpc_public_subnets
+  vpc_id                     = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
+  subnets                    = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_public_subnets
   service_security_group_ids = [aws_security_group.staging.id]
   key_name                   = "iiif-builder"
   ip_whitelist = [
@@ -107,7 +107,7 @@ module "bastion" {
 resource "aws_service_discovery_private_dns_namespace" "iiif_builder" {
   name        = "iiif_builder"
   description = "Private ServiceDiscovery namespace for iiif-builder apps"
-  vpc         = local.vpc_id
+  vpc         = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
 
   tags = {
     Terraform = true
