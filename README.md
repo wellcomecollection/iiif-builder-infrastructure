@@ -16,6 +16,8 @@ Current Terraform version: 0.12.x
   * A collection of reusable modules for creating groups of resources.
 * [staging](/infrastructure/staging)
   * References _common_ and adds resources specific to the Staging environment.
+* [production](/infrastructure/production)
+  * References _common_ and adds resources specific to the Production environment.
 
 ## Shared Infrastructure
 
