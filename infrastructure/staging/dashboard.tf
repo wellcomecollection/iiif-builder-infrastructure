@@ -137,7 +137,7 @@ data "aws_iam_role" "dashboardstgprd_task_role" {
 
 # wellcome-collection bucket (in diff aws account)
 resource "aws_iam_role_policy" "dashboardstgprd_read_wellcomecollection_storage_bucket" {
-  name   = "dashboard-stageprd-read-wellcomecollection-storage-staging-bucket"
+  name   = "dashboard-stageprd-read-wellcomecollection-storage-bucket"
   role   = module.dashboard_stageprod.task_role_name
   policy = data.aws_iam_policy_document.wellcomecollection_storage_bucket_read.json
 }
