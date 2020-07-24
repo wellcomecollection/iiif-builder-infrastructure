@@ -30,4 +30,8 @@ resource "aws_security_group" "web" {
     local.common_tags,
     map("Name", "${local.full_name}-external-lb")
   )
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
