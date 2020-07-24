@@ -23,7 +23,7 @@ module "dashboard" {
   lb_zone_id      = data.terraform_remote_state.common.outputs.lb_zone_id
   lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
-  listener_priority = 20
+  listener_priority = 8
   hostname          = "dds-stage"
   domain            = local.domain
   zone_id           = data.aws_route53_zone.external.id
@@ -104,7 +104,7 @@ module "dashboard_stageprod" {
   lb_zone_id      = data.terraform_remote_state.common.outputs.lb_zone_id
   lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
-  listener_priority = 60
+  listener_priority = 10
   hostname          = "dds-test"
   domain            = local.domain
   zone_id           = data.aws_route53_zone.external.id

@@ -23,7 +23,7 @@ module "iiif_builder" {
   lb_zone_id      = data.terraform_remote_state.common.outputs.lb_zone_id
   lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
-  listener_priority = 10
+  listener_priority = 7
   hostname          = "iiif-stage"
   domain            = local.domain
   zone_id           = data.aws_route53_zone.external.id
@@ -69,7 +69,7 @@ module "iiif_builder_stageprod" {
   lb_zone_id      = data.terraform_remote_state.common.outputs.lb_zone_id
   lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
-  listener_priority = 50
+  listener_priority = 9
   hostname          = "iiif-test"
   domain            = local.domain
   zone_id           = data.aws_route53_zone.external.id
