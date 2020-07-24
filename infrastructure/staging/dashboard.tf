@@ -37,8 +37,8 @@ module "dashboard" {
   secret_env_vars = {
     ConnectionStrings__DdsInstrumentation = "iiif-builder/staging/ddsinstrumentation-connstr"
     ConnectionStrings__Dds                = "iiif-builder/staging/dds-connstr"
-    AzureAd__TenantId                     = "iiif-builder/staging/azuread-tenantid"
-    AzureAd__ClientId                     = "iiif-builder/staging/azuread-clientid"
+    AzureAd__TenantId                     = "iiif-builder/common/azuread-tenantid"
+    AzureAd__ClientId                     = "iiif-builder/common/azuread-clientid"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
     Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
@@ -118,8 +118,8 @@ module "dashboard_stageprod" {
   secret_env_vars = {
     ConnectionStrings__DdsInstrumentation = "iiif-builder/staging/ddsinstrumentationstgprd-connstr"
     ConnectionStrings__Dds                = "iiif-builder/staging/ddsstgprd-connstr"
-    AzureAd__TenantId                     = "iiif-builder/staging/azuread-tenantid"
-    AzureAd__ClientId                     = "iiif-builder/staging/azuread-clientid"
+    AzureAd__TenantId                     = "iiif-builder/common/azuread-tenantid"
+    AzureAd__ClientId                     = "iiif-builder/common/azuread-clientid"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
     Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
