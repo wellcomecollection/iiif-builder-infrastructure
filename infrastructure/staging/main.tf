@@ -3,11 +3,11 @@ module "rds" {
 
   name        = local.name
   environment = local.environment
-  vpc_id      = local.vpc_id
+  vpc_id      = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
 
   db_instance_class = "db.m4.large"
   db_storage        = 250
-  db_subnets        = local.vpc_private_subnets
+  db_subnets        = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_private_subnets
   db_ingress_cidrs  = local.vpc_private_cidr
 
   db_security_group_ids = [

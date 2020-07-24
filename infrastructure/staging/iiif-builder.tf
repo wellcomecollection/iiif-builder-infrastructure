@@ -4,7 +4,7 @@ module "iiif_builder" {
 
   name        = "iiif-builder"
   environment = local.environment
-  vpc_id      = local.vpc_id
+  vpc_id      = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
 
   docker_image   = "${data.terraform_remote_state.common.outputs.iiif_builder_url}:staging"
   container_port = 80
@@ -14,7 +14,7 @@ module "iiif_builder" {
 
   ecs_cluster_arn                = aws_ecs_cluster.iiif_builder.arn
   service_discovery_namespace_id = data.terraform_remote_state.common.outputs.service_discovery_namespace_id
-  service_subnets                = local.vpc_private_subnets
+  service_subnets                = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_private_subnets
   service_security_group_ids     = [data.terraform_remote_state.common.outputs.staging_security_group_id, ]
 
   healthcheck_path = "/management/healthcheck"
@@ -50,7 +50,7 @@ module "iiif_builder_stageprod" {
 
   name        = "iiif-builder"
   environment = local.environment_alt
-  vpc_id      = local.vpc_id
+  vpc_id      = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
 
   docker_image   = "${data.terraform_remote_state.common.outputs.iiif_builder_url}:staging-prod"
   container_port = 80
@@ -60,7 +60,7 @@ module "iiif_builder_stageprod" {
 
   ecs_cluster_arn                = aws_ecs_cluster.iiif_builder.arn
   service_discovery_namespace_id = data.terraform_remote_state.common.outputs.service_discovery_namespace_id
-  service_subnets                = local.vpc_private_subnets
+  service_subnets                = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_private_subnets
   service_security_group_ids     = [data.terraform_remote_state.common.outputs.staging_security_group_id, ]
 
   healthcheck_path = "/management/healthcheck"
