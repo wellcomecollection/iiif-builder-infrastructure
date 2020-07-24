@@ -70,7 +70,7 @@ module "iiif_builder_stageprod" {
   lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
   listener_priority = 50
-  hostname          = "iiif-stageprd"
+  hostname          = "iiif-test"
   domain            = local.domain
   zone_id           = data.aws_route53_zone.external.id
 

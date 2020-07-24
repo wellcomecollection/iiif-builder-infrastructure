@@ -105,7 +105,7 @@ module "dashboard_stageprod" {
   lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
   listener_priority = 60
-  hostname          = "dds-stageprd"
+  hostname          = "dds-test"
   domain            = local.domain
   zone_id           = data.aws_route53_zone.external.id
 
