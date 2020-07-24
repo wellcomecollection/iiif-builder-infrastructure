@@ -41,8 +41,8 @@ module "dashboard" {
     AzureAd__ClientId                     = "iiif-builder/staging/azuread-clientid"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
-    Dlcs__ApiKey                          = "iiif-builder/staging/dlcs-apikey"
-    Dlcs__ApiSecret                       = "iiif-builder/staging/dlcs-apisecret"
+    Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
+    Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
   }
 
   env_vars = {
@@ -122,8 +122,8 @@ module "dashboard_stageprod" {
     AzureAd__ClientId                     = "iiif-builder/staging/azuread-clientid"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
-    Dlcs__ApiKey                          = "iiif-builder/staging/dlcs-apikey"
-    Dlcs__ApiSecret                       = "iiif-builder/staging/dlcs-apisecret"
+    Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
+    Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
   }
 
   env_vars = {
