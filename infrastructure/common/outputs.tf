@@ -18,6 +18,10 @@ output "staging_security_group_id" {
   value = aws_security_group.staging.id
 }
 
+output "production_security_group_id" {
+  value = aws_security_group.production.id
+}
+
 output "service_discovery_namespace_id" {
   value = aws_service_discovery_private_dns_namespace.iiif_builder.id
 }
@@ -30,10 +34,10 @@ output "lb_listener_arn" {
   value = module.load_balancer.https_listener_arn
 }
 
-output "lb_zone_id"{
+output "lb_zone_id" {
   value = module.load_balancer.lb_zone_id
 }
 
-output "lb_fqdn"{ 
+output "lb_fqdn" {
   value = module.load_balancer.lb_dns_name
 }

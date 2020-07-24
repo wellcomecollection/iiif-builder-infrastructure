@@ -1,30 +1,3 @@
-resource "aws_security_group" "staging" {
-  name        = "iiif-builder-staging-security-group"
-  description = "Allow traffic"
-  vpc_id      = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
-
-  ingress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
-    self      = true
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Terraform   = true
-    Name        = "iiif-builder-staging-security-group",
-    Project     = "iiif-builder",
-    Environment = "stage"
-  }
-}
-
 module "load_balancer" {
   source = "../modules/load_balancer"
 
@@ -41,38 +14,6 @@ module "load_balancer" {
   certificate_domain = "dlcs.io"
 
   lb_controlled_ingress_cidrs = ["0.0.0.0/0"]
-}
-
-resource "aws_ecr_repository" "iiif_builder" {
-  name = "iiif-builder"
-  tags = {
-    Terraform = true
-    Project   = "iiif-builder"
-  }
-}
-
-resource "aws_ecr_repository" "dashboard" {
-  name = "iiif-builder-dashboard"
-  tags = {
-    Terraform = true
-    Project   = "iiif-builder"
-  }
-}
-
-resource "aws_ecr_repository" "workflow_processor" {
-  name = "workflow-processor"
-  tags = {
-    Terraform = true
-    Project   = "iiif-builder"
-  }
-}
-
-resource "aws_ecr_repository" "job_processor" {
-  name = "job-processor"
-  tags = {
-    Terraform = true
-    Project   = "iiif-builder"
-  }
 }
 
 data "template_file" "public_key" {
@@ -97,7 +38,7 @@ module "bastion" {
 
   vpc_id                     = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
   subnets                    = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_public_subnets
-  service_security_group_ids = [aws_security_group.staging.id]
+  service_security_group_ids = [aws_security_group.staging.id, aws_security_group.production.id]
   key_name                   = "iiif-builder"
   ip_whitelist = [
     "62.254.125.26/32" # Glasgow VPN
