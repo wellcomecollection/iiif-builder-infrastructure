@@ -9,6 +9,7 @@ module "load_balancer" {
 
   service_lb_security_group_ids = [
     aws_security_group.staging.id,
+    aws_security_group.production.id
   ]
 
   certificate_domain = "dlcs.io"
