@@ -37,6 +37,10 @@ module "iiif_builder" {
   secret_env_vars = {
     ConnectionStrings__DdsInstrumentation = "iiif-builder/staging/ddsinstrumentation-connstr"
     ConnectionStrings__Dds                = "iiif-builder/staging/dds-connstr"
+    Storage__ClientId                     = "iiif-builder/common/storage/clientid"
+    Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
+    Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
+    Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
   }
 
   env_vars = {
@@ -83,6 +87,10 @@ module "iiif_builder_stageprod" {
   secret_env_vars = {
     ConnectionStrings__DdsInstrumentation = "iiif-builder/staging/ddsinstrumentationstgprd-connstr"
     ConnectionStrings__Dds                = "iiif-builder/staging/ddsstgprd-connstr"
+    Storage__ClientId                     = "iiif-builder/common/storage/clientid"
+    Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
+    Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
+    Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
   }
 
   env_vars = {
