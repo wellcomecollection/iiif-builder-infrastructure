@@ -47,3 +47,32 @@ module "iiif_builder" {
     "ASPNETCORE_ENVIRONMENT" = "Production"
   }
 }
+
+data "aws_iam_role" "iiifbuilder_task_role" {
+  name = module.iiif_builder.task_role_name
+}
+
+# wellcome-collection production storage bucket (in diff aws account)
+resource "aws_iam_role_policy" "iiifbuilder_read_wellcomecollection_storage_bucket" {
+  name   = "iiifbuilder-read-wellcomecollection-storage-bucket"
+  role   = module.iiif_builder.task_role_name
+  policy = data.aws_iam_policy_document.wellcomecollection_storage_bucket_read.json
+}
+
+resource "aws_iam_role_policy" "iiifbuilder_readwrite_storagemaps_bucket" {
+  name   = "iiifbuilder-readwrite-storagemaps-bucket"
+  role   = module.iiif_builder.task_role_name
+  policy = data.aws_iam_policy_document.storagemaps_readwrite.json
+}
+
+resource "aws_iam_role_policy" "iiifbuilder_readwrite_presentation_bucket" {
+  name   = "iiifbuilder-readwrite-presentation-bucket"
+  role   = module.iiif_builder.task_role_name
+  policy = data.aws_iam_policy_document.presentation_readwrite.json
+}
+
+resource "aws_iam_role_policy" "iiifbuilder_readwrite_text_bucket" {
+  name   = "iiifbuilder-readwrite-text-bucket"
+  role   = module.iiif_builder.task_role_name
+  policy = data.aws_iam_policy_document.text_readwrite.json
+}

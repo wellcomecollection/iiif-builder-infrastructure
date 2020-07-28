@@ -36,6 +36,17 @@ module "workflow_processor" {
   }
 }
 
+data "aws_iam_role" "workflowprocessor_task_role" {
+  name = module.workflow_processor.task_role_name
+}
+
+# wellcome-collection production storage bucket (in diff aws account)
+resource "aws_iam_role_policy" "workflowprocessor_read_wellcomecollection_storage_bucket" {
+  name   = "workflowprocessor-read-wellcomecollection-storage-bucket"
+  role   = module.workflow_processor.task_role_name
+  policy = data.aws_iam_policy_document.wellcomecollection_storage_bucket_read.json
+}
+
 resource "aws_iam_role_policy" "workflowprocessor_readwrite_storagemaps_bucket" {
   name   = "workflowprocessor-readwrite-storagemaps-bucket"
   role   = module.workflow_processor.task_role_name
