@@ -36,6 +36,17 @@ module "workflow_processor" {
   }
 }
 
+data "aws_iam_role" "workflowprocessor_task_role" {
+  name = module.workflow_processor.task_role_name
+}
+
+# wellcome-collection staging storage bucket (in diff aws account)
+resource "aws_iam_role_policy" "workflowprocessor_read_wellcomecollection_storage_staging_bucket" {
+  name   = "workflowprocessor-stage-read-wellcomecollection-storage-staging-bucket"
+  role   = module.workflow_processor.task_role_name
+  policy = data.aws_iam_policy_document.wellcomecollection_storage_staging_bucket_read.json
+}
+
 resource "aws_iam_role_policy" "workflowprocessor_readwrite_storagemaps_bucket" {
   name   = "workflowprocessor-stage-readwrite-stage-storagemaps-bucket"
   role   = module.workflow_processor.task_role_name
@@ -90,6 +101,17 @@ module "workflow_processor_stageprod" {
     timeout     = 5
     startPeriod = 30
   }
+}
+
+data "aws_iam_role" "workflowprocessorstgprd_task_role" {
+  name = module.workflow_processor_stageprod.task_role_name
+}
+
+# wellcome-collection production storage bucket (in diff aws account)
+resource "aws_iam_role_policy" "workflowprocessorstgprd_read_wellcomecollection_storage_bucket" {
+  name   = "workflowprocessor-stageprd-read-wellcomecollection-storage-bucket"
+  role   = module.workflow_processor_stageprod.task_role_name
+  policy = data.aws_iam_policy_document.wellcomecollection_storage_bucket_read.json
 }
 
 resource "aws_iam_role_policy" "workflowprocessorstgprd_readwrite_storagemaps_bucket" {

@@ -48,6 +48,37 @@ module "iiif_builder" {
   }
 }
 
+
+data "aws_iam_role" "iiifbuilder_task_role" {
+  name = module.iiif_builder.task_role_name
+}
+
+# wellcome-collection staging storage bucket (in diff aws account)
+resource "aws_iam_role_policy" "iiifbuilder_read_wellcomecollection_storage_staging_bucket" {
+  name   = "iiifbuilder-stage-read-wellcomecollection-storage-staging-bucket"
+  role   = module.iiif_builder.task_role_name
+  policy = data.aws_iam_policy_document.wellcomecollection_storage_staging_bucket_read.json
+}
+
+resource "aws_iam_role_policy" "iiifbuilder_readwrite_storagemaps_bucket" {
+  name   = "iiifbuilder-stage-readwrite-stage-storagemaps-bucket"
+  role   = module.iiif_builder.task_role_name
+  policy = data.aws_iam_policy_document.storagemaps_readwrite.json
+}
+
+resource "aws_iam_role_policy" "iiifbuilder_readwrite_presentation_bucket" {
+  name   = "iiifbuilder-stage-readwrite-stage-presentation-bucket"
+  role   = module.iiif_builder.task_role_name
+  policy = data.aws_iam_policy_document.presentation_readwrite.json
+}
+
+resource "aws_iam_role_policy" "iiifbuilder_readwrite_text_bucket" {
+  name   = "iiifbuilder-stage-readwrite-stage-text-bucket"
+  role   = module.iiif_builder.task_role_name
+  policy = data.aws_iam_policy_document.text_readwrite.json
+}
+
+
 # IIIF-Builder, staging hosted pointing at Prod storage
 module "iiif_builder_stageprod" {
   source = "../modules/ecs/web"
@@ -96,4 +127,34 @@ module "iiif_builder_stageprod" {
   env_vars = {
     "ASPNETCORE_ENVIRONMENT" = "Staging-Prod"
   }
+}
+
+data "aws_iam_role" "iiifbuilderstgprd_task_role" {
+  name = module.iiif_builder_stageprod.task_role_name
+}
+
+# wellcome-collection production storage bucket (in diff aws account)
+resource "aws_iam_role_policy" "iiifbuilderstgprd_read_wellcomecollection_storage_bucket" {
+  name   = "iiifbuilder-stageprd-read-wellcomecollection-storage-bucket"
+  role   = module.iiif_builder_stageprod.task_role_name
+  policy = data.aws_iam_policy_document.wellcomecollection_storage_bucket_read.json
+}
+
+# storage maps
+resource "aws_iam_role_policy" "iiifbuilderstgprd_readwrite_storagemaps_bucket" {
+  name   = "iiifbuilder-stageprd-readwrite-stage-storagemaps-bucket"
+  role   = module.iiif_builder_stageprod.task_role_name
+  policy = data.aws_iam_policy_document.storagemaps_readwrite.json
+}
+
+resource "aws_iam_role_policy" "iiifbuilderstgprd_readwrite_presentation_bucket" {
+  name   = "iiifbuilder-stageprd-readwrite-stage-presentation-bucket"
+  role   = module.iiif_builder_stageprod.task_role_name
+  policy = data.aws_iam_policy_document.presentation_readwrite.json
+}
+
+resource "aws_iam_role_policy" "iiifbuilderstgprd_readwrite_text_bucket" {
+  name   = "iiifbuilder-stageprd-readwrite-stage-text-bucket"
+  role   = module.iiif_builder_stageprod.task_role_name
+  policy = data.aws_iam_policy_document.text_readwrite.json
 }
