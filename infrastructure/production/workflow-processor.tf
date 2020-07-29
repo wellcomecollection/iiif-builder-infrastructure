@@ -9,7 +9,7 @@ module "workflow_processor" {
   docker_image = "${data.terraform_remote_state.common.outputs.workflow_processor_url}:production"
 
   cpu    = 256
-  memory = 512
+  memory = 2048
 
   ecs_cluster_arn                = aws_ecs_cluster.iiif_builder.arn
   service_discovery_namespace_id = data.terraform_remote_state.common.outputs.service_discovery_namespace_id
