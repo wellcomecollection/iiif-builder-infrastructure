@@ -50,6 +50,13 @@ module "dashboard" {
   }
 }
 
+module "dashboard_scaling" {
+  source = "../modules/autoscaling/scheduled"
+
+  cluster_name = aws_ecs_cluster.iiif_builder.name
+  service_name = module.dashboard.service_name
+}
+
 data "aws_iam_role" "dashboard_task_role" {
   name = module.dashboard.task_role_name
 }

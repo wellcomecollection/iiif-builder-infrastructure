@@ -30,12 +30,13 @@ variable "scale_down_max" {
   default     = 0
 }
 
+# see: https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
 variable "scale_up_schedule" {
   description = "When to scale up. The following formats are supported: At expressions - at(yyyy-mm-ddThh:mm:ss), Rate expressions - rate(valueunit), Cron expressions - cron(fields)"
-  default = "cron(0 7 * * *)"
+  default = "cron(0 7 * * ? *)"
 }
 
 variable "scale_down_schedule" {
   description = "When to scale down. The following formats are supported: At expressions - at(yyyy-mm-ddThh:mm:ss), Rate expressions - rate(valueunit), Cron expressions - cron(fields)"
-  default = "cron(0 19 * * *)"
+  default = "cron(0 19 * * ? *)"
 }
