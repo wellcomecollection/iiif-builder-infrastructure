@@ -76,7 +76,7 @@ module "workflow_processor_stageprod" {
   docker_image = "${data.terraform_remote_state.common.outputs.workflow_processor_url}:staging-prod"
 
   cpu    = 256
-  memory = 512
+  memory = 2048
 
   ecs_cluster_arn                = aws_ecs_cluster.iiif_builder.arn
   service_discovery_namespace_id = data.terraform_remote_state.common.outputs.service_discovery_namespace_id

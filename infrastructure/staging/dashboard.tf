@@ -91,7 +91,7 @@ module "dashboard_stageprod" {
   container_port = 80
 
   cpu    = 256
-  memory = 512
+  memory = 2048
 
   ecs_cluster_arn                = aws_ecs_cluster.iiif_builder.arn
   service_discovery_namespace_id = data.terraform_remote_state.common.outputs.service_discovery_namespace_id
