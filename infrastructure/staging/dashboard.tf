@@ -97,7 +97,7 @@ module "dashboard_stageprod" {
   docker_image   = "${data.terraform_remote_state.common.outputs.dashboard_url}:staging-prod"
   container_port = 80
 
-  cpu    = 256
+  cpu    = 512
   memory = 2048
 
   ecs_cluster_arn                = aws_ecs_cluster.iiif_builder.arn
