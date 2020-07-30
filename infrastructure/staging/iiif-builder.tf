@@ -135,6 +135,13 @@ module "iiif_builder_stageprod" {
   }
 }
 
+module "iiif_builder_stageprod_scaling" {
+  source = "../modules/autoscaling/scheduled"
+
+  cluster_name = aws_ecs_cluster.iiif_builder.name
+  service_name = module.iiif_builder_stageprod.service_name
+}
+
 data "aws_iam_role" "iiifbuilderstgprd_task_role" {
   name = module.iiif_builder_stageprod.task_role_name
 }

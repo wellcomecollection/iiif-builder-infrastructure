@@ -8,3 +8,5 @@ A collection of reusable modules
   * web - creates Fargate ECS service and task definition with logging configured. Also creates alb targetgroup, rules and route53 A record.
 * load_balancer - ELB with http -> https redirect using certificate already in AWS.
 * rds - created PostgreSQL RDS instance
+* autoscaling/
+  * scheduled - scheduled autoscaling to run on specified schedule.

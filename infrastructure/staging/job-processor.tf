@@ -108,6 +108,13 @@ module "job_processor_stageprod" {
   }
 }
 
+module "job_processor_stageprod_scaling" {
+  source = "../modules/autoscaling/scheduled"
+
+  cluster_name = aws_ecs_cluster.iiif_builder.name
+  service_name = module.job_processor_stageprod.service_name
+}
+
 data "aws_iam_role" "jobprocessorstgprd_task_role" {
   name = module.job_processor_stageprod.task_role_name
 }

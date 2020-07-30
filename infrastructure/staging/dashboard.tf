@@ -138,6 +138,13 @@ module "dashboard_stageprod" {
   }
 }
 
+module "dashboard_stageprod_scaling" {
+  source = "../modules/autoscaling/scheduled"
+
+  cluster_name = aws_ecs_cluster.iiif_builder.name
+  service_name = module.dashboard_stageprod.service_name
+}
+
 data "aws_iam_role" "dashboardstgprd_task_role" {
   name = module.dashboard_stageprod.task_role_name
 }
