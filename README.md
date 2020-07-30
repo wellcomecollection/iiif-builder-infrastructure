@@ -6,8 +6,6 @@ Current Terraform version: 0.12.x
 
 > Note: Networking infrastructure (VPC + Subnets) are managed in the central [platform-infrastructure](https://github.com/wellcomecollection/platform-infrastructure/) repository.
 
-> Note: S3 access to Wellcome buckets `wellcomecollection-storage` and `wellcomecollection-staging-storage` will need symmetric permissions in [storage-services](https://github.com/wellcomecollection/storage-service/).
-
 ## Table of Contents
 
 * [common](/infrastructure/common/readme.md)
@@ -21,7 +19,7 @@ Current Terraform version: 0.12.x
 
 ## Shared Infrastructure
 
-Both Staging and Production share common infrastructure, including LoadBalancer. As such priority rules need to take into account all environments. The environments + priorities are:
+Both Staging and Production share common infrastructure, including LoadBalancer. As such priority rules need to take into account all environments. The hostnames + priorities are:
 
 | Priority | Rule                                                         |
 |----------|--------------------------------------------------------------|
@@ -37,3 +35,17 @@ Both Staging and Production share common infrastructure, including LoadBalancer.
 | 10       | dds-test.dlcs.io -> dashboard-stageprd                       |
 | 11       | iiif.dlcs.io -> iiif-builder-prod                            |
 | 12       | dds.dlcs.io -> dashboard-prod                                |
+
+## Permissions
+
+Assumed roles are used for accessing AWS. When using this Terraform, 2 profiles are needed as resources are used from different AWS accounts.
+
+1. `main-wellcome` 
+  - the 'main' Wellcome Cloud account. 
+  - this is only used for accessing resources not in the main dlcs AWS account (`data "terraform_remote_state" "platform_infra"` resources).
+2. `dev-wellcome` 
+  - the profile that uses `main-wellcome` as source_profile to assume `digirati-developer` iam role. 
+  - used for all resources in main dlcs AWS account (`provider`, `terraform` and other `data "terraform_remote_state"`).
+
+> There may be other/better ways to achieve this!
+
