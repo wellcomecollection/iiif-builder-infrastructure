@@ -48,6 +48,12 @@ module "iiif_builder" {
   }
 }
 
+module "iiif_builder_scaling" {
+  source = "../modules/autoscaling/scheduled"
+
+  cluster_name = aws_ecs_cluster.iiif_builder.name
+  service_name = module.iiif_builder.service_name
+}
 
 data "aws_iam_role" "iiifbuilder_task_role" {
   name = module.iiif_builder.task_role_name
@@ -127,6 +133,13 @@ module "iiif_builder_stageprod" {
   env_vars = {
     "ASPNETCORE_ENVIRONMENT" = "Staging-Prod"
   }
+}
+
+module "iiif_builder_stageprod_scaling" {
+  source = "../modules/autoscaling/scheduled"
+
+  cluster_name = aws_ecs_cluster.iiif_builder.name
+  service_name = module.iiif_builder_stageprod.service_name
 }
 
 data "aws_iam_role" "iiifbuilderstgprd_task_role" {

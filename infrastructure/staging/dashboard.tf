@@ -50,6 +50,13 @@ module "dashboard" {
   }
 }
 
+module "dashboard_scaling" {
+  source = "../modules/autoscaling/scheduled"
+
+  cluster_name = aws_ecs_cluster.iiif_builder.name
+  service_name = module.dashboard.service_name
+}
+
 data "aws_iam_role" "dashboard_task_role" {
   name = module.dashboard.task_role_name
 }
@@ -90,7 +97,7 @@ module "dashboard_stageprod" {
   docker_image   = "${data.terraform_remote_state.common.outputs.dashboard_url}:staging-prod"
   container_port = 80
 
-  cpu    = 256
+  cpu    = 512
   memory = 2048
 
   ecs_cluster_arn                = aws_ecs_cluster.iiif_builder.arn
@@ -129,6 +136,13 @@ module "dashboard_stageprod" {
   env_vars = {
     "ASPNETCORE_ENVIRONMENT" = "Staging-Prod"
   }
+}
+
+module "dashboard_stageprod_scaling" {
+  source = "../modules/autoscaling/scheduled"
+
+  cluster_name = aws_ecs_cluster.iiif_builder.name
+  service_name = module.dashboard_stageprod.service_name
 }
 
 data "aws_iam_role" "dashboardstgprd_task_role" {

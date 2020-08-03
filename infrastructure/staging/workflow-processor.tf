@@ -36,6 +36,13 @@ module "workflow_processor" {
   }
 }
 
+module "workflow_processor_scaling" {
+  source = "../modules/autoscaling/scheduled"
+
+  cluster_name = aws_ecs_cluster.iiif_builder.name
+  service_name = module.workflow_processor.service_name
+}
+
 data "aws_iam_role" "workflowprocessor_task_role" {
   name = module.workflow_processor.task_role_name
 }
@@ -75,7 +82,7 @@ module "workflow_processor_stageprod" {
 
   docker_image = "${data.terraform_remote_state.common.outputs.workflow_processor_url}:staging-prod"
 
-  cpu    = 256
+  cpu    = 512
   memory = 2048
 
   ecs_cluster_arn                = aws_ecs_cluster.iiif_builder.arn
@@ -101,6 +108,13 @@ module "workflow_processor_stageprod" {
     timeout     = 5
     startPeriod = 30
   }
+}
+
+module "workflow_processor_stageprod_scaling" {
+  source = "../modules/autoscaling/scheduled"
+
+  cluster_name = aws_ecs_cluster.iiif_builder.name
+  service_name = module.workflow_processor_stageprod.service_name
 }
 
 data "aws_iam_role" "workflowprocessorstgprd_task_role" {
