@@ -41,6 +41,10 @@ module "iiif_builder" {
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
     Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
     Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
+    SierraRestAPI__ClientId               = "iiif-builder/common/sierra/clientid"
+    SierraRestAPI__ClientSecret           = "iiif-builder/common/sierra/clientsecret"
+    Dds__DlcsOriginUsername               = "iiif-builder/common/dlcs/origin-username"
+    Dds__DlcsOriginPassword               = "iiif-builder/common/dlcs/origin-password"
   }
 
   env_vars = {
@@ -128,6 +132,10 @@ module "iiif_builder_stageprod" {
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
     Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
     Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
+    SierraRestAPI__ClientId               = "iiif-builder/common/sierra/clientid"
+    SierraRestAPI__ClientSecret           = "iiif-builder/common/sierra/clientsecret"
+    Dds__DlcsOriginUsername               = "iiif-builder/common/dlcs/origin-username"
+    Dds__DlcsOriginPassword               = "iiif-builder/common/dlcs/origin-password"
   }
 
   env_vars = {
