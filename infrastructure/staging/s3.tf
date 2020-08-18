@@ -87,3 +87,23 @@ data "aws_iam_policy_document" "text_readwrite" {
     ]
   }
 }
+
+# Annotations - per manifest anno lists
+resource "aws_s3_bucket" "annotations" {
+  bucket = "wellcomecollection-stage-iiif-annotations"
+  acl    = "private"
+}
+
+data "aws_iam_policy_document" "annotations_readwrite" {
+  statement {
+    actions = [
+      "s3:*Object",
+      "s3:ListBucket",
+    ]
+
+    resources = [
+      aws_s3_bucket.annotations.arn,
+      "${aws_s3_bucket.annotations.arn}/*",
+    ]
+  }
+}
