@@ -43,10 +43,6 @@ module "workflow_processor_scaling" {
   service_name = module.workflow_processor.service_name
 }
 
-data "aws_iam_role" "workflowprocessor_task_role" {
-  name = module.workflow_processor.task_role_name
-}
-
 # wellcome-collection staging storage bucket (in diff aws account)
 resource "aws_iam_role_policy" "workflowprocessor_read_wellcomecollection_storage_staging_bucket" {
   name   = "workflowprocessor-stage-read-wellcomecollection-storage-staging-bucket"
@@ -115,10 +111,6 @@ module "workflow_processor_stageprod_scaling" {
 
   cluster_name = aws_ecs_cluster.iiif_builder.name
   service_name = module.workflow_processor_stageprod.service_name
-}
-
-data "aws_iam_role" "workflowprocessorstgprd_task_role" {
-  name = module.workflow_processor_stageprod.task_role_name
 }
 
 # wellcome-collection production storage bucket (in diff aws account)

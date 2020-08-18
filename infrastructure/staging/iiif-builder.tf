@@ -59,10 +59,6 @@ module "iiif_builder_scaling" {
   service_name = module.iiif_builder.service_name
 }
 
-data "aws_iam_role" "iiifbuilder_task_role" {
-  name = module.iiif_builder.task_role_name
-}
-
 # wellcome-collection staging storage bucket (in diff aws account)
 resource "aws_iam_role_policy" "iiifbuilder_read_wellcomecollection_storage_staging_bucket" {
   name   = "iiifbuilder-stage-read-wellcomecollection-storage-staging-bucket"
@@ -148,10 +144,6 @@ module "iiif_builder_stageprod_scaling" {
 
   cluster_name = aws_ecs_cluster.iiif_builder.name
   service_name = module.iiif_builder_stageprod.service_name
-}
-
-data "aws_iam_role" "iiifbuilderstgprd_task_role" {
-  name = module.iiif_builder_stageprod.task_role_name
 }
 
 # wellcome-collection production storage bucket (in diff aws account)

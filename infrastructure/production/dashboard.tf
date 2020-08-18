@@ -50,10 +50,6 @@ module "dashboard" {
   }
 }
 
-data "aws_iam_role" "dashboard_task_role" {
-  name = module.dashboard.task_role_name
-}
-
 # wellcome-collection production storage bucket (in diff aws account)
 resource "aws_iam_role_policy" "dashboard_read_wellcomecollection_storage_bucket" {
   name   = "dashboard-read-wellcomecollection-storage-bucket"
