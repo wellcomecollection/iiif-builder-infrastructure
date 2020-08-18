@@ -38,10 +38,6 @@ module "job_processor" {
   }
 }
 
-data "aws_iam_role" "jobprocessor_task_role" {
-  name = module.job_processor.task_role_name
-}
-
 # wellcome-collection production storage bucket (in diff aws account)
 resource "aws_iam_role_policy" "jobprocessor_read_wellcomecollection_storage_bucket" {
   name   = "jobprocessor-read-wellcomecollection-storage-bucket"
