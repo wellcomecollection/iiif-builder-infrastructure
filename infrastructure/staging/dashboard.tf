@@ -57,10 +57,6 @@ module "dashboard_scaling" {
   service_name = module.dashboard.service_name
 }
 
-data "aws_iam_role" "dashboard_task_role" {
-  name = module.dashboard.task_role_name
-}
-
 # wellcome-collection staging storage bucket (in diff aws account)
 resource "aws_iam_role_policy" "dashboard_read_wellcomecollection_storage_staging_bucket" {
   name   = "dashboard-stage-read-wellcomecollection-storage-staging-bucket"
@@ -143,10 +139,6 @@ module "dashboard_stageprod_scaling" {
 
   cluster_name = aws_ecs_cluster.iiif_builder.name
   service_name = module.dashboard_stageprod.service_name
-}
-
-data "aws_iam_role" "dashboardstgprd_task_role" {
-  name = module.dashboard_stageprod.task_role_name
 }
 
 # wellcome-collection production storage bucket (in diff aws account)
