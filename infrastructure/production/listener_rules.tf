@@ -11,13 +11,15 @@ resource "aws_alb_listener_rule" "wc_dash" {
   }
 
   condition {
-    field  = "host-header"
-    values = ["iiif.wellcomecollection.org"]
+    host_header {
+      values = ["iiif.wellcomecollection.org"]
+    }
   }
 
   condition {
-    field  = "path-pattern"
-    values = ["/dash*"]
+    path_pattern {
+      values = ["/dash*"]
+    }
   }
 }
 
@@ -32,12 +34,14 @@ resource "aws_alb_listener_rule" "wc_iiifbuilder" {
   }
 
   condition {
-    field  = "host-header"
-    values = ["iiif.wellcomecollection.org"]
+    host_header {
+      values = ["iiif.wellcomecollection.org"]
+    }
   }
 
   condition {
-    field  = "path-pattern"
-    values = ["/*"]
+    path_pattern {
+      values = ["/*"]
+    }
   }
 }
