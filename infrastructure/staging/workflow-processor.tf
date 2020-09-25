@@ -70,6 +70,12 @@ resource "aws_iam_role_policy" "workflowprocessor_readwrite_text_bucket" {
   policy = data.aws_iam_policy_document.text_readwrite.json
 }
 
+resource "aws_iam_role_policy" "workflowprocessor_readwrite_anno_bucket" {
+  name   = "workflowprocessor-stage-readwrite-stage-anno-bucket"
+  role   = module.workflow_processor.task_role_name
+  policy = data.aws_iam_policy_document.annotations_readwrite.json
+}
+
 # workflow processor, staging pointing at prod storage
 module "workflow_processor_stageprod" {
   source = "../modules/ecs/private"
@@ -140,4 +146,10 @@ resource "aws_iam_role_policy" "workflowprocessorstgprd_readwrite_text_bucket" {
   name   = "workflowprocessor-stageprd-readwrite-stage-text-bucket"
   role   = module.workflow_processor_stageprod.task_role_name
   policy = data.aws_iam_policy_document.text_readwrite.json
+}
+
+resource "aws_iam_role_policy" "workflowprocessorstgprd_readwrite_anno_bucket" {
+  name   = "workflowprocessor-stage-readwrite-stage-anno-bucket"
+  role   = module.workflow_processor_stageprod.task_role_name
+  policy = data.aws_iam_policy_document.annotations_readwrite.json
 }
