@@ -26,7 +26,7 @@ resource "aws_alb_listener_rule" "wc_dash_stage" {
 # iiif-stage.wellcomecollection.org/* -> iiifbuilder-stage
 resource "aws_alb_listener_rule" "wc_iiifbuilder_stage" {
   listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
-  priority     = 4
+  priority     = 21
 
   action {
     type             = "forward"
@@ -42,6 +42,29 @@ resource "aws_alb_listener_rule" "wc_iiifbuilder_stage" {
   condition {
     path_pattern {
       values = ["/*"]
+    }
+  }
+}
+
+# iiif-stage.wellcomecollection.org/pdfcoverpage* -> pdf-generator lambda
+resource "aws_alb_listener_rule" "pdf_gen_stage" {
+  listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
+  priority     = 4
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_alb_target_group.pdf_generator.arn
+  }
+
+  condition {
+    host_header {
+      values = ["iiif-stage.wellcomecollection.org"]
+    }
+  }
+
+  condition {
+    path_pattern {
+      values = ["/pdfcoverpage*", "/pdfcoverpage"]
     }
   }
 }
@@ -72,7 +95,7 @@ resource "aws_alb_listener_rule" "wc_dash_stageprd" {
 # iiif-test.wellcomecollection.org/* -> iiifbuilder-stgprd
 resource "aws_alb_listener_rule" "wc_iiifbuilder_stageprd" {
   listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
-  priority     = 6
+  priority     = 20
 
   action {
     type             = "forward"
@@ -88,6 +111,29 @@ resource "aws_alb_listener_rule" "wc_iiifbuilder_stageprd" {
   condition {
     path_pattern {
       values = ["/*"]
+    }
+  }
+}
+
+# iiif-test.wellcomecollection.org/pdfcoverpage* -> pdf-generator lambda
+resource "aws_alb_listener_rule" "pdf_gen_stageprd" {
+  listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
+  priority     = 6
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_alb_target_group.pdf_generator.arn
+  }
+
+  condition {
+    host_header {
+      values = ["iiif-test.wellcomecollection.org"]
+    }
+  }
+
+  condition {
+    path_pattern {
+      values = ["/pdfcoverpage*", "/pdfcoverpage"]
     }
   }
 }
