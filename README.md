@@ -2,7 +2,7 @@
 
 Terraform infrastructure for [IIIF-Builder](https://github.com/wellcomecollection/iiif-builder) application.
 
-Current Terraform version: 0.13.x
+Current Terraform version: 0.14.x
 
 > Note: Networking infrastructure (VPC + Subnets) are managed in the central [platform-infrastructure](https://github.com/wellcomecollection/platform-infrastructure/) repository.
 

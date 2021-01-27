@@ -106,13 +106,13 @@ resource "aws_alb_listener_rule" "https" {
 
   condition {
     host_header {
-      values = ["${var.hostname == "" ? var.domain : "${var.hostname}.${var.domain}"}"]
+      values = [var.hostname == "" ? var.domain : "${var.hostname}.${var.domain}"]
     }
   }
 
   condition {
     path_pattern {
-      values = ["${element(var.path_patterns, count.index)}"]
+      values = [element(var.path_patterns, count.index)]
     }
   }
 }
