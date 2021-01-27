@@ -70,16 +70,22 @@ resource "aws_iam_role_policy" "dashboard_readwrite_storagemaps_bucket" {
   policy = data.aws_iam_policy_document.storagemaps_readwrite.json
 }
 
-resource "aws_iam_role_policy" "dashboard_readwrite_presentation_bucket" {
-  name   = "dashboard-stage-readwrite-stage-presentation-bucket"
+resource "aws_iam_role_policy" "dashboard_read_presentation_bucket" {
+  name   = "dashboard-stage-read-stage-presentation-bucket"
   role   = module.dashboard.task_role_name
-  policy = data.aws_iam_policy_document.presentation_readwrite.json
+  policy = data.aws_iam_policy_document.presentation_read.json
 }
 
-resource "aws_iam_role_policy" "dashboard_readwrite_text_bucket" {
-  name   = "dashboard-stage-readwrite-stage-text-bucket"
+resource "aws_iam_role_policy" "dashboard_read_text_bucket" {
+  name   = "dashboard-stage-read-stage-text-bucket"
   role   = module.dashboard.task_role_name
-  policy = data.aws_iam_policy_document.text_readwrite.json
+  policy = data.aws_iam_policy_document.text_read.json
+}
+
+resource "aws_iam_role_policy" "dashboard_read_anno_bucket" {
+  name   = "dashboard-stageprd-read-stage-anno-bucket"
+  role   = module.dashboard.task_role_name
+  policy = data.aws_iam_policy_document.annotations_read.json
 }
 
 # dashboard, staging hosted pointing at Prod storage
@@ -148,21 +154,26 @@ resource "aws_iam_role_policy" "dashboardstgprd_read_wellcomecollection_storage_
   policy = data.aws_iam_policy_document.wellcomecollection_storage_bucket_read.json
 }
 
-# storage maps
 resource "aws_iam_role_policy" "dashboardstgprd_readwrite_storagemaps_bucket" {
   name   = "dashboard-stageprd-readwrite-stage-storagemaps-bucket"
   role   = module.dashboard_stageprod.task_role_name
   policy = data.aws_iam_policy_document.storagemaps_readwrite.json
 }
 
-resource "aws_iam_role_policy" "dashboardstgprd_readwrite_presentation_bucket" {
-  name   = "dashboard-stageprd-readwrite-stage-presentation-bucket"
+resource "aws_iam_role_policy" "dashboardstgprd_read_presentation_bucket" {
+  name   = "dashboard-stageprd-read-stage-presentation-bucket"
   role   = module.dashboard_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.presentation_readwrite.json
+  policy = data.aws_iam_policy_document.presentation_read.json
 }
 
-resource "aws_iam_role_policy" "dashboardstgprd_readwrite_text_bucket" {
-  name   = "dashboard-stageprd-readwrite-stage-text-bucket"
+resource "aws_iam_role_policy" "dashboardstgprd_read_text_bucket" {
+  name   = "dashboard-stageprd-read-stage-text-bucket"
   role   = module.dashboard_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.text_readwrite.json
+  policy = data.aws_iam_policy_document.text_read.json
+}
+
+resource "aws_iam_role_policy" "dashboardstgprd_read_anno_bucket" {
+  name   = "dashboard-stageprd-read-stage-anno-bucket"
+  role   = module.dashboard_stageprod.task_role_name
+  policy = data.aws_iam_policy_document.annotations_read.json
 }

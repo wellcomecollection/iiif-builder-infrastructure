@@ -11,13 +11,15 @@ resource "aws_alb_listener_rule" "wc_dash_stage" {
   }
 
   condition {
-    field  = "host-header"
-    values = ["iiif-stage.wellcomecollection.org"]
+    host_header {
+      values = ["iiif-stage.wellcomecollection.org"]
+    }
   }
 
   condition {
-    field  = "path-pattern"
-    values = ["/dash*"]
+    path_pattern {
+      values = ["/dash*"]
+    }
   }
 }
 
@@ -32,13 +34,15 @@ resource "aws_alb_listener_rule" "wc_iiifbuilder_stage" {
   }
 
   condition {
-    field  = "host-header"
-    values = ["iiif-stage.wellcomecollection.org"]
+    host_header {
+      values = ["iiif-stage.wellcomecollection.org"]
+    }
   }
 
   condition {
-    field  = "path-pattern"
-    values = ["/*"]
+    path_pattern {
+      values = ["/*"]
+    }
   }
 }
 
@@ -53,13 +57,15 @@ resource "aws_alb_listener_rule" "wc_dash_stageprd" {
   }
 
   condition {
-    field  = "host-header"
-    values = ["iiif-test.wellcomecollection.org"]
+    host_header {
+      values = ["iiif-test.wellcomecollection.org"]
+    }
   }
 
   condition {
-    field  = "path-pattern"
-    values = ["/dash*"]
+    path_pattern {
+      values = ["/dash*"]
+    }
   }
 }
 
@@ -74,12 +80,14 @@ resource "aws_alb_listener_rule" "wc_iiifbuilder_stageprd" {
   }
 
   condition {
-    field  = "host-header"
-    values = ["iiif-test.wellcomecollection.org"]
+    host_header {
+      values = ["iiif-test.wellcomecollection.org"]
+    }
   }
 
   condition {
-    field  = "path-pattern"
-    values = ["/*"]
+    path_pattern {
+      values = ["/*"]
+    }
   }
 }
