@@ -35,6 +35,7 @@ resource "aws_lambda_function" "pdf_generator" {
   filename      = "../data/empty_pdf_gen.zip"
   runtime       = "python3.8"
   memory_size   = 128
+  timeout       = 15
   role          = aws_iam_role.pdf_generator_exec_role.arn
 
   environment {
