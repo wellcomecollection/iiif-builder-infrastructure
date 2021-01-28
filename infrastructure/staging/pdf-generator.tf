@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "pdf_generator_exec_role" {
 }
 
 resource "aws_iam_role" "pdf_generator_exec_role" {
-  name               = "${local.environment}-pdf-gen-exec-role"
+  name               = "${local.full_name}-pdf-gen-exec-role"
   assume_role_policy = data.aws_iam_policy_document.pdf_generator_exec_role.json
 }
 
@@ -30,9 +30,9 @@ resource "aws_iam_role_policy" "pdf_generator_read_presentation_bucket" {
 
 # Lambda Function
 resource "aws_lambda_function" "pdf_generator" {
-  function_name = "${local.environment}-pdf-generator"
+  function_name = "${local.full_name}-pdf-generator"
   handler       = "generator.lambda_handler"
-  filename      = "data/empty_pdf_gen.zip"
+  filename      = "../data/empty_pdf_gen.zip"
   runtime       = "python3.8"
   memory_size   = 128
   role          = aws_iam_role.pdf_generator_exec_role.arn
