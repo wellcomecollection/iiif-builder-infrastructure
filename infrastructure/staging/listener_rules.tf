@@ -46,7 +46,7 @@ resource "aws_alb_listener_rule" "wc_iiifbuilder_stage" {
   }
 }
 
-# iiif-stage.wellcomecollection.org/pdfcoverpage* -> pdf-generator lambda
+# dds-stage.dlcs.io/pdfcoverpage* -> pdf-generator lambda
 resource "aws_alb_listener_rule" "pdf_gen_stage" {
   listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
   priority     = 4
@@ -58,7 +58,7 @@ resource "aws_alb_listener_rule" "pdf_gen_stage" {
 
   condition {
     host_header {
-      values = ["iiif-stage.wellcomecollection.org"]
+      values = ["dds-stage.${local.domain}"]
     }
   }
 
@@ -115,7 +115,7 @@ resource "aws_alb_listener_rule" "wc_iiifbuilder_stageprd" {
   }
 }
 
-# iiif-test.wellcomecollection.org/pdfcoverpage* -> pdf-generator lambda
+# dds-test.dlcs.io/pdfcoverpage* -> pdf-generator lambda
 resource "aws_alb_listener_rule" "pdf_gen_stageprd" {
   listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
   priority     = 6
@@ -127,7 +127,7 @@ resource "aws_alb_listener_rule" "pdf_gen_stageprd" {
 
   condition {
     host_header {
-      values = ["iiif-test.wellcomecollection.org"]
+      values = ["dds-test.${local.domain}"]
     }
   }
 

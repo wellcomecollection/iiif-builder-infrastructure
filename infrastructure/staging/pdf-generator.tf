@@ -69,7 +69,7 @@ resource "aws_lb_target_group_attachment" "pdf_generator" {
 resource "aws_lambda_permission" "allow_loadbalancer_call_pdf_generator" {
   statement_id  = "AllowExecutionFromlb"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.pdf_generator.arn
+  function_name = aws_lambda_function.pdf_generator.function_name
   principal     = "elasticloadbalancing.amazonaws.com"
   source_arn    = aws_alb_target_group.pdf_generator.arn
 }
