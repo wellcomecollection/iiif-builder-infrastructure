@@ -46,29 +46,6 @@ resource "aws_alb_listener_rule" "wc_iiifbuilder_stage" {
   }
 }
 
-# dds-stage.dlcs.io/pdfcoverpage* -> pdf-generator lambda
-resource "aws_alb_listener_rule" "pdf_gen_stage" {
-  listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
-  priority     = 4
-
-  action {
-    type             = "forward"
-    target_group_arn = aws_alb_target_group.pdf_generator.arn
-  }
-
-  condition {
-    host_header {
-      values = ["dds-stage.${local.domain}"]
-    }
-  }
-
-  condition {
-    path_pattern {
-      values = ["/pdfcoverpage*", "/pdfcoverpage"]
-    }
-  }
-}
-
 # iiif-test.wellcomecollection.org/dash* -> dashboard-stgprd
 resource "aws_alb_listener_rule" "wc_dash_stageprd" {
   listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
@@ -111,29 +88,6 @@ resource "aws_alb_listener_rule" "wc_iiifbuilder_stageprd" {
   condition {
     path_pattern {
       values = ["/*"]
-    }
-  }
-}
-
-# dds-test.dlcs.io/pdfcoverpage* -> pdf-generator lambda
-resource "aws_alb_listener_rule" "pdf_gen_stageprd" {
-  listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
-  priority     = 6
-
-  action {
-    type             = "forward"
-    target_group_arn = aws_alb_target_group.pdf_generator.arn
-  }
-
-  condition {
-    host_header {
-      values = ["dds-test.${local.domain}"]
-    }
-  }
-
-  condition {
-    path_pattern {
-      values = ["/pdfcoverpage*", "/pdfcoverpage"]
     }
   }
 }
