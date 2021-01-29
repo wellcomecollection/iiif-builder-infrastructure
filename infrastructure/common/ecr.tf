@@ -29,3 +29,11 @@ resource "aws_ecr_repository" "job_processor" {
     Project   = "iiif-builder"
   }
 }
+
+resource "aws_ecr_repository" "pdf_generator" {
+  name = "pdf-generator"
+  tags = {
+    Terraform = true
+    Project   = "iiif-builder"
+  }
+}
