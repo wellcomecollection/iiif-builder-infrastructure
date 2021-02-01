@@ -68,6 +68,21 @@ data "aws_iam_policy_document" "presentation_readwrite" {
   }
 }
 
+data "aws_iam_policy_document" "presentation_read" {
+  statement {
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket",
+      "s3:GetObjectVersion"
+    ]
+
+    resources = [
+      aws_s3_bucket.presentation.arn,
+      "${aws_s3_bucket.presentation.arn}/*",
+    ]
+  }
+}
+
 # Text
 resource "aws_s3_bucket" "text" {
   bucket = "wellcomecollection-iiif-text"
