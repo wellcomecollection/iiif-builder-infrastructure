@@ -45,3 +45,11 @@ output "lb_zone_id" {
 output "lb_fqdn" {
   value = module.load_balancer.lb_dns_name
 }
+
+output "wellcomecollection_digirati_io_zone_id" {
+  value = aws_route53_zone.wellcomecollection_digirati_io.zone_id
+}
+
+output "wellcomecollection_digirati_io" {
+  value = aws_route53_zone.wellcomecollection_digirati_io.name
+}
