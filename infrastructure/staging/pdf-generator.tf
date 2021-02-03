@@ -17,7 +17,7 @@ module "pdf_generator" {
   service_subnets                = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_private_subnets
   service_security_group_ids     = [data.terraform_remote_state.common.outputs.production_security_group_id, ]
 
-  healthcheck_path = "/pdfcoverpage/ping"
+  healthcheck_path = "/pdf-cover/ping"
 
   lb_listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
   lb_zone_id      = data.terraform_remote_state.common.outputs.lb_zone_id
