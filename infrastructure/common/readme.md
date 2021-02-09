@@ -9,7 +9,7 @@ Contains any infrastructure that is common to both the Staging and Production en
 - Container Registeries - ECR per application.
 - Bastion Server - t2.micro, IP restricted access.
 - Private Service Discovery namespace
-- Route53 hosted zone for `wellcomecollection.digirati.io`
+- Route53 hosted zone for `wellcomecollection.digirati.io`, incl cert + validation
 
 ## Outputs
 

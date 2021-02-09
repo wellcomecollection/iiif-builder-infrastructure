@@ -51,9 +51,5 @@ resource "aws_service_discovery_private_dns_namespace" "iiif_builder" {
   description = "Private ServiceDiscovery namespace for iiif-builder apps"
   vpc         = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
 
-  tags = {
-    Terraform = true
-    Name      = "iiif-builder",
-    Project   = "iiif-builder"
-  }
+  tags = local.common_tags
 }
