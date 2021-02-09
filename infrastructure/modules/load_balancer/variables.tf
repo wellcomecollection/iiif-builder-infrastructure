@@ -16,8 +16,8 @@ variable "public_subnets" {
 variable "vpc_id" {
 }
 
-variable "certificate_domain" {
-  description = "Domain existing certificate has been issued for"
+variable "certificate_arn" {
+  description = "ARN of cert to use for https elb"
 }
 
 variable "service_lb_security_group_ids" {

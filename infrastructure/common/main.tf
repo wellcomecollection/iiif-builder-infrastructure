@@ -12,7 +12,7 @@ module "load_balancer" {
     aws_security_group.production.id
   ]
 
-  certificate_domain = "dlcs.io"
+  certificate_arn = aws_acm_certificate.cert.arn
 
   lb_controlled_ingress_cidrs = ["0.0.0.0/0"]
 }
