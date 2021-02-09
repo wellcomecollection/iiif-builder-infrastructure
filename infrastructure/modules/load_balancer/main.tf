@@ -1,9 +1,3 @@
-data "aws_acm_certificate" "certificate" {
-  domain      = var.certificate_domain
-  statuses    = ["ISSUED"]
-  most_recent = true
-}
-
 resource "aws_alb" "lb" {
   name = replace(var.name, "_", "-")
 
@@ -57,7 +51,7 @@ resource "aws_lb_listener" "https" {
   protocol          = "HTTPS"
 
   ssl_policy      = "ELBSecurityPolicy-2016-08"
-  certificate_arn = data.aws_acm_certificate.certificate.arn
+  certificate_arn = var.certificate_arn
 
   default_action {
     target_group_arn = aws_alb_target_group.default.id
