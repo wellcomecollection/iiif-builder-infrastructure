@@ -28,6 +28,10 @@ module "iiif_builder" {
   domain            = local.domain
   zone_id           = data.aws_route53_zone.external.id
 
+  # hostname          = "dds"
+  # domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
+  # zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id
+
   port_mappings = [{
     containerPort = 80
     hostPort      = 80

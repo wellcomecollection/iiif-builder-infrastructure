@@ -30,7 +30,7 @@ resource "aws_route53_record" "cert_validation" {
   allow_overwrite = true
   name            = each.value.name
   records         = [each.value.record]
-  ttl             = 60
+  ttl             = 300
   type            = each.value.type
   zone_id         = aws_route53_zone.wellcomecollection_digirati_io.zone_id
 }
