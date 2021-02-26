@@ -62,3 +62,9 @@ resource "aws_iam_role_policy" "workflowprocessor_readwrite_text_bucket" {
   role   = module.workflow_processor.task_role_name
   policy = data.aws_iam_policy_document.text_readwrite.json
 }
+
+resource "aws_iam_role_policy" "workflowprocessor_readwrite_anno_bucket" {
+  name   = "workflowprocessor-readwrite-anno-bucket"
+  role   = module.workflow_processor.task_role_name
+  policy = data.aws_iam_policy_document.annotations_readwrite.json
+}
