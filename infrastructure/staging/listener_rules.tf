@@ -91,3 +91,49 @@ resource "aws_alb_listener_rule" "wc_iiifbuilder_stageprd" {
     }
   }
 }
+
+# # iiif-test.wellcomecollection.org/pdf-cover* -> pdf-generator-stage
+# resource "aws_alb_listener_rule" "wc_pdfcover_test" {
+#   listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
+#   priority     = 23
+
+#   action {
+#     type             = "forward"
+#     target_group_arn = module.pdf_generator.service_target_group_arn
+#   }
+
+#   condition {
+#     host_header {
+#       values = ["iiif-test.wellcomecollection.org"]
+#     }
+#   }
+
+#   condition {
+#     path_pattern {
+#       values = ["/pdf-cover*"]
+#     }
+#   }
+# }
+
+# # iiif-stage.wellcomecollection.org/pdf-cover* -> pdf-generator-stage
+# resource "aws_alb_listener_rule" "wc_pdfcover_stage" {
+#   listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
+#   priority     = 24
+
+#   action {
+#     type             = "forward"
+#     target_group_arn = module.pdf_generator.service_target_group_arn
+#   }
+
+#   condition {
+#     host_header {
+#       values = ["iiif-stage.wellcomecollection.org"]
+#     }
+#   }
+
+#   condition {
+#     path_pattern {
+#       values = ["/pdf-cover*"]
+#     }
+#   }
+# }

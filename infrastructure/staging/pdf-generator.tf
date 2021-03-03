@@ -25,8 +25,8 @@ module "pdf_generator" {
 
   listener_priority = 4
   hostname          = "pdf-stage"
-  domain            = local.domain
-  zone_id           = data.aws_route53_zone.external.id
+  domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
+  zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id
 
   port_mappings = [{
     containerPort = 8000
