@@ -53,3 +53,15 @@ resource "aws_service_discovery_private_dns_namespace" "iiif_builder" {
 
   tags = local.common_tags
 }
+
+# Temporary until Wellcome CloudFront rules in place, dlcs.io
+data "aws_acm_certificate" "dlcs_io" {
+  domain      = "dlcs.io"
+  statuses    = ["ISSUED"]
+  most_recent = true
+}
+
+resource "aws_lb_listener_certificate" "example" {
+  listener_arn    = module.load_balancer.https_listener_arn
+  certificate_arn = data.aws_acm_certificate.dlcs_io.arn
+}
