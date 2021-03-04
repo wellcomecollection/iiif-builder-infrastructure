@@ -24,13 +24,9 @@ module "dashboard" {
   lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
   listener_priority = 8
-  hostname          = "dds-stage"
-  domain            = local.domain
-  zone_id           = data.aws_route53_zone.external.id
-
-  # hostname          = "dash-stage"
-  # domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
-  # zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id
+  hostname          = "dash-stage"
+  domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
+  zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id
 
   port_mappings = [{
     containerPort = 80
@@ -118,13 +114,9 @@ module "dashboard_stageprod" {
   lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
   listener_priority = 10
-  hostname          = "dds-test"
-  domain            = local.domain
-  zone_id           = data.aws_route53_zone.external.id
-
-  # hostname          = "dash-test"
-  # domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
-  # zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id
+  hostname          = "dash-test"
+  domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
+  zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id
 
   port_mappings = [{
     containerPort = 80
