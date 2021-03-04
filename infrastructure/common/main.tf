@@ -61,7 +61,7 @@ data "aws_acm_certificate" "dlcs_io" {
   most_recent = true
 }
 
-resource "aws_lb_listener_certificate" "example" {
+resource "aws_lb_listener_certificate" "dlcs_io" {
   listener_arn    = module.load_balancer.https_listener_arn
   certificate_arn = data.aws_acm_certificate.dlcs_io.arn
 }
