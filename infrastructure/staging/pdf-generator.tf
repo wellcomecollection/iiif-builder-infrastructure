@@ -45,38 +45,3 @@ resource "aws_iam_role_policy" "pdf_generator_read_presentation_bucket" {
   role   = module.pdf_generator.task_role_name
   policy = data.aws_iam_policy_document.presentation_read.json
 }
-
-# DNS / ALB rules for dlcs.io (will eventually be deleted)
-resource "aws_alb_listener_rule" "pdf_stage_dlcs_io" {
-  listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
-  priority     = 4
-
-  action {
-    type             = "forward"
-    target_group_arn = module.pdf_generator.service_target_group_arn
-  }
-
-  condition {
-    host_header {
-      values = ["pdf-stage.${local.domain}"]
-    }
-  }
-
-  condition {
-    path_pattern {
-      values = ["/*"]
-    }
-  }
-}
-
-resource "aws_route53_record" "pdf_stage_dlcs_io" {
-  zone_id = data.aws_route53_zone.external.id
-  name    = "pdf-stage.${local.domain}"
-  type    = "A"
-
-  alias {
-    name                   = data.terraform_remote_state.common.outputs.lb_fqdn
-    zone_id                = data.terraform_remote_state.common.outputs.lb_zone_id
-    evaluate_target_health = false
-  }
-}
