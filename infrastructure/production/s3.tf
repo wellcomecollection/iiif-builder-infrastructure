@@ -103,6 +103,21 @@ data "aws_iam_policy_document" "text_readwrite" {
   }
 }
 
+data "aws_iam_policy_document" "text_read" {
+  statement {
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket",
+      "s3:GetObjectVersion"
+    ]
+
+    resources = [
+      aws_s3_bucket.text.arn,
+      "${aws_s3_bucket.text.arn}/*",
+    ]
+  }
+}
+
 # Annotations - per manifest anno lists
 resource "aws_s3_bucket" "annotations" {
   bucket = "wellcomecollection-iiif-annotations"
@@ -114,6 +129,21 @@ data "aws_iam_policy_document" "annotations_readwrite" {
     actions = [
       "s3:*Object",
       "s3:ListBucket",
+    ]
+
+    resources = [
+      aws_s3_bucket.annotations.arn,
+      "${aws_s3_bucket.annotations.arn}/*",
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "annotations_read" {
+  statement {
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket",
+      "s3:GetObjectVersion"
     ]
 
     resources = [

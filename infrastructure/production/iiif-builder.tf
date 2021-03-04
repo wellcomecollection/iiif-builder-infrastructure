@@ -69,14 +69,20 @@ resource "aws_iam_role_policy" "iiifbuilder_readwrite_storagemaps_bucket" {
   policy = data.aws_iam_policy_document.storagemaps_readwrite.json
 }
 
-resource "aws_iam_role_policy" "iiifbuilder_readwrite_presentation_bucket" {
-  name   = "iiifbuilder-readwrite-presentation-bucket"
+resource "aws_iam_role_policy" "iiifbuilder_read_presentation_bucket" {
+  name   = "iiifbuilder-read-presentation-bucket"
   role   = module.iiif_builder.task_role_name
-  policy = data.aws_iam_policy_document.presentation_readwrite.json
+  policy = data.aws_iam_policy_document.presentation_read.json
 }
 
-resource "aws_iam_role_policy" "iiifbuilder_readwrite_text_bucket" {
-  name   = "iiifbuilder-readwrite-text-bucket"
+resource "aws_iam_role_policy" "iiifbuilder_read_text_bucket" {
+  name   = "iiifbuilder-read-text-bucket"
   role   = module.iiif_builder.task_role_name
-  policy = data.aws_iam_policy_document.text_readwrite.json
+  policy = data.aws_iam_policy_document.text_read.json
+}
+
+resource "aws_iam_role_policy" "iiifbuilder_read_anno_bucket" {
+  name   = "iiifbuilder-read-anno-bucket"
+  role   = module.iiif_builder.task_role_name
+  policy = data.aws_iam_policy_document.annotations_read.json
 }
