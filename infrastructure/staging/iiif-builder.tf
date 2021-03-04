@@ -24,9 +24,13 @@ module "iiif_builder" {
   lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
   listener_priority = 7
-  hostname          = "dds-stage"
-  domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
-  zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id
+  hostname          = "iiif-stage"
+  domain            = local.domain
+  zone_id           = data.aws_route53_zone.external.id
+
+  # hostname          = "dds-stage"
+  # domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
+  # zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id
 
   port_mappings = [{
     containerPort = 80
@@ -117,9 +121,13 @@ module "iiif_builder_stageprod" {
   lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
   listener_priority = 9
-  hostname          = "dds-test"
-  domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
-  zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id
+  hostname          = "iiif-test"
+  domain            = local.domain
+  zone_id           = data.aws_route53_zone.external.id
+
+  # hostname          = "dds-test"
+  # domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
+  # zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id
 
   port_mappings = [{
     containerPort = 80

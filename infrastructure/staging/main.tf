@@ -22,6 +22,10 @@ module "rds" {
   db_creds_secret_key = "iiif-builder/staging/db_admin"
 }
 
+data "aws_route53_zone" "external" {
+  name = local.domain
+}
+
 resource "aws_ecs_cluster" "iiif_builder" {
   name = local.full_name
   tags = local.common_tags
