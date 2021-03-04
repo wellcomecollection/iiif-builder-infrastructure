@@ -12,7 +12,7 @@ module "load_balancer" {
     aws_security_group.production.id
   ]
 
-  certificate_arn = aws_acm_certificate.cert.arn
+  certificate_arn = data.aws_acm_certificate.dlcs_io.arn # aws_acm_certificate.cert.arn
 
   lb_controlled_ingress_cidrs = ["0.0.0.0/0"]
 }
@@ -61,7 +61,7 @@ data "aws_acm_certificate" "dlcs_io" {
   most_recent = true
 }
 
-resource "aws_lb_listener_certificate" "dlcs_io" {
+resource "aws_lb_listener_certificate" "new_domain" {
   listener_arn    = module.load_balancer.https_listener_arn
-  certificate_arn = data.aws_acm_certificate.dlcs_io.arn
+  certificate_arn = aws_acm_certificate.cert.arn #data.aws_acm_certificate.dlcs_io.arn
 }
