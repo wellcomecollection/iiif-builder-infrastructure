@@ -42,7 +42,8 @@ module "bastion" {
   service_security_group_ids = [aws_security_group.staging.id, aws_security_group.production.id]
   key_name                   = "iiif-builder"
   ip_whitelist = [
-    "62.254.125.26/32" # Glasgow VPN
+    "62.254.125.26/31",  # Glasgow
+    "62.254.125.28/30",  # Glasgow
   ]
 }
 
