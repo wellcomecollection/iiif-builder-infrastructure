@@ -8,8 +8,8 @@ module "workflow_processor" {
 
   docker_image = "${data.terraform_remote_state.common.outputs.workflow_processor_url}:staging"
 
-  cpu    = 4096
-  memory = 24576
+  cpu    = 512
+  memory = 2048
 
   ecs_cluster_arn                = aws_ecs_cluster.iiif_builder.arn
   service_discovery_namespace_id = data.terraform_remote_state.common.outputs.service_discovery_namespace_id
@@ -86,8 +86,8 @@ module "workflow_processor_stageprod" {
 
   docker_image = "${data.terraform_remote_state.common.outputs.workflow_processor_url}:staging-prod"
 
-  cpu    = 512
-  memory = 2048
+  cpu    = 2048
+  memory = 12288
 
   ecs_cluster_arn                = aws_ecs_cluster.iiif_builder.arn
   service_discovery_namespace_id = data.terraform_remote_state.common.outputs.service_discovery_namespace_id
