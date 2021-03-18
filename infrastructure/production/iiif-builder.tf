@@ -23,14 +23,10 @@ module "iiif_builder" {
   lb_zone_id      = data.terraform_remote_state.common.outputs.lb_zone_id
   lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
-  listener_priority = 11
-  hostname          = "iiif"
-  domain            = local.domain
-  zone_id           = data.aws_route53_zone.external.id
-
-  # hostname          = "dds"
-  # domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
-  # zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id
+  listener_priority = 23
+  hostname          = "dds"
+  domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
+  zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id
 
   port_mappings = [{
     containerPort = 80
