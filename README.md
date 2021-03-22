@@ -32,11 +32,8 @@ Both Staging and Production share common infrastructure, including LoadBalancer.
 | 8        | dash-stage.wellcomecollection.digirati.io -> dashboard-stage     |
 | 9        | dds-test.wellcomecollection.digirati.io -> iiif-builder-stageprd |
 | 10       | dash-test.wellcomecollection.digirati.io -> dashboard-stageprd   |
-| 11       | iiif.dlcs.io -> iiif-builder-prod                                |
-| 12       | dds.dlcs.io -> dashboard-prod                                    |
 | 20       | iiif-test.wellcomecollection.org -> iiif-builder-stageprd        |
 | 21       | iiif-stage.wellcomecollection.org -> iiif-builder-stage          |
-| 22       | pdf.dlcs.io -> pdf-generator-prod                                |
 | 23       | dds.wellcomecollection.digirati.io -> iiif-builder-prod          |
 | 24       | dash.wellcomecollection.digirati.io -> dashboard-prod            |
 | 25       | pdf.wellcomecollection.digirati.io -> pdf-generator-prod         |
