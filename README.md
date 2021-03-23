@@ -21,23 +21,39 @@ Current Terraform version: 0.14.x
 
 Both Staging and Production share common infrastructure, including LoadBalancer. As such priority rules need to take into account all environments. The hostnames + priorities are:
 
-| Priority | Rule                                                             |
-|----------|------------------------------------------------------------------|
-| 1        | iiif.wellcomecollection.org/dash* -> dashboard-prod              |
-| 2        | iiif.wellcomecollection.org -> iiif-builder-prod                 |
-| 3        | iiif-stage.wellcomecollection.org/dash* -> dashboard-stage       |
-| 5        | iiif-test.wellcomecollection.org/dash* -> dashboard-stageprd     |
-| 6        | pdf-stage.wellcomecollection.digirati.io -> pdf-generator-stage  |
-| 7        | dds-stage.wellcomecollection.digirati.io -> iiif-builder-stage   |
-| 8        | dash-stage.wellcomecollection.digirati.io -> dashboard-stage     |
-| 9        | dds-test.wellcomecollection.digirati.io -> iiif-builder-stageprd |
-| 10       | dash-test.wellcomecollection.digirati.io -> dashboard-stageprd   |
-| 20       | iiif-test.wellcomecollection.org -> iiif-builder-stageprd        |
-| 21       | iiif-stage.wellcomecollection.org -> iiif-builder-stage          |
-| 23       | dds.wellcomecollection.digirati.io -> iiif-builder-prod          |
-| 24       | dash.wellcomecollection.digirati.io -> dashboard-prod            |
-| 25       | pdf.wellcomecollection.digirati.io -> pdf-generator-prod         |
+| Priority | Rule                                                                          |
+|----------|-------------------------------------------------------------------------------|
+| 1        | iiif.wellcomecollection.org/dash* -> dashboard-prod                           |
+| 3        | iiif-stage.wellcomecollection.org/dash* -> dashboard-stage                    |
+| 5        | iiif-test.wellcomecollection.org/dash* -> dashboard-stageprd                  |
+| 6        | pdf-stage.wellcomecollection.digirati.io -> pdf-generator-stage               |
+| 8        | dash-stage.wellcomecollection.digirati.io -> dashboard-stage                  |
+| 10       | dash-test.wellcomecollection.digirati.io -> dashboard-stageprd                |
+| 24       | dash.wellcomecollection.digirati.io -> dashboard-prod                         |
+| 25       | pdf.wellcomecollection.digirati.io -> pdf-generator-prod                      |
+| 30       | dds-stage.wellcomecollection.digirati.io/text* -> iiif-builder-text-stage     |
+| 31       | dds-stage.wellcomecollection.digirati.io/search* -> iiif-builder-text-stage   |
+| 32       | iiif-stage.wellcomecollection.org/text* -> iiif-builder-text-stage            |
+| 33       | iiif-stage.wellcomecollection.org/search* -> iiif-builder-text-stage          |
+| 34       | dds-test.wellcomecollection.digirati.io/text* -> iiif-builder-text-stageprd   |
+| 35       | dds-test.wellcomecollection.digirati.io/search* -> iiif-builder-text-stageprd |
+| 34       | iiif-test.wellcomecollection.org/text* -> iiif-builder-text-stageprd          |
+| 35       | iiif-test.wellcomecollection.org/search* -> iiif-builder-text-stageprd        |
 
+
+
+| 200        | iiif.wellcomecollection.org -> iiif-builder-prod                 |
+| 210        | dds-stage.wellcomecollection.digirati.io -> iiif-builder-stage   |
+| 230        | dds-test.wellcomecollection.digirati.io -> iiif-builder-stageprd |
+| 240       | iiif-test.wellcomecollection.org -> iiif-builder-stageprd        |
+| 250       | iiif-stage.wellcomecollection.org -> iiif-builder-stage          |
+| 260       | dds.wellcomecollection.digirati.io -> iiif-builder-prod          |
+
+
+|        | iiif.wellcomecollection.org -> iiif-builder-prod                 |
+|        | iiif-test.wellcomecollection.org -> iiif-builder-stageprd        |
+|        | iiif-stage.wellcomecollection.org -> iiif-builder-stage          |
+|        | dds.wellcomecollection.digirati.io -> iiif-builder-prod          |
 
 ## Permissions
 

@@ -1,4 +1,5 @@
 # requests are forwarded via Wellcome's CloudFront so will come in with different hostname
+# this is only required if 'All' or 'Host' is whitelisted, which is the case for dash + dds
 
 # iiif.wellcomecollection.org/dash* -> dashboard
 resource "aws_alb_listener_rule" "wc_dash" {
