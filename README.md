@@ -37,23 +37,18 @@ Both Staging and Production share common infrastructure, including LoadBalancer.
 | 33       | iiif-stage.wellcomecollection.org/search* -> iiif-builder-text-stage          |
 | 34       | dds-test.wellcomecollection.digirati.io/text* -> iiif-builder-text-stageprd   |
 | 35       | dds-test.wellcomecollection.digirati.io/search* -> iiif-builder-text-stageprd |
-| 34       | iiif-test.wellcomecollection.org/text* -> iiif-builder-text-stageprd          |
-| 35       | iiif-test.wellcomecollection.org/search* -> iiif-builder-text-stageprd        |
-
-
-
-| 200        | iiif.wellcomecollection.org -> iiif-builder-prod                 |
-| 210        | dds-stage.wellcomecollection.digirati.io -> iiif-builder-stage   |
-| 230        | dds-test.wellcomecollection.digirati.io -> iiif-builder-stageprd |
-| 240       | iiif-test.wellcomecollection.org -> iiif-builder-stageprd        |
-| 250       | iiif-stage.wellcomecollection.org -> iiif-builder-stage          |
-| 260       | dds.wellcomecollection.digirati.io -> iiif-builder-prod          |
-
-
-|        | iiif.wellcomecollection.org -> iiif-builder-prod                 |
-|        | iiif-test.wellcomecollection.org -> iiif-builder-stageprd        |
-|        | iiif-stage.wellcomecollection.org -> iiif-builder-stage          |
-|        | dds.wellcomecollection.digirati.io -> iiif-builder-prod          |
+| 36       | iiif-test.wellcomecollection.org/text* -> iiif-builder-text-stageprd          |
+| 37       | iiif-test.wellcomecollection.org/search* -> iiif-builder-text-stageprd        |
+| 40       | dds.wellcomecollection.digirati.io/text* -> iiif-builder-text-prod            |
+| 41       | dds.wellcomecollection.digirati.io/search* -> iiif-builder-text-prod          |
+| 42       | iiif.wellcomecollection.org/text* -> iiif-builder-text-prod                   |
+| 43       | iiif.wellcomecollection.org/search* -> iiif-builder-text-prod                 |
+| 200      | iiif.wellcomecollection.org -> iiif-builder-prod                              |
+| 210      | dds-stage.wellcomecollection.digirati.io -> iiif-builder-stage                |
+| 230      | dds-test.wellcomecollection.digirati.io -> iiif-builder-stageprd              |
+| 240      | iiif-test.wellcomecollection.org -> iiif-builder-stageprd                     |
+| 250      | iiif-stage.wellcomecollection.org -> iiif-builder-stage                       |
+| 260      | dds.wellcomecollection.digirati.io -> iiif-builder-prod                       |
 
 ## Permissions
 
