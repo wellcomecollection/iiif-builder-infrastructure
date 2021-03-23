@@ -59,9 +59,15 @@ variable "lb_listener_arn" {
 }
 
 variable "lb_zone_id" {
+  description = "ZoneId for loadbalancer, used for dns entries"
+  type        = string
+  default     = ""
 }
 
 variable "lb_fqdn" {
+  description = "FQDN for loadbalancer, used for dns entries"
+  type        = string
+  default     = ""
 }
 
 variable "path_patterns" {
@@ -78,14 +84,18 @@ variable "listener_priority" {
 
 variable "hostname" {
   description = "Hostname to register in Route53"
+  type        = string
+  default     = ""
 }
 
 variable "domain" {
-  description = "Main domain"
+  description = "Main domain for listener"
 }
 
 variable "zone_id" {
   description = "Route53 zone Id"
+  type        = string
+  default     = ""
 }
 
 variable "port_mappings" {
@@ -108,4 +118,9 @@ variable "env_vars" {
   description = "Variables to be set as environment variables"
   type        = map(string)
   default     = {}
+}
+
+variable "create_dns" {
+  description = "Whether to create route53 dns entry for"
+  default     = true
 }

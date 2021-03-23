@@ -9,8 +9,8 @@ module "iiif_builder" {
   docker_image   = "${data.terraform_remote_state.common.outputs.iiif_builder_url}:staging"
   container_port = 80
 
-  cpu    = 512
-  memory = 3072
+  cpu    = 256
+  memory = 512
 
   ecs_cluster_arn                = aws_ecs_cluster.iiif_builder.arn
   service_discovery_namespace_id = data.terraform_remote_state.common.outputs.service_discovery_namespace_id
@@ -23,7 +23,7 @@ module "iiif_builder" {
   lb_zone_id      = data.terraform_remote_state.common.outputs.lb_zone_id
   lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
-  listener_priority = 7
+  listener_priority = 210
   hostname          = "dds-stage"
   domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
   zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id
@@ -48,7 +48,9 @@ module "iiif_builder" {
   }
 
   env_vars = {
-    "ASPNETCORE_ENVIRONMENT" = "Staging"
+    "ASPNETCORE_ENVIRONMENT"                  = "Staging"
+    "FeatureManagement__TextServices"         = "False"
+    "FeatureManagement__PresentationServices" = "True"
   }
 }
 
@@ -78,12 +80,6 @@ resource "aws_iam_role_policy" "iiifbuilder_read_presentation_bucket" {
   policy = data.aws_iam_policy_document.presentation_read.json
 }
 
-resource "aws_iam_role_policy" "iiifbuilder_read_text_bucket" {
-  name   = "iiifbuilder-stage-read-stage-text-bucket"
-  role   = module.iiif_builder.task_role_name
-  policy = data.aws_iam_policy_document.text_read.json
-}
-
 resource "aws_iam_role_policy" "iiifbuilder_read_anno_bucket" {
   name   = "iiifbuilder-stage-read-stage-anno-bucket"
   role   = module.iiif_builder.task_role_name
@@ -102,8 +98,8 @@ module "iiif_builder_stageprod" {
   docker_image   = "${data.terraform_remote_state.common.outputs.iiif_builder_url}:staging-prod"
   container_port = 80
 
-  cpu    = 512
-  memory = 3072
+  cpu    = 256
+  memory = 512
 
   ecs_cluster_arn                = aws_ecs_cluster.iiif_builder.arn
   service_discovery_namespace_id = data.terraform_remote_state.common.outputs.service_discovery_namespace_id
@@ -116,7 +112,7 @@ module "iiif_builder_stageprod" {
   lb_zone_id      = data.terraform_remote_state.common.outputs.lb_zone_id
   lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
-  listener_priority = 9
+  listener_priority = 230
   hostname          = "dds-test"
   domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
   zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id
@@ -141,7 +137,9 @@ module "iiif_builder_stageprod" {
   }
 
   env_vars = {
-    "ASPNETCORE_ENVIRONMENT" = "Staging-Prod"
+    "ASPNETCORE_ENVIRONMENT"                  = "Staging-Prod"
+    "FeatureManagement__TextServices"         = "False"
+    "FeatureManagement__PresentationServices" = "True"
   }
 }
 
@@ -170,12 +168,6 @@ resource "aws_iam_role_policy" "iiifbuilderstgprd_read_presentation_bucket" {
   name   = "iiifbuilder-stageprd-read-stage-presentation-bucket"
   role   = module.iiif_builder_stageprod.task_role_name
   policy = data.aws_iam_policy_document.presentation_read.json
-}
-
-resource "aws_iam_role_policy" "iiifbuilderstgprd_read_text_bucket" {
-  name   = "iiifbuilder-stageprd-read-stage-text-bucket"
-  role   = module.iiif_builder_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.text_read.json
 }
 
 resource "aws_iam_role_policy" "iiifbuilderstgprd_read_anno_bucket" {
