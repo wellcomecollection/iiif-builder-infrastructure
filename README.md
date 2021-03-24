@@ -6,6 +6,8 @@ Current Terraform version: 0.14.x
 
 > Note: Networking infrastructure (VPC + Subnets) are managed in the central [platform-infrastructure](https://github.com/wellcomecollection/platform-infrastructure/) repository.
 
+> Note: AWS account root is granted access to Wellcome storage buckets in [storage-service](https://github.com/wellcomecollection/storage-service/) repository.
+
 ## Table of Contents
 
 * [common](/infrastructure/common/readme.md)

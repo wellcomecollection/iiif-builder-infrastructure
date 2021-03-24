@@ -22,7 +22,7 @@ module "iiif_builder_text" {
   lb_listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
 
   listener_priority = 40
-  path_patterns     = ["/text*", "search/*"]
+  path_patterns     = ["/text*", "/search*"]
   hostname          = "dds"
   domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
   create_dns        = false
@@ -38,6 +38,8 @@ module "iiif_builder_text" {
     ConnectionStrings__Dds                = "iiif-builder/production/dds-connstr"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
+    Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
+    Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
   }
 
   env_vars = {
@@ -45,6 +47,13 @@ module "iiif_builder_text" {
     "FeatureManagement__TextServices"         = "True"
     "FeatureManagement__PresentationServices" = "False"
   }
+}
+
+# wellcome-collection production storage bucket (in diff aws account)
+resource "aws_iam_role_policy" "iiifbuilder_text_read_wellcomecollection_storage_bucket" {
+  name   = "iiifbuilder-text-read-wellcomecollection-storage-bucket"
+  role   = module.iiif_builder_text.task_role_name
+  policy = data.aws_iam_policy_document.wellcomecollection_storage_bucket_read.json
 }
 
 resource "aws_iam_role_policy" "iiifbuilder_text_readwrite_storagemaps_bucket" {

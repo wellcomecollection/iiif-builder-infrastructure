@@ -22,7 +22,7 @@ module "iiif_builder_text" {
   lb_listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
 
   listener_priority = 30
-  path_patterns     = ["/text*", "search/*"]
+  path_patterns     = ["/text*", "/search*"]
   hostname          = "dds-stage"
   domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
   create_dns        = false
@@ -38,6 +38,8 @@ module "iiif_builder_text" {
     ConnectionStrings__Dds                = "iiif-builder/staging/dds-connstr"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
+    Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
+    Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
   }
 
   env_vars = {
@@ -52,6 +54,13 @@ module "iiif_builder_text_scaling" {
 
   cluster_name = aws_ecs_cluster.iiif_builder.name
   service_name = module.iiif_builder_text.service_name
+}
+
+# wellcome-collection staging storage bucket (in diff aws account)
+resource "aws_iam_role_policy" "iiifbuilder_text_read_wellcomecollection_storage_staging_bucket" {
+  name   = "iiifbuilder-text-stage-read-wellcomecollection-storage-staging-bucket"
+  role   = module.iiif_builder_text.task_role_name
+  policy = data.aws_iam_policy_document.wellcomecollection_storage_staging_bucket_read.json
 }
 
 resource "aws_iam_role_policy" "iiifbuilder_text_readwrite_storagemaps_bucket" {
@@ -90,7 +99,7 @@ module "iiif_builder_text_stageprod" {
   lb_listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
 
   listener_priority = 34
-  path_patterns     = ["/text*", "search/*"]
+  path_patterns     = ["/text*", "/search*"]
   hostname          = "dds-test"
   domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
   create_dns        = false
@@ -106,6 +115,8 @@ module "iiif_builder_text_stageprod" {
     ConnectionStrings__Dds                = "iiif-builder/staging/ddsstgprd-connstr"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
+    Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
+    Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
   }
 
   env_vars = {
@@ -120,6 +131,13 @@ module "iiif_builder_text_stageprod_scaling" {
 
   cluster_name = aws_ecs_cluster.iiif_builder.name
   service_name = module.iiif_builder_text_stageprod.service_name
+}
+
+# wellcome-collection staging storage bucket (in diff aws account)
+resource "aws_iam_role_policy" "iiifbuilderstgprd_text_read_wellcomecollection_storage_staging_bucket" {
+  name   = "iiifbuilder-text-stageprd-read-wellcomecollection-storage-staging-bucket"
+  role   = module.iiif_builder_text_stageprod.task_role_name
+  policy = data.aws_iam_policy_document.wellcomecollection_storage_bucket_read.json
 }
 
 resource "aws_iam_role_policy" "iiifbuilderstgprd_text_readwrite_storagemaps_bucket" {
