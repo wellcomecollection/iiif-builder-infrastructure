@@ -1,4 +1,4 @@
-# access to wellcome-collection storage. Needs corresponding perms in wellcome account
+# access to wellcome-collection storage.
 data "aws_iam_policy_document" "wellcomecollection_storage_bucket_read" {
   statement {
     actions = [
@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "wellcomecollection_storage_bucket_read" {
   }
 }
 
-# access to wellcome-collection storage. Needs corresponding perms in wellcome account
+# access to wellcome-collection storage.
 data "aws_iam_policy_document" "wellcomecollection_storage_staging_bucket_read" {
   statement {
     actions = [
