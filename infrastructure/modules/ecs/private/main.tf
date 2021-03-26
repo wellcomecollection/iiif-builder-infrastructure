@@ -52,7 +52,7 @@ module "app_container_secrets_permissions" {
 
 # Create service
 module "service" {
-  source = "git::https://github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/service?ref=v2.6.3"
+  source = "git::https://github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/service?ref=v3.3.0"
 
   cluster_arn  = var.ecs_cluster_arn
   service_name = local.full_name
@@ -65,4 +65,6 @@ module "service" {
   security_group_ids = var.service_security_group_ids
 
   container_name = local.full_name
+
+  desired_task_count = var.desired_count
 }

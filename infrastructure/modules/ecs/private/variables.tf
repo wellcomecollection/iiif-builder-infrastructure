@@ -81,3 +81,8 @@ variable "healthcheck" {
 
   default = null
 }
+
+variable "desired_count"{
+  description = "Number of tasks to run"
+  default     = 1
+}

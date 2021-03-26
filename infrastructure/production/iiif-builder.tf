@@ -48,7 +48,7 @@ module "iiif_builder" {
   }
 
   env_vars = {
-    "ASPNETCORE_ENVIRONMENT" = "Production"
+    "ASPNETCORE_ENVIRONMENT"                  = "Production"
     "FeatureManagement__TextServices"         = "False"
     "FeatureManagement__PresentationServices" = "True"
   }
