@@ -26,7 +26,9 @@ module "workflow_processor" {
   }
 
   env_vars = {
-    "ASPNETCORE_ENVIRONMENT" = "Staging"
+    "ASPNETCORE_ENVIRONMENT"                    = "Staging"
+    "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_stage_invalidate_cache.arn
+    "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_invalidate_cache.arn
   }
 
   healthcheck = {
@@ -76,6 +78,18 @@ resource "aws_iam_role_policy" "workflowprocessor_readwrite_anno_bucket" {
   policy = data.aws_iam_policy_document.annotations_readwrite.json
 }
 
+resource "aws_iam_role_policy" "workflowprocessor_publish_invalidate_iiif_topic" {
+  name   = "workflowprocessor-stage-publish-invalidate-iiif-sns-topic"
+  role   = module.workflow_processor.task_role_name
+  policy = data.aws_iam_policy_document.iiif_stage_invalidate_cache_publish.json
+}
+
+resource "aws_iam_role_policy" "workflowprocessor_publish_invalidate_api_topic" {
+  name   = "workflowprocessor-stage-publish-invalidate-api-sns-topic"
+  role   = module.workflow_processor.task_role_name
+  policy = data.aws_iam_policy_document.api_stage_invalidate_cache_publish.json
+}
+
 # workflow processor, staging pointing at prod storage
 module "workflow_processor_stageprod" {
   source = "../modules/ecs/private"
@@ -104,7 +118,9 @@ module "workflow_processor_stageprod" {
   }
 
   env_vars = {
-    "ASPNETCORE_ENVIRONMENT" = "Staging-Prod"
+    "ASPNETCORE_ENVIRONMENT"                    = "Staging-Prod"
+    "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_test_invalidate_cache.arn
+    "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_invalidate_cache.arn
   }
 
   healthcheck = {
@@ -149,7 +165,19 @@ resource "aws_iam_role_policy" "workflowprocessorstgprd_readwrite_text_bucket" {
 }
 
 resource "aws_iam_role_policy" "workflowprocessorstgprd_readwrite_anno_bucket" {
-  name   = "workflowprocessor-stage-readwrite-stage-anno-bucket"
+  name   = "workflowprocessor-stageprd-readwrite-stage-anno-bucket"
   role   = module.workflow_processor_stageprod.task_role_name
   policy = data.aws_iam_policy_document.annotations_readwrite.json
+}
+
+resource "aws_iam_role_policy" "workflowprocessorstgprd_publish_invalidate_iiif_topic" {
+  name   = "workflowprocessor-stageprd-publish-invalidate-iiif-sns-topic"
+  role   = module.workflow_processor_stageprod.task_role_name
+  policy = data.aws_iam_policy_document.iiif_test_invalidate_cache_publish.json
+}
+
+resource "aws_iam_role_policy" "workflowprocessorstgprd_publish_invalidate_api_topic" {
+  name   = "workflowprocessor-stageprd-publish-invalidate-api-sns-topic"
+  role   = module.workflow_processor_stageprod.task_role_name
+  policy = data.aws_iam_policy_document.api_stage_invalidate_cache_publish.json
 }
