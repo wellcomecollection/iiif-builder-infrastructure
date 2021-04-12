@@ -3,7 +3,20 @@ provider "aws" {
     role_arn = "arn:aws:iam::653428163053:role/digirati-developer"
   }
 
-  region  = var.region
+  region = var.region
+
+  profile = "wcdev"
+}
+
+provider "aws" {
+  assume_role {
+    role_arn = "arn:aws:iam::760097843905:role/platform-read_only"
+  }
+
+  alias  = "storage"
+  region = var.region
+
+  profile = "wellcome-az"
 }
 
 terraform {
