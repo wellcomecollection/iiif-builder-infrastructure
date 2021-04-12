@@ -8,8 +8,8 @@ module "workflow_processor" {
 
   docker_image = "${data.terraform_remote_state.common.outputs.workflow_processor_url}:production"
 
-  cpu           = 512
-  memory        = 2048
+  cpu    = 512
+  memory = 2048
 
   ecs_cluster_arn                = aws_ecs_cluster.iiif_builder.arn
   service_discovery_namespace_id = data.terraform_remote_state.common.outputs.service_discovery_namespace_id
@@ -26,7 +26,9 @@ module "workflow_processor" {
   }
 
   env_vars = {
-    "ASPNETCORE_ENVIRONMENT" = "Production"
+    "ASPNETCORE_ENVIRONMENT"                    = "Production"
+    "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_invalidate_cache.arn
+    "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_invalidate_cache.arn
   }
 
   healthcheck = {
@@ -67,4 +69,10 @@ resource "aws_iam_role_policy" "workflowprocessor_readwrite_anno_bucket" {
   name   = "workflowprocessor-readwrite-anno-bucket"
   role   = module.workflow_processor.task_role_name
   policy = data.aws_iam_policy_document.annotations_readwrite.json
+}
+
+resource "aws_iam_role_policy" "workflowprocessor_publish_invalidate_topic" {
+  name   = "workflowprocessor-publish-invalidate-sns-topic"
+  role   = module.workflow_processor.task_role_name
+  policy = data.aws_iam_policy_document.invalidate_cache_publish.json
 }
