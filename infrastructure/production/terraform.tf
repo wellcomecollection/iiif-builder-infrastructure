@@ -28,6 +28,8 @@ terraform {
     region = "eu-west-1"
 
     role_arn = "arn:aws:iam::653428163053:role/digirati-developer"
+
+    profile = "wcdev"
   }
 
   required_providers {
