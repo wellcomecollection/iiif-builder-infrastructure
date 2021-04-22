@@ -9,8 +9,8 @@ module "iiif_builder_text" {
   docker_image   = "${data.terraform_remote_state.common.outputs.iiif_builder_url}:production"
   container_port = 80
 
-  cpu    = 512
-  memory = 3072
+  cpu    = 1024
+  memory = 4096
 
   ecs_cluster_arn                = aws_ecs_cluster.iiif_builder.arn
   service_discovery_namespace_id = data.terraform_remote_state.common.outputs.service_discovery_namespace_id
