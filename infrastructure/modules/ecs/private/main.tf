@@ -39,7 +39,7 @@ module "task_definition" {
     module.application_container_definition.container_definition
   ]
 
-  launch_types = ["FARGATE"]
+  launch_types = var.launch_types
   task_name    = local.full_name
 }
 
