@@ -31,6 +31,11 @@ variable "memory" {
   default = null
 }
 
+variable "memory_reservation" {
+  type    = number
+  default = null
+}
+
 variable "ecs_cluster_arn" {
   description = "ARN of cluster to host services on"
 }
