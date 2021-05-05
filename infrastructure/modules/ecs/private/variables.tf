@@ -22,11 +22,18 @@ variable "docker_image" {
 }
 
 variable "cpu" {
-  type = number
+  type    = number
+  default = null
 }
 
 variable "memory" {
-  type = number
+  type    = number
+  default = null
+}
+
+variable "memory_reservation" {
+  type    = number
+  default = null
 }
 
 variable "ecs_cluster_arn" {
@@ -85,4 +92,9 @@ variable "healthcheck" {
 variable "desired_count"{
   description = "Number of tasks to run"
   default     = 1
+}
+
+variable "launch_types" {
+  type    = list(string)
+  default = ["FARGATE"]
 }

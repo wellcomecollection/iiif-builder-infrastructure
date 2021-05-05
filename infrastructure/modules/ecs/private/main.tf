@@ -22,6 +22,8 @@ module "application_container_definition" {
   secrets     = var.secret_env_vars
   environment = var.env_vars
 
+  memory_reservation = var.memory_reservation
+
   log_configuration = module.log_router_container.container_log_configuration
 
   tags = local.common_tags
@@ -39,7 +41,7 @@ module "task_definition" {
     module.application_container_definition.container_definition
   ]
 
-  launch_types = ["FARGATE"]
+  launch_types = var.launch_types
   task_name    = local.full_name
 }
 
@@ -67,4 +69,6 @@ module "service" {
   container_name = local.full_name
 
   desired_task_count = var.desired_count
+
+  launch_type = var.launch_types[0]
 }
