@@ -1,17 +1,17 @@
 data "aws_sns_topic" "iiif_test_invalidate_cache" {
-  provider = aws.storage
+  provider = aws.platform
 
   name = "iiif-test-cloudfront-invalidate"
 }
 
 data "aws_sns_topic" "iiif_stage_invalidate_cache" {
-  provider = aws.storage
+  provider = aws.platform
 
   name = "iiif-stage-cloudfront-invalidate"
 }
 
 data "aws_sns_topic" "api_stage_invalidate_cache" {
-  provider = aws.storage
+  provider = aws.platform
 
   name = "api-stage-cloudfront-invalidate"
 }
