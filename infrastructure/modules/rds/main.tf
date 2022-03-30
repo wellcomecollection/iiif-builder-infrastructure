@@ -15,10 +15,10 @@ resource "aws_security_group" "postgres_access" {
     to_port     = "5432"
     cidr_blocks = var.db_ingress_cidrs
   }
-  
+
   tags = merge(
     local.common_tags,
-    map("Name", "${local.full_name}-postgress-access")
+    tomap({ "Name" = "${local.full_name}-postgress-access" })
   )
 }
 

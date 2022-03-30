@@ -28,7 +28,7 @@ resource "aws_security_group" "web" {
 
   tags = merge(
     local.common_tags,
-    map("Name", "${local.full_name}-external-lb")
+    tomap({ "Name" = "${local.full_name}-external-lb" })
   )
 
   lifecycle {

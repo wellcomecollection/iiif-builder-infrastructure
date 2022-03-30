@@ -20,7 +20,7 @@ provider "aws" {
 }
 
 terraform {
-  required_version = ">= 0.14"
+  required_version = ">= 1.0"
 
   backend "s3" {
     bucket = "dlcs-remote-state"
@@ -35,7 +35,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 3.21.0"
+      version = "~> 4.8"
     }
   }
 }
