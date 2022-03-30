@@ -20,7 +20,7 @@ resource "aws_security_group" "bastion" {
 
   tags = merge(
     local.common_tags,
-    tomap({"Name" = "${var.name}-ssh-access"})
+    tomap({ "Name" = "${var.name}-ssh-access" })
   )
 }
 
