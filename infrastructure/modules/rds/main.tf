@@ -18,7 +18,7 @@ resource "aws_security_group" "postgres_access" {
 
   tags = merge(
     local.common_tags,
-    map("Name", "${local.full_name}-postgress-access")
+    tomap({ "Name" = "${local.full_name}-postgress-access" })
   )
 }
 

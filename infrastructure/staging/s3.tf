@@ -31,7 +31,6 @@ data "aws_iam_policy_document" "wellcomecollection_storage_staging_bucket_read" 
 # Storage Maps
 resource "aws_s3_bucket" "storagemaps" {
   bucket = "wellcomecollection-stage-iiif-storagemaps"
-  acl    = "private"
 }
 
 data "aws_iam_policy_document" "storagemaps_readwrite" {
@@ -66,7 +65,6 @@ data "aws_iam_policy_document" "storagemaps_read" {
 # Presentation
 resource "aws_s3_bucket" "presentation" {
   bucket = "wellcomecollection-stage-iiif-presentation"
-  acl    = "private"
 }
 
 data "aws_iam_policy_document" "presentation_readwrite" {
@@ -101,7 +99,6 @@ data "aws_iam_policy_document" "presentation_read" {
 # Text
 resource "aws_s3_bucket" "text" {
   bucket = "wellcomecollection-stage-iiif-text"
-  acl    = "private"
 }
 
 data "aws_iam_policy_document" "text_readwrite" {
@@ -136,7 +133,6 @@ data "aws_iam_policy_document" "text_read" {
 # Annotations - per manifest anno lists
 resource "aws_s3_bucket" "annotations" {
   bucket = "wellcomecollection-stage-iiif-annotations"
-  acl    = "private"
 }
 
 data "aws_iam_policy_document" "annotations_readwrite" {
