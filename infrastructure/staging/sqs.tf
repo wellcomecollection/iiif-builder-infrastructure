@@ -23,7 +23,7 @@ resource "aws_sqs_queue_policy" "registered_bag_policy" {
   "Id": "sqs-registered-bag-staging",
   "Statement": [
     {
-      "Sid": "SubscribeStagingRegisteredBag",
+      "Sid": "sns-to-sqs",
       "Effect": "Allow",
       "Principal": "*",
       "Action": "sqs:SendMessage",
