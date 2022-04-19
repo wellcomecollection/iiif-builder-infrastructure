@@ -19,3 +19,5 @@ Uses Staging database, DLCS and Storage API.
 ### Staging-Prod
 
 Uses Staging database, DLCS and _production_ Storage API. Hostnames use `test` for this environment.
+
+`auth-test.wellcomecollection.digirati.io` is only on staging-prod environment as there is only 1 Sierra instance containing users.

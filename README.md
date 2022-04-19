@@ -45,6 +45,7 @@ Both Staging and Production share common infrastructure, including LoadBalancer.
 | 41       | dds.wellcomecollection.digirati.io/search* -> iiif-builder-text-prod          |
 | 42       | iiif.wellcomecollection.org/text* -> iiif-builder-text-prod                   |
 | 43       | iiif.wellcomecollection.org/search* -> iiif-builder-text-prod                 |
+| 60       | auth-test.wellcomecollection.digirati.io -> auth-test-stage                   |
 | 200      | iiif.wellcomecollection.org -> iiif-builder-prod                              |
 | 210      | dds-stage.wellcomecollection.digirati.io -> iiif-builder-stage                |
 | 230      | dds-test.wellcomecollection.digirati.io -> iiif-builder-stageprd              |

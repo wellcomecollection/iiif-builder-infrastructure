@@ -6,7 +6,7 @@ data "aws_sns_topic" "registered_bag_notification" {
 
 resource "aws_sqs_queue" "registered_bag_queue" {
   name = "wellcomecollection-stage-registered-bag-notification"
-  
+
   message_retention_seconds = 1209600 # 14 days
 }
 
