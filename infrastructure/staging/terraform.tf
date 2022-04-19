@@ -13,6 +13,17 @@ provider "aws" {
     role_arn = "arn:aws:iam::760097843905:role/platform-read_only"
   }
 
+  alias  = "platform"
+  region = var.region
+
+  profile = "wellcome-az"
+}
+
+provider "aws" {
+  assume_role {
+    role_arn = "arn:aws:iam::975596993436:role/storage-read_only"
+  }
+
   alias  = "storage"
   region = var.region
 
