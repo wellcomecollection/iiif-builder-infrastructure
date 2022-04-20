@@ -42,8 +42,9 @@ module "auth_test" {
   }]
 
   secret_env_vars = {
-    Auth0__Domain   = "iiif-builder/staging/auth0-domain"
-    Auth0__ClientId = "iiif-builder/staging/auth0-clientid"
+    Auth0__Domain       = "iiif-builder/staging/auth0-domain"
+    Auth0__ClientId     = "iiif-builder/staging/auth0-clientid"
+    Auth0__ClientSecret = "iiif-builder/staging/auth0-clientsecret"
   }
 }
 
