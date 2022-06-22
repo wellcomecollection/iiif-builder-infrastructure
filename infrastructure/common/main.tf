@@ -17,13 +17,9 @@ module "load_balancer" {
   lb_controlled_ingress_cidrs = ["0.0.0.0/0"]
 }
 
-data "template_file" "public_key" {
-  template = file("files/key.pub")
-}
-
 resource "aws_key_pair" "auth" {
   key_name   = "iiif-builder"
-  public_key = data.template_file.public_key.rendered
+  public_key = file("files/key.pub")
 
   lifecycle {
     create_before_destroy = true
