@@ -28,8 +28,8 @@ data "aws_secretsmanager_secret_version" "admin_creds" {
 
 resource "aws_db_instance" "postgres" {
   engine                     = "postgres"
-  engine_version             = "12.3"
-  identifier                 = local.full_name
+  engine_version             = var.db_engine_version
+  identifier                 = "${local.full_name}${var.identifier_postfix}"
   instance_class             = var.db_instance_class
   allocated_storage          = var.db_storage
   username                   = jsondecode(data.aws_secretsmanager_secret_version.admin_creds.secret_string)["admin_username"]
