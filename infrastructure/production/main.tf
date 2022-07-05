@@ -3,13 +3,16 @@ data "aws_subnet" "private_subnets" {
   id       = each.value
 }
 
+# NOTE: Connstr is _not_ updated automatically to keep out of state. Need to update appropriate secret
 module "rds" {
   source = "../modules/rds"
 
-  name        = local.name
-  environment = local.environment
-  vpc_id      = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
+  name               = local.name
+  environment        = local.environment
+  identifier_postfix = "-1"
+  vpc_id             = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
 
+  db_engine_version = "12.10"
   db_instance_class = "db.m4.large"
   db_storage        = 250
   db_subnets        = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_private_subnets

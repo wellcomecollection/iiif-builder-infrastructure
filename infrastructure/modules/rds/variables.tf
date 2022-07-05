@@ -46,3 +46,15 @@ variable "db_security_group_ids" {
   type        = list(string)
   description = ""
 }
+
+variable "db_engine_version" {
+  type        = string
+  description = "Postgres version to use"
+  default     = "12.3"
+}
+
+variable "identifier_postfix" {
+  type        = string
+  description = "Postfix to add to DB name, useful when doing rolling updates"
+  default     = ""
+}
