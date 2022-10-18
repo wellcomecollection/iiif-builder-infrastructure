@@ -46,7 +46,8 @@ module "dashboard" {
   }
 
   env_vars = {
-    "ASPNETCORE_ENVIRONMENT" = "Staging"
+    "ASPNETCORE_ENVIRONMENT"        = "Staging"
+    "Storage__WorkflowMessageTopic" = data.aws_sns_topic.born_digital_bag_notifications_staging.arn
   }
 }
 
@@ -86,6 +87,12 @@ resource "aws_iam_role_policy" "dashboard_read_anno_bucket" {
   name   = "dashboard-stageprd-read-stage-anno-bucket"
   role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.annotations_read.json
+}
+
+resource "aws_iam_role_policy" "dashboard_publish_born_digital_bag_notifications_staging" {
+  name   = "dashboard-stage-publish-born-digital-bag-notifications-iiif-sns-topic"
+  role   = module.dashboard.task_role_name
+  policy = data.aws_iam_policy_document.born_digital_bag_notifications_staging_publish.json
 }
 
 # dashboard, staging hosted pointing at Prod storage
@@ -136,7 +143,8 @@ module "dashboard_stageprod" {
   }
 
   env_vars = {
-    "ASPNETCORE_ENVIRONMENT" = "Staging-Prod"
+    "ASPNETCORE_ENVIRONMENT"        = "Staging-Prod"
+    "Storage__WorkflowMessageTopic" = data.aws_sns_topic.born_digital_bag_notifications_staging.arn
   }
 }
 
@@ -176,4 +184,10 @@ resource "aws_iam_role_policy" "dashboardstgprd_read_anno_bucket" {
   name   = "dashboard-stageprd-read-stage-anno-bucket"
   role   = module.dashboard_stageprod.task_role_name
   policy = data.aws_iam_policy_document.annotations_read.json
+}
+
+resource "aws_iam_role_policy" "dashboardstgprd_publish_born_digital_bag_notifications_staging" {
+  name   = "dashboard-stageprd-publish-born-digital-bag-notifications-iiif-sns-topic"
+  role   = module.dashboard_stageprod.task_role_name
+  policy = data.aws_iam_policy_document.born_digital_bag_notifications_staging_publish.json
 }
