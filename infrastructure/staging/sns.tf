@@ -73,7 +73,7 @@ data "aws_iam_policy_document" "born_digital_bag_notifications_staging_publish" 
     ]
 
     resources = [
-      data.aws_sns_topic.born_digital_bag_notifications.arn
+      data.aws_sns_topic.born_digital_bag_notifications_staging.arn
     ]
   }
 }
