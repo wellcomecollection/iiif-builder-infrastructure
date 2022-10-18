@@ -144,7 +144,7 @@ module "dashboard_stageprod" {
 
   env_vars = {
     "ASPNETCORE_ENVIRONMENT"        = "Staging-Prod"
-    "Storage__WorkflowMessageTopic" = data.aws_sns_topic.born_digital_bag_notifications_staging.arn
+    "Storage__WorkflowMessageTopic" = data.aws_sns_topic.born_digital_bag_notifications_prod.arn
   }
 }
 
