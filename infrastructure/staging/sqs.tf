@@ -58,7 +58,7 @@ data "aws_iam_policy_document" "born_digital_notifications_staging_read_from_que
     ]
 
     resources = [
-      aws_sqs_queue.born_digital_notifications_staging_queue.arn
+      data.aws_sqs_queue.born_digital_notifications_staging_queue.arn
     ]
   }
 }
@@ -72,7 +72,7 @@ data "aws_iam_policy_document" "born_digital_notifications_prod_read_from_queue"
     ]
 
     resources = [
-      aws_sqs_queue.born_digital_notifications_prod_queue.arn
+      data.aws_sqs_queue.born_digital_notifications_prod_queue.arn
     ]
   }
 }
