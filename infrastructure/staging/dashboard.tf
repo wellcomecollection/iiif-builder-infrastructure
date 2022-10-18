@@ -90,7 +90,7 @@ resource "aws_iam_role_policy" "dashboard_read_anno_bucket" {
 }
 
 resource "aws_iam_role_policy" "dashboard_publish_born_digital_bag_notifications_staging" {
-  name   = "dashboard-stage-publish-born-digital-bag-notifications-iiif-sns-topic"
+  name   = "dashboard-stage-publish-born-digital-bag-notifications-staging-iiif-sns-topic"
   role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.born_digital_bag_notifications_staging_publish.json
 }
@@ -186,8 +186,8 @@ resource "aws_iam_role_policy" "dashboardstgprd_read_anno_bucket" {
   policy = data.aws_iam_policy_document.annotations_read.json
 }
 
-resource "aws_iam_role_policy" "dashboardstgprd_publish_born_digital_bag_notifications_staging" {
-  name   = "dashboard-stageprd-publish-born-digital-bag-notifications-iiif-sns-topic"
+resource "aws_iam_role_policy" "dashboardstgprd_publish_born_digital_bag_notifications_prod" {
+  name   = "dashboard-stageprd-publish-born-digital-bag-notifications-prod-iiif-sns-topic"
   role   = module.dashboard_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.born_digital_bag_notifications_staging_publish.json
+  policy = data.aws_iam_policy_document.born_digital_bag_notifications_prod_publish.json
 }
