@@ -1,8 +1,7 @@
 data "aws_caller_identity" "current" {}
 
 locals {
-  environment     = "stage"
-  environment_alt = "stageprd"
+  environment     = "stage-new"
   name            = "iiif-builder"
   full_name       = "${local.name}-${local.environment}"
 

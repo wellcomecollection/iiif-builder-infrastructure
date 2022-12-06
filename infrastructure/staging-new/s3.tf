@@ -1,19 +1,4 @@
-# access to wellcome-collection storage.
-data "aws_iam_policy_document" "wellcomecollection_storage_bucket_read" {
-  statement {
-    actions = [
-      "s3:Get*",
-      "s3:List*",
-    ]
-
-    resources = [
-      "arn:aws:s3:::wellcomecollection-storage",
-      "arn:aws:s3:::wellcomecollection-storage/*",
-    ]
-  }
-}
-
-# access to wellcome-collection storage.
+# access to wellcome-collection staging storage.
 data "aws_iam_policy_document" "wellcomecollection_storage_staging_bucket_read" {
   statement {
     actions = [
@@ -30,7 +15,7 @@ data "aws_iam_policy_document" "wellcomecollection_storage_staging_bucket_read" 
 
 # Storage Maps
 resource "aws_s3_bucket" "storagemaps" {
-  bucket = "wellcomecollection-stage-iiif-storagemaps"
+  bucket = "wellcomecollection-stage-new-iiif-storagemaps"
 }
 
 data "aws_iam_policy_document" "storagemaps_readwrite" {
@@ -64,7 +49,7 @@ data "aws_iam_policy_document" "storagemaps_read" {
 
 # Presentation
 resource "aws_s3_bucket" "presentation" {
-  bucket = "wellcomecollection-stage-iiif-presentation"
+  bucket = "wellcomecollection-stage-new-iiif-presentation"
 }
 
 data "aws_iam_policy_document" "presentation_readwrite" {
@@ -98,7 +83,7 @@ data "aws_iam_policy_document" "presentation_read" {
 
 # Text
 resource "aws_s3_bucket" "text" {
-  bucket = "wellcomecollection-stage-iiif-text"
+  bucket = "wellcomecollection-stage-new-iiif-text"
 }
 
 data "aws_iam_policy_document" "text_readwrite" {
@@ -132,7 +117,7 @@ data "aws_iam_policy_document" "text_read" {
 
 # Annotations - per manifest anno lists
 resource "aws_s3_bucket" "annotations" {
-  bucket = "wellcomecollection-stage-iiif-annotations"
+  bucket = "wellcomecollection-stage-new-iiif-annotations"
 }
 
 data "aws_iam_policy_document" "annotations_readwrite" {

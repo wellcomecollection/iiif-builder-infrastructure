@@ -35,7 +35,7 @@ terraform {
 
   backend "s3" {
     bucket = "dlcs-remote-state"
-    key    = "iiif-builder/stage/terraform.tfstate"
+    key    = "iiif-builder/stage-new/terraform.tfstate"
     region = "eu-west-1"
 
     role_arn = "arn:aws:iam::653428163053:role/digirati-developer"

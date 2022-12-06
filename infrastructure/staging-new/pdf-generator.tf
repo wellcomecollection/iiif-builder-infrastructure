@@ -1,11 +1,12 @@
-# pdf-generator application
+# pdf-generator application - https://github.com/wellcomecollection/iiif-builder/tree/main/src/PdfCoverPage
 module "pdf_generator" {
   source = "../modules/ecs/web"
 
   name        = "pdf-generator"
   environment = local.environment
   vpc_id      = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
-
+  
+  # ?? what should this suffix be?
   docker_image   = "${data.terraform_remote_state.common.outputs.pdf_generator_url}:staging"
   container_port = 8000
 
@@ -24,7 +25,7 @@ module "pdf_generator" {
   lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
   listener_priority = 6
-  hostname          = "pdf-stage"
+  hostname          = "pdf-stage-new"
   domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
   zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id
 
@@ -41,7 +42,7 @@ module "pdf_generator" {
 }
 
 resource "aws_iam_role_policy" "pdf_generator_read_presentation_bucket" {
-  name   = "pdf-generator-stage-read-stage-presentation-bucket"
+  name   = "pdf-generator-stage-new-read-stage-new-presentation-bucket"
   role   = module.pdf_generator.task_role_name
   policy = data.aws_iam_policy_document.presentation_read.json
 }
