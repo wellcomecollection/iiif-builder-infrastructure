@@ -16,6 +16,18 @@ data "aws_sns_topic" "api_stage_invalidate_cache" {
   name = "api-stage-cloudfront-invalidate"
 }
 
+data "aws_sns_topic" "born_digital_bag_notifications_staging" {
+  provider = aws.storage
+
+  name = "born-digital-bag-notifications-staging"
+}
+
+data "aws_sns_topic" "born_digital_bag_notifications_prod" {
+  provider = aws.storage
+
+  name = "born-digital-bag-notifications-prod"
+}
+
 # access to SNS topic for iiif-test.wc.org cache-invalidation
 data "aws_iam_policy_document" "iiif_test_invalidate_cache_publish" {
   statement {
@@ -54,6 +66,34 @@ data "aws_iam_policy_document" "api_stage_invalidate_cache_publish" {
 
     resources = [
       data.aws_sns_topic.api_stage_invalidate_cache.arn
+    ]
+  }
+}
+
+# access to SNS staging born digital notifications for stage dashboard
+data "aws_iam_policy_document" "born_digital_bag_notifications_staging_publish" {
+  statement {
+    actions = [
+      "sns:Publish",
+      "sns:SendMessage",
+    ]
+
+    resources = [
+      data.aws_sns_topic.born_digital_bag_notifications_staging.arn
+    ]
+  }
+}
+
+# access to SNS staging born digital notifications for stageprd dashboard
+data "aws_iam_policy_document" "born_digital_bag_notifications_prod_publish" {
+  statement {
+    actions = [
+      "sns:Publish",
+      "sns:SendMessage",
+    ]
+
+    resources = [
+      data.aws_sns_topic.born_digital_bag_notifications_prod.arn
     ]
   }
 }
