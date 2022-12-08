@@ -22,7 +22,7 @@ resource "aws_sqs_queue_policy" "registered_bag_policy" {
   policy = <<POLICY
 {
   "Version": "2012-10-17",
-  "Id": "sqs-registered-bag-staging",
+  "Id": "sqs-registered-bag-staging-new",
   "Statement": [
     {
       "Sid": "sns-to-sqs",

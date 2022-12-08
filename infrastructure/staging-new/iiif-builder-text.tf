@@ -7,7 +7,7 @@ module "iiif_builder_text" {
   vpc_id      = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
 
   # ?? what should this suffix be?
-  docker_image   = "${data.terraform_remote_state.common.outputs.iiif_builder_url}:staging"
+  docker_image   = "${data.terraform_remote_state.common.outputs.iiif_builder_url}:staging-new"
   container_port = 80
 
   cpu    = 512
@@ -22,7 +22,7 @@ module "iiif_builder_text" {
 
   lb_listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
 
-  listener_priority = 30
+  listener_priority = 3030
   path_patterns     = ["/text*", "/search*"]
   hostname          = "dds-stage-new"
   domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io

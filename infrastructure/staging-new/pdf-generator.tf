@@ -7,7 +7,7 @@ module "pdf_generator" {
   vpc_id      = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
   
   # ?? what should this suffix be?
-  docker_image   = "${data.terraform_remote_state.common.outputs.pdf_generator_url}:staging"
+  docker_image   = "${data.terraform_remote_state.common.outputs.pdf_generator_url}:staging-new"
   container_port = 8000
 
   cpu    = 256
@@ -24,7 +24,7 @@ module "pdf_generator" {
   lb_zone_id      = data.terraform_remote_state.common.outputs.lb_zone_id
   lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
-  listener_priority = 6
+  listener_priority = 306
   hostname          = "pdf-stage-new"
   domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
   zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id

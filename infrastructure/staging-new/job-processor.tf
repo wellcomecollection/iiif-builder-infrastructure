@@ -7,7 +7,7 @@ module "job_processor" {
   vpc_id      = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
 
   # ?? what should this suffix be?
-  docker_image = "${data.terraform_remote_state.common.outputs.job_processor_url}:staging"
+  docker_image = "${data.terraform_remote_state.common.outputs.job_processor_url}:staging-new"
 
   cpu    = 256
   memory = 512
