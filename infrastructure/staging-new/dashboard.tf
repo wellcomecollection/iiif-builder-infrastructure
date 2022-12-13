@@ -6,7 +6,6 @@ module "dashboard" {
   environment = local.environment
   vpc_id      = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
 
-  # ?? what should this suffix be?
   docker_image   = "${data.terraform_remote_state.common.outputs.dashboard_url}:staging-new"
   container_port = 80
 
