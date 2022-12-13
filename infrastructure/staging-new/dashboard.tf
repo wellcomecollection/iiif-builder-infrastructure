@@ -24,7 +24,7 @@ module "dashboard" {
   lb_zone_id      = data.terraform_remote_state.common.outputs.lb_zone_id
   lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
-  listener_priority = 308
+  listener_priority = 12
   hostname          = "dash-stage-new"
   domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
   zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id

@@ -6,7 +6,7 @@
 # iiif-stage-new.wellcomecollection.org/dash* -> dashboard-stage-new
 resource "aws_alb_listener_rule" "wc_dash_stage_new" {
   listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
-  priority     = 3
+  priority     = 4
 
   action {
     type             = "forward"
@@ -29,7 +29,7 @@ resource "aws_alb_listener_rule" "wc_dash_stage_new" {
 # iiif-stage-new.wellcomecollection.org/* -> iiifbuilder-stage-new
 resource "aws_alb_listener_rule" "wc_iiifbuilder_stage_new" {
   listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
-  priority     = 250
+  priority     = 350
 
   action {
     type             = "forward"
@@ -52,7 +52,7 @@ resource "aws_alb_listener_rule" "wc_iiifbuilder_stage_new" {
 # iiif-stage-new.wellcomecollection.org/text* -> iiifbuilder-text-stage-new
 resource "aws_alb_listener_rule" "wc_text_stage_new" {
   listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
-  priority     = 32
+  priority     = 52
 
   action {
     type             = "forward"
@@ -75,7 +75,7 @@ resource "aws_alb_listener_rule" "wc_text_stage_new" {
 # iiif-stage-new.wellcomecollection.org/search* -> iiifbuilder-text-stage-new
 resource "aws_alb_listener_rule" "wc_search_stage_new" {
   listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
-  priority     = 33
+  priority     = 53
 
   action {
     type             = "forward"

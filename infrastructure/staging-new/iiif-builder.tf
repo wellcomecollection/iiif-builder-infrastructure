@@ -24,7 +24,7 @@ module "iiif_builder" {
   lb_zone_id      = data.terraform_remote_state.common.outputs.lb_zone_id
   lb_fqdn         = data.terraform_remote_state.common.outputs.lb_fqdn
 
-  listener_priority = 30210
+  listener_priority = 310
   hostname          = "dds-stage-new"
   domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
   zone_id           = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io_zone_id

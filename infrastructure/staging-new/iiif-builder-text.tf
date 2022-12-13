@@ -22,7 +22,7 @@ module "iiif_builder_text" {
 
   lb_listener_arn = data.terraform_remote_state.common.outputs.lb_listener_arn
 
-  listener_priority = 3030
+  listener_priority = 38
   path_patterns     = ["/text*", "/search*"]
   hostname          = "dds-stage-new"
   domain            = data.terraform_remote_state.common.outputs.wellcomecollection_digirati_io
