@@ -27,8 +27,8 @@ module "workflow_processor" {
 
   env_vars = {
     "ASPNETCORE_ENVIRONMENT"                    = "Staging-New"
-    "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_stage_new_invalidate_cache.arn
-    "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_new_invalidate_cache.arn
+    # "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_stage_new_invalidate_cache.arn
+    # "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_new_invalidate_cache.arn
   }
 
   healthcheck = {
