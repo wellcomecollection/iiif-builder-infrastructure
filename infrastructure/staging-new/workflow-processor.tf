@@ -27,8 +27,7 @@ module "workflow_processor" {
 
   env_vars = {
     "ASPNETCORE_ENVIRONMENT"                    = "Staging-New"
-    # "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_stage_new_invalidate_cache.arn
-    # "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_new_invalidate_cache.arn
+    "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_stage_new_invalidate_cache.arn
   }
 
   healthcheck = {
@@ -78,17 +77,11 @@ resource "aws_iam_role_policy" "workflowprocessor_readwrite_anno_bucket" {
   policy = data.aws_iam_policy_document.annotations_readwrite.json
 }
 
-# resource "aws_iam_role_policy" "workflowprocessor_publish_invalidate_iiif_topic" {
-#   name   = "workflowprocessor-stage-new-publish-invalidate-iiif-sns-topic"
-#   role   = module.workflow_processor.task_role_name
-#   policy = data.aws_iam_policy_document.iiif_stage_new_invalidate_cache_publish.json
-# }
-
-# resource "aws_iam_role_policy" "workflowprocessor_publish_invalidate_api_topic" {
-#   name   = "workflowprocessor-stage-new-publish-invalidate-api-sns-topic"
-#   role   = module.workflow_processor.task_role_name
-#   policy = data.aws_iam_policy_document.api_stage_new_invalidate_cache_publish.json
-# }
+resource "aws_iam_role_policy" "workflowprocessor_publish_invalidate_iiif_topic" {
+  name   = "workflowprocessor-stage-new-publish-invalidate-iiif-sns-topic"
+  role   = module.workflow_processor.task_role_name
+  policy = data.aws_iam_policy_document.iiif_stage_new_invalidate_cache_publish.json
+}
 
 resource "aws_iam_role_policy" "workflowprocessor_read_born_digital_notifications_staging_queue" {
   name   = "workflowprocessor-read-born-digital-notifications-staging-queue"
