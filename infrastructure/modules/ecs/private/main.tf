@@ -1,18 +1,18 @@
 # Logging container using fluentbit
 module "log_router_container" {
-  source    = "git::https://github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/firelens?ref=v3.12.2"
+  source    = "git::https://github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/firelens?ref=v3.13.1"
   namespace = local.full_name
 }
 
 module "log_router_permissions" {
-  source    = "git::https://github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/secrets?ref=v3.12.2"
+  source    = "git::https://github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/secrets?ref=v3.13.1"
   secrets   = module.log_router_container.shared_secrets_logging
   role_name = module.task_definition.task_execution_role_name
 }
 
 # Create container definitions
 module "application_container_definition" {
-  source = "git::https://github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/container_definition?ref=v3.12.2"
+  source = "git::https://github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/container_definition?ref=v3.13.1"
   name   = local.full_name
 
   image         = var.docker_image
@@ -31,7 +31,7 @@ module "application_container_definition" {
 
 # Create task definition
 module "task_definition" {
-  source = "git::https://github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/task_definition?ref=v3.12.2"
+  source = "git::https://github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/task_definition?ref=v3.13.1"
 
   cpu    = var.cpu
   memory = var.memory
@@ -47,7 +47,7 @@ module "task_definition" {
 
 # secrets
 module "app_container_secrets_permissions" {
-  source    = "git::github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/secrets?ref=v3.12.2"
+  source    = "git::github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/secrets?ref=v3.13.1"
   secrets   = var.secret_env_vars
   role_name = module.task_definition.task_execution_role_name
 }
