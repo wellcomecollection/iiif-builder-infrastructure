@@ -46,8 +46,10 @@ module "dashboard" {
   }
 
   env_vars = {
-    "ASPNETCORE_ENVIRONMENT"        = "Staging"
-    "Storage__WorkflowMessageTopic" = data.aws_sns_topic.born_digital_bag_notifications_staging.arn
+    "ASPNETCORE_ENVIRONMENT"                    = "Staging"
+    "Storage__WorkflowMessageTopic"             = data.aws_sns_topic.born_digital_bag_notifications_staging.arn
+    "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_stage_invalidate_cache.arn
+    "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_invalidate_cache.arn
   }
 }
 
@@ -143,8 +145,10 @@ module "dashboard_stageprod" {
   }
 
   env_vars = {
-    "ASPNETCORE_ENVIRONMENT"        = "Staging-Prod"
-    "Storage__WorkflowMessageTopic" = data.aws_sns_topic.born_digital_bag_notifications_prod.arn
+    "ASPNETCORE_ENVIRONMENT"                    = "Staging-Prod"
+    "Storage__WorkflowMessageTopic"             = data.aws_sns_topic.born_digital_bag_notifications_prod.arn
+    "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_test_invalidate_cache.arn
+    "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_invalidate_cache.arn
   }
 }
 

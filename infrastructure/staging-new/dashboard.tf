@@ -46,8 +46,9 @@ module "dashboard" {
   }
 
   env_vars = {
-    "ASPNETCORE_ENVIRONMENT"        = "Staging-New"
-    # "Storage__WorkflowMessageTopic" = data.aws_sns_topic.born_digital_bag_notifications_staging.arn
+    "ASPNETCORE_ENVIRONMENT"                    = "Staging-New"
+    # "Storage__WorkflowMessageTopic"           = data.aws_sns_topic.born_digital_bag_notifications_staging.arn
+    "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_stage_new_invalidate_cache.arn
   }
 }
 
