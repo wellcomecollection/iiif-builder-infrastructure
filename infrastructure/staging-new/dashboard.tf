@@ -95,3 +95,9 @@ resource "aws_iam_role_policy" "dashboard_publish_born_digital_bag_notifications
   role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.born_digital_bag_notifications_staging_publish.json
 }
+
+resource "aws_iam_role_policy" "dashboard_publish_invalidate_iiif_topic" {
+  name   = "dashboard-stage-new-publish-invalidate-iiif-sns-topic"
+  role   = module.dashboard.task_role_name
+  policy = data.aws_iam_policy_document.iiif_stage_new_invalidate_cache_publish.json
+}

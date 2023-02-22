@@ -97,6 +97,18 @@ resource "aws_iam_role_policy" "dashboard_publish_born_digital_bag_notifications
   policy = data.aws_iam_policy_document.born_digital_bag_notifications_staging_publish.json
 }
 
+resource "aws_iam_role_policy" "dashboard_publish_invalidate_iiif_topic" {
+  name   = "dashboard-stage-publish-invalidate-iiif-sns-topic"
+  role   = module.dashboard.task_role_name
+  policy = data.aws_iam_policy_document.iiif_stage_invalidate_cache_publish.json
+}
+
+resource "aws_iam_role_policy" "dashboard_publish_invalidate_api_topic" {
+  name   = "dashboard-stage-publish-invalidate-api-sns-topic"
+  role   = module.dashboard.task_role_name
+  policy = data.aws_iam_policy_document.api_stage_invalidate_cache_publish.json
+}
+
 # dashboard, staging hosted pointing at Prod storage
 module "dashboard_stageprod" {
   source = "../modules/ecs/web"
@@ -194,4 +206,16 @@ resource "aws_iam_role_policy" "dashboardstgprd_publish_born_digital_bag_notific
   name   = "dashboard-stageprd-publish-born-digital-bag-notifications-prod-iiif-sns-topic"
   role   = module.dashboard_stageprod.task_role_name
   policy = data.aws_iam_policy_document.born_digital_bag_notifications_prod_publish.json
+}
+
+resource "aws_iam_role_policy" "dashboardstgprd_publish_invalidate_iiif_topic" {
+  name   = "dashboard-stageprd-publish-invalidate-iiif-sns-topic"
+  role   = module.dashboard_stageprod.task_role_name
+  policy = data.aws_iam_policy_document.iiif_test_invalidate_cache_publish.json
+}
+
+resource "aws_iam_role_policy" "dashboardstgprd_publish_invalidate_api_topic" {
+  name   = "dashboard-stageprd-publish-invalidate-api-sns-topic"
+  role   = module.dashboard_stageprod.task_role_name
+  policy = data.aws_iam_policy_document.api_stage_invalidate_cache_publish.json
 }
