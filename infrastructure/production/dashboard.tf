@@ -85,6 +85,6 @@ resource "aws_iam_role_policy" "dashboard_read_anno_bucket" {
 
 resource "aws_iam_role_policy" "dashboard_publish_invalidate_topic" {
   name   = "dashboard-publish-invalidate-sns-topic"
-  role   = module.workflow_processor.task_role_name
+  role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.invalidate_cache_publish.json
 }
