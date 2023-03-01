@@ -103,3 +103,75 @@ resource "aws_sns_topic_subscription" "born_digital_notifications_staging_new_su
 #   protocol  = "sqs"
 #   endpoint  = aws_sqs_queue.digitised_notifications_staging_new.arn
 # }
+
+# And allow the platform topics to write to them:
+
+resource "aws_sqs_queue_policy" "platform_born_digital_bag_notifications_write_to_queue" {
+  queue_url = aws_sqs_queue.born_digital_notifications_staging_new.id
+  policy    = data.aws_iam_policy_document.platform_born_digital_bag_notifications_write_to_queue.json
+}
+
+data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to_queue" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+
+    actions = [
+      "sqs:SendMessage",
+    ]
+
+    resources = [
+      aws_sqs_queue.born_digital_notifications_staging_new.arn,
+    ]
+
+    condition {
+      test     = "ArnEquals"
+      variable = "aws:SourceArn"
+
+
+      values = [
+        data.aws_sns_topic.born_digital_bag_notifications_staging.arn
+      ]
+    }
+  }
+}
+
+# And same for Goobi, when it's available:
+
+# resource "aws_sqs_queue_policy" "platform_digitised_bag_notifications_write_to_queue" {
+#   queue_url = aws_sqs_queue.digitised_notifications_staging_new.id
+#   policy    = data.aws_iam_policy_document.platform_digitised_bag_notifications_write_to_queue.json
+# }
+
+# data "aws_iam_policy_document" "platform_digitised_bag_notifications_write_to_queue" {
+#   statement {
+#     effect = "Allow"
+
+#     principals {
+#       type        = "AWS"
+#       identifiers = ["*"]
+#     }
+
+#     actions = [
+#       "sqs:SendMessage",
+#     ]
+
+#     resources = [
+#       aws_sqs_queue.digitised_notifications_staging_new.arn,
+#     ]
+
+#     condition {
+#       test     = "ArnEquals"
+#       variable = "aws:SourceArn"
+
+
+#       values = [
+#         data.aws_sns_topic.digitised_bag_notifications_staging.arn
+#       ]
+#     }
+#   }
+# }
