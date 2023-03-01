@@ -83,8 +83,21 @@ resource "aws_iam_role_policy" "workflowprocessor_publish_invalidate_iiif_topic"
   policy = data.aws_iam_policy_document.iiif_stage_new_invalidate_cache_publish.json
 }
 
-resource "aws_iam_role_policy" "workflowprocessor_read_born_digital_notifications_staging_queue" {
-  name   = "workflowprocessor-read-born-digital-notifications-staging-queue"
-  role   = module.workflow_processor.task_role_name
-  policy = data.aws_iam_policy_document.born_digital_notifications_staging_read_from_queue.json
+# We don't want to use this queue
+# resource "aws_iam_role_policy" "workflowprocessor_read_born_digital_notifications_staging_queue" {
+#   name   = "workflowprocessor-read-born-digital-notifications-staging-queue"
+#   role   = module.workflow_processor.task_role_name
+#   policy = data.aws_iam_policy_document.born_digital_notifications_staging_read_from_queue.json
+# }
+
+resource "aws_iam_role_policy" "workflowprocessor_read_from_born_digital_notifications_staging_new_queue" {
+  name   = "workflowprocessor-read-from-born-digital-notifications-staging-new-queue"
+  role   = module.tf_task_name.role_name
+  policy = data.aws_iam_policy_document.born_digital_notifications_staging_new_read_from_queue.json
+}
+
+resource "aws_iam_role_policy" "workflowprocessor_read_from_digitised_notifications_staging_new_queue" {
+  name   = "workflowprocessor-read-from-digitised-notifications-staging-new-queue"
+  role   = module.tf_task_name.role_name
+  policy = data.aws_iam_policy_document.digitised_notifications_staging_new_read_from_queue.json
 }

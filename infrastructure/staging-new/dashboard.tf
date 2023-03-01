@@ -47,7 +47,6 @@ module "dashboard" {
 
   env_vars = {
     "ASPNETCORE_ENVIRONMENT"                    = "Staging-New"
-    # "Storage__WorkflowMessageTopic"           = data.aws_sns_topic.born_digital_bag_notifications_staging.arn
     "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_stage_new_invalidate_cache.arn
   }
 }
@@ -90,14 +89,20 @@ resource "aws_iam_role_policy" "dashboard_read_anno_bucket" {
   policy = data.aws_iam_policy_document.annotations_read.json
 }
 
-resource "aws_iam_role_policy" "dashboard_publish_born_digital_bag_notifications_staging" {
-  name   = "dashboard-stage-new-publish-born-digital-bag-notifications-staging-iiif-sns-topic"
-  role   = module.dashboard.task_role_name
-  policy = data.aws_iam_policy_document.born_digital_bag_notifications_staging_publish.json
-}
-
 resource "aws_iam_role_policy" "dashboard_publish_invalidate_iiif_topic" {
   name   = "dashboard-stage-new-publish-invalidate-iiif-sns-topic"
   role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.iiif_stage_new_invalidate_cache_publish.json
+}
+
+resource "aws_iam_role_policy" "dashboard_write_to_born_digital_notifications_staging_new_queue" {
+  name   = "dashboard-write-to-born-digital-notifications-staging-new-queue"
+  role   = module.tf_task_name.role_name
+  policy = data.aws_iam_policy_document.born_digital_notifications_staging_new_write_to_queue.json
+}
+
+resource "aws_iam_role_policy" "dashboard_write_to_digitised_notifications_staging_new_queue" {
+  name   = "dashboard-write-to-digitised-notifications-staging-new-queue"
+  role   = module.tf_task_name.role_name
+  policy = data.aws_iam_policy_document.digitised_notifications_staging_new_write_to_queue.json
 }
