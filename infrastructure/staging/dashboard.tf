@@ -46,8 +46,10 @@ module "dashboard" {
   }
 
   env_vars = {
-    "ASPNETCORE_ENVIRONMENT"        = "Staging"
-    "Storage__WorkflowMessageTopic" = data.aws_sns_topic.born_digital_bag_notifications_staging.arn
+    "ASPNETCORE_ENVIRONMENT"                    = "Staging"
+    "Storage__WorkflowMessageTopic"             = data.aws_sns_topic.born_digital_bag_notifications_staging.arn
+    "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_stage_invalidate_cache.arn
+    "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_invalidate_cache.arn
   }
 }
 
@@ -93,6 +95,18 @@ resource "aws_iam_role_policy" "dashboard_publish_born_digital_bag_notifications
   name   = "dashboard-stage-publish-born-digital-bag-notifications-staging-iiif-sns-topic"
   role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.born_digital_bag_notifications_staging_publish.json
+}
+
+resource "aws_iam_role_policy" "dashboard_publish_invalidate_iiif_topic_staging" {
+  name   = "dashboard-stage-publish-invalidate-iiif-sns-topic"
+  role   = module.dashboard.task_role_name
+  policy = data.aws_iam_policy_document.iiif_stage_invalidate_cache_publish.json
+}
+
+resource "aws_iam_role_policy" "dashboard_publish_invalidate_api_topic_staging" {
+  name   = "dashboard-stage-publish-invalidate-api-sns-topic"
+  role   = module.dashboard.task_role_name
+  policy = data.aws_iam_policy_document.api_stage_invalidate_cache_publish.json
 }
 
 # dashboard, staging hosted pointing at Prod storage
@@ -143,8 +157,10 @@ module "dashboard_stageprod" {
   }
 
   env_vars = {
-    "ASPNETCORE_ENVIRONMENT"        = "Staging-Prod"
-    "Storage__WorkflowMessageTopic" = data.aws_sns_topic.born_digital_bag_notifications_prod.arn
+    "ASPNETCORE_ENVIRONMENT"                    = "Staging-Prod"
+    "Storage__WorkflowMessageTopic"             = data.aws_sns_topic.born_digital_bag_notifications_prod.arn
+    "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_test_invalidate_cache.arn
+    "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_invalidate_cache.arn
   }
 }
 
@@ -190,4 +206,16 @@ resource "aws_iam_role_policy" "dashboardstgprd_publish_born_digital_bag_notific
   name   = "dashboard-stageprd-publish-born-digital-bag-notifications-prod-iiif-sns-topic"
   role   = module.dashboard_stageprod.task_role_name
   policy = data.aws_iam_policy_document.born_digital_bag_notifications_prod_publish.json
+}
+
+resource "aws_iam_role_policy" "dashboardstgprd_publish_invalidate_iiif_topic" {
+  name   = "dashboard-stageprd-publish-invalidate-iiif-sns-topic"
+  role   = module.dashboard_stageprod.task_role_name
+  policy = data.aws_iam_policy_document.iiif_test_invalidate_cache_publish.json
+}
+
+resource "aws_iam_role_policy" "dashboardstgprd_publish_invalidate_api_topic" {
+  name   = "dashboard-stageprd-publish-invalidate-api-sns-topic"
+  role   = module.dashboard_stageprod.task_role_name
+  policy = data.aws_iam_policy_document.api_stage_invalidate_cache_publish.json
 }
