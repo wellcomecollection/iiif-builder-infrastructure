@@ -34,7 +34,7 @@ data "aws_iam_policy_document" "born_digital_notifications_staging_new_read_from
     ]
 
     resources = [
-      data.aws_sqs_queue.born_digital_notifications_staging_new.arn
+      aws_sqs_queue.born_digital_notifications_staging_new.arn
     ]
   }
 }
@@ -70,7 +70,7 @@ data "aws_iam_policy_document" "digitised_notifications_staging_new_read_from_qu
     ]
 
     resources = [
-      data.aws_sqs_queue.digitised_notifications_staging_new.arn
+      aws_sqs_queue.digitised_notifications_staging_new.arn
     ]
   }
 }
@@ -92,7 +92,7 @@ data "aws_iam_policy_document" "digitised_notifications_staging_new_write_to_que
 
 # Now subscribe our queues to the PLATFORM topics
 resource "aws_sns_topic_subscription" "born_digital_notifications_staging_new_subscribes_topic" {
-  topic_arn = aws_sns_topic.born_digital_bag_notifications_staging.arn
+  topic_arn = data.aws_sns_topic.born_digital_bag_notifications_staging.arn
   protocol  = "sqs"
   endpoint  = aws_sqs_queue.born_digital_notifications_staging_new.arn
 }

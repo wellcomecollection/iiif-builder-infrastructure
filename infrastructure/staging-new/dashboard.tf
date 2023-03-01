@@ -97,12 +97,12 @@ resource "aws_iam_role_policy" "dashboard_publish_invalidate_iiif_topic" {
 
 resource "aws_iam_role_policy" "dashboard_write_to_born_digital_notifications_staging_new_queue" {
   name   = "dashboard-write-to-born-digital-notifications-staging-new-queue"
-  role   = module.tf_task_name.role_name
+  role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.born_digital_notifications_staging_new_write_to_queue.json
 }
 
 resource "aws_iam_role_policy" "dashboard_write_to_digitised_notifications_staging_new_queue" {
   name   = "dashboard-write-to-digitised-notifications-staging-new-queue"
-  role   = module.tf_task_name.role_name
+  role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.digitised_notifications_staging_new_write_to_queue.json
 }
