@@ -47,7 +47,6 @@ module "dashboard" {
 
   env_vars = {
     "ASPNETCORE_ENVIRONMENT"                    = "Staging"
-    "Storage__WorkflowMessageTopic"             = data.aws_sns_topic.born_digital_bag_notifications_staging.arn
     "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_stage_invalidate_cache.arn
     "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_invalidate_cache.arn
   }
@@ -91,12 +90,6 @@ resource "aws_iam_role_policy" "dashboard_read_anno_bucket" {
   policy = data.aws_iam_policy_document.annotations_read.json
 }
 
-resource "aws_iam_role_policy" "dashboard_publish_born_digital_bag_notifications_staging" {
-  name   = "dashboard-stage-publish-born-digital-bag-notifications-staging-iiif-sns-topic"
-  role   = module.dashboard.task_role_name
-  policy = data.aws_iam_policy_document.born_digital_bag_notifications_staging_publish.json
-}
-
 resource "aws_iam_role_policy" "dashboard_publish_invalidate_iiif_topic_staging" {
   name   = "dashboard-stage-publish-invalidate-iiif-sns-topic"
   role   = module.dashboard.task_role_name
@@ -107,6 +100,18 @@ resource "aws_iam_role_policy" "dashboard_publish_invalidate_api_topic_staging" 
   name   = "dashboard-stage-publish-invalidate-api-sns-topic"
   role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.api_stage_invalidate_cache_publish.json
+}
+
+resource "aws_iam_role_policy" "dashboard_write_to_born_digital_notifications_staging_queue" {
+  name   = "dashboard-write-to-born-digital-notifications-staging-queue"
+  role   = module.dashboard.task_role_name
+  policy = data.aws_iam_policy_document.born_digital_notifications_staging_write_to_queue.json
+}
+
+resource "aws_iam_role_policy" "dashboard_write_to_digitised_notifications_staging_queue" {
+  name   = "dashboard-write-to-digitised-notifications-staging-queue"
+  role   = module.dashboard.task_role_name
+  policy = data.aws_iam_policy_document.digitised_notifications_staging_write_to_queue.json
 }
 
 # dashboard, staging hosted pointing at Prod storage
@@ -158,7 +163,6 @@ module "dashboard_stageprod" {
 
   env_vars = {
     "ASPNETCORE_ENVIRONMENT"                    = "Staging-Prod"
-    "Storage__WorkflowMessageTopic"             = data.aws_sns_topic.born_digital_bag_notifications_prod.arn
     "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_test_invalidate_cache.arn
     "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_invalidate_cache.arn
   }
@@ -202,12 +206,6 @@ resource "aws_iam_role_policy" "dashboardstgprd_read_anno_bucket" {
   policy = data.aws_iam_policy_document.annotations_read.json
 }
 
-resource "aws_iam_role_policy" "dashboardstgprd_publish_born_digital_bag_notifications_prod" {
-  name   = "dashboard-stageprd-publish-born-digital-bag-notifications-prod-iiif-sns-topic"
-  role   = module.dashboard_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.born_digital_bag_notifications_prod_publish.json
-}
-
 resource "aws_iam_role_policy" "dashboardstgprd_publish_invalidate_iiif_topic" {
   name   = "dashboard-stageprd-publish-invalidate-iiif-sns-topic"
   role   = module.dashboard_stageprod.task_role_name
@@ -218,4 +216,16 @@ resource "aws_iam_role_policy" "dashboardstgprd_publish_invalidate_api_topic" {
   name   = "dashboard-stageprd-publish-invalidate-api-sns-topic"
   role   = module.dashboard_stageprod.task_role_name
   policy = data.aws_iam_policy_document.api_stage_invalidate_cache_publish.json
+}
+
+resource "aws_iam_role_policy" "dashboard_write_to_born_digital_notifications_staging_prod_queue" {
+  name   = "dashboard-write-to-born-digital-notifications-staging-prod-queue"
+  role   = module.dashboard.task_role_name
+  policy = data.aws_iam_policy_document.born_digital_notifications_staging_prod_write_to_queue.json
+}
+
+resource "aws_iam_role_policy" "dashboard_write_to_digitised_notifications_staging_prod_queue" {
+  name   = "dashboard-write-to-digitised-notifications-staging-prod-queue"
+  role   = module.dashboard.task_role_name
+  policy = data.aws_iam_policy_document.digitised_notifications_staging_prod_write_to_queue.json
 }

@@ -24,3 +24,17 @@ data "aws_iam_policy_document" "invalidate_cache_publish" {
     ]
   }
 }
+
+
+data "aws_sns_topic" "born_digital_bag_notifications" {
+  provider = aws.storage
+
+  name = "born-digital-bag-notifications-prod"
+}
+
+# Will be for Goobi topic
+# data "aws_sns_topic" "digitised_bag_notifications" {
+#   provider = aws.storage
+
+#   name = "digitised-bag-notifications-prod"
+# }
