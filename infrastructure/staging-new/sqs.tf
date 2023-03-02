@@ -1,24 +1,3 @@
-
-# we don't want to use this queue for staging-new - in fact we don't want to use this queue anywhere, we want to create our own queue and subscribe to it.
-
-# data "aws_sqs_queue" "born_digital_notifications_staging_queue" {
-#   name = "born-digital-notifications-staging"
-# }
-
-# data "aws_iam_policy_document" "born_digital_notifications_staging_read_from_queue" {
-#   statement {
-#     actions = [
-#       "sqs:DeleteMessage",
-#       "sqs:ReceiveMessage",
-#       "sqs:GetQueueUrl",
-#     ]
-
-#     resources = [
-#       data.aws_sqs_queue.born_digital_notifications_staging_queue.arn
-#     ]
-#   }
-# }
-
 resource "aws_sqs_queue" "born_digital_notifications_staging_new" {
   name = "born-digital-notifications-staging-new"
   message_retention_seconds  = 7200

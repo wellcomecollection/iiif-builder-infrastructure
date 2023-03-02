@@ -197,12 +197,12 @@ resource "aws_sns_topic_subscription" "born_digital_notifications_staging_subscr
 
 # And allow the platform topics to write to them:
 
-resource "aws_sqs_queue_policy" "platform_born_digital_bag_notifications_write_to_queue" {
+resource "aws_sqs_queue_policy" "platform_born_digital_bag_notifications_write_to_staging_queue" {
   queue_url = aws_sqs_queue.born_digital_notifications_staging.id
-  policy    = data.aws_iam_policy_document.platform_born_digital_bag_notifications_write_to_queue.json
+  policy    = data.aws_iam_policy_document.platform_born_digital_bag_notifications_write_to_staging_queue.json
 }
 
-data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to_queue" {
+data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to_staging_queue" {
   statement {
     effect = "Allow"
 
@@ -241,12 +241,12 @@ data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to
 #   endpoint  = aws_sqs_queue.digitised_notifications_staging.arn
 # }
 
-# resource "aws_sqs_queue_policy" "platform_digitised_bag_notifications_write_to_queue" {
+# resource "aws_sqs_queue_policy" "platform_digitised_bag_notifications_write_to_staging_queue" {
 #   queue_url = aws_sqs_queue.digitised_notifications_staging.id
-#   policy    = data.aws_iam_policy_document.platform_digitised_bag_notifications_write_to_queue.json
+#   policy    = data.aws_iam_policy_document.platform_digitised_bag_notifications_write_to_staging_queue.json
 # }
 
-# data "aws_iam_policy_document" "platform_digitised_bag_notifications_write_to_queue" {
+# data "aws_iam_policy_document" "platform_digitised_bag_notifications_write_to_staging_queue" {
 #   statement {
 #     effect = "Allow"
 
@@ -279,19 +279,19 @@ data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to
 # born digital, staging-prod
 
 resource "aws_sns_topic_subscription" "born_digital_notifications_staging_prod_subscribes_topic" {
-  topic_arn = data.aws_sns_topic.born_digital_bag_notifications_staging_prod.arn
+  topic_arn = data.aws_sns_topic.born_digital_bag_notifications_prod.arn
   protocol  = "sqs"
   endpoint  = aws_sqs_queue.born_digital_notifications_staging_prod.arn
 }
 
 # And allow the platform topics to write to them:
 
-resource "aws_sqs_queue_policy" "platform_born_digital_bag_notifications_write_to_queue" {
+resource "aws_sqs_queue_policy" "platform_born_digital_bag_notifications_write_to_test_queue" {
   queue_url = aws_sqs_queue.born_digital_notifications_staging_prod.id
-  policy    = data.aws_iam_policy_document.platform_born_digital_bag_notifications_write_to_queue.json
+  policy    = data.aws_iam_policy_document.platform_born_digital_bag_notifications_write_to_test_queue.json
 }
 
-data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to_queue" {
+data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to_test_queue" {
   statement {
     effect = "Allow"
 
@@ -314,7 +314,7 @@ data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to
 
 
       values = [
-        data.aws_sns_topic.born_digital_bag_notifications_staging_prod.arn
+        data.aws_sns_topic.born_digital_bag_notifications_staging.arn
       ]
     }
   }
@@ -325,17 +325,17 @@ data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to
 
 # This will be the Goobi topic, when the topic becomes available:
 # resource "aws_sns_topic_subscription" "digitised_notifications_staging_prod_subscribes_topic" {
-#   topic_arn = aws_sns_topic.digitised_bag_notifications_staging_prod.arn
+#   topic_arn = aws_sns_topic.digitised_bag_notifications_staging.arn
 #   protocol  = "sqs"
 #   endpoint  = aws_sqs_queue.digitised_notifications_staging_prod.arn
 # }
 
-# resource "aws_sqs_queue_policy" "platform_digitised_bag_notifications_write_to_queue" {
+# resource "aws_sqs_queue_policy" "platform_digitised_bag_notifications_write_to_test_queue" {
 #   queue_url = aws_sqs_queue.digitised_notifications_staging_prod.id
-#   policy    = data.aws_iam_policy_document.platform_digitised_bag_notifications_write_to_queue.json
+#   policy    = data.aws_iam_policy_document.platform_digitised_bag_notifications_write_to_test_queue.json
 # }
 
-# data "aws_iam_policy_document" "platform_digitised_bag_notifications_write_to_queue" {
+# data "aws_iam_policy_document" "platform_digitised_bag_notifications_write_to_test_queue" {
 #   statement {
 #     effect = "Allow"
 
