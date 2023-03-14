@@ -219,15 +219,3 @@ resource "aws_iam_role_policy" "dashboardstgprd_publish_invalidate_api_topic" {
   role   = module.dashboard_stageprod.task_role_name
   policy = data.aws_iam_policy_document.api_stage_invalidate_cache_publish.json
 }
-
-resource "aws_iam_role_policy" "dashboard_write_to_born_digital_notifications_staging_prod_queue" {
-  name   = "dashboard-write-to-born-digital-notifications-staging-prod-queue"
-  role   = module.dashboard.task_role_name
-  policy = data.aws_iam_policy_document.born_digital_notifications_staging_prod_write_to_queue.json
-}
-
-resource "aws_iam_role_policy" "dashboard_write_to_digitised_notifications_staging_prod_queue" {
-  name   = "dashboard-write-to-digitised-notifications-staging-prod-queue"
-  role   = module.dashboard.task_role_name
-  policy = data.aws_iam_policy_document.digitised_notifications_staging_prod_write_to_queue.json
-}
