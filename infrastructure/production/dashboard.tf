@@ -88,15 +88,3 @@ resource "aws_iam_role_policy" "dashboard_publish_invalidate_topic" {
   role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.invalidate_cache_publish.json
 }
-
-resource "aws_iam_role_policy" "dashboard_write_to_born_digital_notifications_queue" {
-  name   = "dashboard-write-to-born-digital-notifications-queue"
-  role   = module.dashboard.task_role_name
-  policy = data.aws_iam_policy_document.born_digital_notifications_write_to_queue.json
-}
-
-resource "aws_iam_role_policy" "dashboard_write_to_digitised_notifications_queue" {
-  name   = "dashboard-write-to-digitised-notifications-queue"
-  role   = module.dashboard.task_role_name
-  policy = data.aws_iam_policy_document.digitised_notifications_write_to_queue.json
-}
