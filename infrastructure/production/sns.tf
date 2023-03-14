@@ -1,11 +1,11 @@
 data "aws_sns_topic" "iiif_invalidate_cache" {
-  provider = aws.platform
+  provider = aws.storage
 
   name = "iiif-prod-cloudfront-invalidate"
 }
 
 data "aws_sns_topic" "api_invalidate_cache" {
-  provider = aws.platform
+  provider = aws.storage
 
   name = "api-prod-cloudfront-invalidate"
 }
