@@ -47,8 +47,6 @@ module "dashboard" {
 
   env_vars = {
     "ASPNETCORE_ENVIRONMENT"                    = "Production"
-    "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_invalidate_cache.arn
-    "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_invalidate_cache.arn
   }
 }
 
@@ -81,10 +79,4 @@ resource "aws_iam_role_policy" "dashboard_read_anno_bucket" {
   name   = "dashboard-read-anno-bucket"
   role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.annotations_read.json
-}
-
-resource "aws_iam_role_policy" "dashboard_publish_invalidate_topic" {
-  name   = "dashboard-publish-invalidate-sns-topic"
-  role   = module.dashboard.task_role_name
-  policy = data.aws_iam_policy_document.invalidate_cache_publish.json
 }
