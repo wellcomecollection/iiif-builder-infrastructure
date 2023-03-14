@@ -33,8 +33,8 @@ data "aws_sns_topic" "born_digital_bag_notifications" {
 }
 
 # Will be for Goobi topic
-# data "aws_sns_topic" "digitised_bag_notifications" {
-#   provider = aws.storage
+# data "aws_sns_topic" "digitised_bag_notifications_workflow" {
+#   provider = aws.workflow
 
-#   name = "digitised-bag-notifications-prod"
+#   name = "digitised-bag-notifications-workflow-prod"
 # }

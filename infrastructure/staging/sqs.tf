@@ -185,7 +185,7 @@ data "aws_iam_policy_document" "digitised_notifications_staging_prod_write_to_qu
 
 
 
-# Now subscribe our queues to the PLATFORM topics
+# Now subscribe our queues to the PLATFORM and WORKFLOW topics
 
 # born digital, staging
 
@@ -234,46 +234,45 @@ data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to
 
 # digitised, staging
 
-# This will be the Goobi topic, when the topic becomes available:
-# resource "aws_sns_topic_subscription" "digitised_notifications_staging_subscribes_topic" {
-#   topic_arn = aws_sns_topic.digitised_bag_notifications_staging.arn
-#   protocol  = "sqs"
-#   endpoint  = aws_sqs_queue.digitised_notifications_staging.arn
-# }
+resource "aws_sns_topic_subscription" "digitised_notifications_staging_subscribes_topic" {
+  topic_arn = aws_sns_topic.digitised_bag_notifications_workflow_staging.arn
+  protocol  = "sqs"
+  endpoint  = aws_sqs_queue.digitised_notifications_staging.arn
+}
 
-# resource "aws_sqs_queue_policy" "platform_digitised_bag_notifications_write_to_staging_queue" {
-#   queue_url = aws_sqs_queue.digitised_notifications_staging.id
-#   policy    = data.aws_iam_policy_document.platform_digitised_bag_notifications_write_to_staging_queue.json
-# }
+resource "aws_sqs_queue_policy" "workflow_digitised_bag_notifications_write_to_staging_queue" {
+  queue_url = aws_sqs_queue.digitised_notifications_staging.id
+  policy    = data.aws_iam_policy_document.workflow_digitised_bag_notifications_write_to_staging_queue.json
+}
 
-# data "aws_iam_policy_document" "platform_digitised_bag_notifications_write_to_staging_queue" {
-#   statement {
-#     effect = "Allow"
+data "aws_iam_policy_document" "workflow_digitised_bag_notifications_write_to_staging_queue" {
+  statement {
+    effect = "Allow"
 
-#     principals {
-#       type        = "AWS"
-#       identifiers = ["*"]
-#     }
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
 
-#     actions = [
-#       "sqs:SendMessage",
-#     ]
+    actions = [
+      "sqs:SendMessage",
+    ]
 
-#     resources = [
-#       aws_sqs_queue.digitised_notifications_staging.arn,
-#     ]
+    resources = [
+      aws_sqs_queue.digitised_notifications_staging.arn,
+    ]
 
-#     condition {
-#       test     = "ArnEquals"
-#       variable = "aws:SourceArn"
+    condition {
+      test     = "ArnEquals"
+      variable = "aws:SourceArn"
 
 
-#       values = [
-#         data.aws_sns_topic.digitised_bag_notifications_staging.arn
-#       ]
-#     }
-#   }
-# }
+      values = [
+        data.aws_sns_topic.digitised_bag_notifications_workflow_staging.arn
+      ]
+    }
+  }
+}
 
 
 # born digital, staging-prod
@@ -314,7 +313,7 @@ data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to
 
 
       values = [
-        data.aws_sns_topic.born_digital_bag_notifications_staging.arn
+        data.aws_sns_topic.born_digital_bag_notifications_prod.arn
       ]
     }
   }
@@ -325,17 +324,17 @@ data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to
 
 # This will be the Goobi topic, when the topic becomes available:
 # resource "aws_sns_topic_subscription" "digitised_notifications_staging_prod_subscribes_topic" {
-#   topic_arn = aws_sns_topic.digitised_bag_notifications_staging.arn
+#   topic_arn = aws_sns_topic.digitised_bag_notifications_workflow_staging.arn
 #   protocol  = "sqs"
 #   endpoint  = aws_sqs_queue.digitised_notifications_staging_prod.arn
 # }
 
-# resource "aws_sqs_queue_policy" "platform_digitised_bag_notifications_write_to_test_queue" {
+# resource "aws_sqs_queue_policy" "workflow_digitised_bag_notifications_write_to_test_queue" {
 #   queue_url = aws_sqs_queue.digitised_notifications_staging_prod.id
-#   policy    = data.aws_iam_policy_document.platform_digitised_bag_notifications_write_to_test_queue.json
+#   policy    = data.aws_iam_policy_document.workflow_digitised_bag_notifications_write_to_test_queue.json
 # }
 
-# data "aws_iam_policy_document" "platform_digitised_bag_notifications_write_to_test_queue" {
+# data "aws_iam_policy_document" "workflow_digitised_bag_notifications_write_to_test_queue" {
 #   statement {
 #     effect = "Allow"
 
@@ -358,7 +357,7 @@ data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to
 
 
 #       values = [
-#         data.aws_sns_topic.digitised_bag_notifications_staging_prod.arn
+#         data.aws_sns_topic.digitised_bag_notifications_workflow_prod.arn
 #       ]
 #     }
 #   }

@@ -10,12 +10,11 @@ data "aws_sns_topic" "born_digital_bag_notifications_staging" {
   name = "born-digital-bag-notifications-staging"
 }
 
-# This doesn't exist yet but is the presumed name for the Goobi staging topic
-# data "aws_sns_topic" "digitised_bag_notifications_staging" {
-#   provider = aws.platform  # may be different - intranda?
+data "aws_sns_topic" "digitised_bag_notifications_workflow_staging" {
+  provider = aws.workflow
 
-#   name = "digitised-bag-notifications-staging"
-# }
+  name = "digitised-bag-notifications-workflow-staging"
+}
 
 # access to SNS topic for iiif-stage-new.wc.org cache-invalidation
 data "aws_iam_policy_document" "iiif_stage_new_invalidate_cache_publish" {

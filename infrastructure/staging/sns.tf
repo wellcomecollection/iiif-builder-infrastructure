@@ -28,17 +28,16 @@ data "aws_sns_topic" "born_digital_bag_notifications_prod" {
   name = "born-digital-bag-notifications-prod"
 }
 
-# Will be for Goobi topic
-# data "aws_sns_topic" "digitised_bag_notifications_staging" {
-#   provider = aws.storage
+data "aws_sns_topic" "digitised_bag_notifications_workflow_staging" {
+  provider = aws.workflow
 
-#   name = "digitised-bag-notifications-staging"
-# }
+  name = "digitised-bag-notifications-workflow-staging"
+}
 
-# data "aws_sns_topic" "digitised_bag_notifications_prod" {
-#   provider = aws.storage
+# data "aws_sns_topic" "digitised_bag_notifications_workflow_prod" {
+#   provider = aws.platform
 
-#   name = "digitised-bag-notifications-prod"
+#   name = "digitised-bag-notifications-workflow-prod"
 # }
 
 # access to SNS topic for iiif-test.wc.org cache-invalidation

@@ -101,7 +101,7 @@ resource "aws_sns_topic_subscription" "born_digital_notifications_subscribes_top
 
 # This will be the Goobi version, when the topic becomes available:
 # resource "aws_sns_topic_subscription" "digitised_notifications_subscribes_topic" {
-#   topic_arn = aws_sns_topic.digitised_bag_notifications.arn
+#   topic_arn = aws_sns_topic.digitised_bag_notifications_workflow.arn
 #   protocol  = "sqs"
 #   endpoint  = aws_sqs_queue.digitised_notifications.arn
 # }
@@ -172,7 +172,7 @@ data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to
 
 
 #       values = [
-#         data.aws_sns_topic.digitised_bag_notifications_prod.arn
+#         data.aws_sns_topic.digitised_bag_notifications_workflow_prod.arn
 #       ]
 #     }
 #   }

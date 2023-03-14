@@ -30,6 +30,19 @@ provider "aws" {
   profile = "wellcome-az"
 }
 
+
+provider "aws" {
+  assume_role {
+    role_arn = "arn:aws:iam::299497370133:role/workflow-read_only"
+  }
+
+  alias  = "workflow"
+  region = var.region
+
+  profile = "wellcome-az"
+}
+
+
 terraform {
   required_version = ">= 1.0"
 
