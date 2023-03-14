@@ -235,7 +235,7 @@ data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to
 # digitised, staging
 
 resource "aws_sns_topic_subscription" "digitised_notifications_staging_subscribes_topic" {
-  topic_arn = aws_sns_topic.digitised_bag_notifications_workflow_staging.arn
+  topic_arn = data.aws_sns_topic.digitised_bag_notifications_workflow_staging.arn
   protocol  = "sqs"
   endpoint  = aws_sqs_queue.digitised_notifications_staging.arn
 }
@@ -318,47 +318,3 @@ data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to
     }
   }
 }
-
-
-# digitised, staging_prod
-
-# This will be the Goobi topic, when the topic becomes available:
-# resource "aws_sns_topic_subscription" "digitised_notifications_staging_prod_subscribes_topic" {
-#   topic_arn = aws_sns_topic.digitised_bag_notifications_workflow_staging.arn
-#   protocol  = "sqs"
-#   endpoint  = aws_sqs_queue.digitised_notifications_staging_prod.arn
-# }
-
-# resource "aws_sqs_queue_policy" "workflow_digitised_bag_notifications_write_to_test_queue" {
-#   queue_url = aws_sqs_queue.digitised_notifications_staging_prod.id
-#   policy    = data.aws_iam_policy_document.workflow_digitised_bag_notifications_write_to_test_queue.json
-# }
-
-# data "aws_iam_policy_document" "workflow_digitised_bag_notifications_write_to_test_queue" {
-#   statement {
-#     effect = "Allow"
-
-#     principals {
-#       type        = "AWS"
-#       identifiers = ["*"]
-#     }
-
-#     actions = [
-#       "sqs:SendMessage",
-#     ]
-
-#     resources = [
-#       aws_sqs_queue.digitised_notifications_staging_prod.arn,
-#     ]
-
-#     condition {
-#       test     = "ArnEquals"
-#       variable = "aws:SourceArn"
-
-
-#       values = [
-#         data.aws_sns_topic.digitised_bag_notifications_workflow_prod.arn
-#       ]
-#     }
-#   }
-# }
