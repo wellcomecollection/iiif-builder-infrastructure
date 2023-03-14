@@ -5,7 +5,7 @@ data "aws_sns_topic" "iiif_stage_new_invalidate_cache" {
 }
 
 data "aws_sns_topic" "born_digital_bag_notifications_staging" {
-  provider = aws.platform
+  provider = aws.storage
 
   name = "born-digital-bag-notifications-staging"
 }
