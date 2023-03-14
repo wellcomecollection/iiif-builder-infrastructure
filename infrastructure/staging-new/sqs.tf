@@ -77,7 +77,7 @@ resource "aws_sns_topic_subscription" "born_digital_notifications_staging_new_su
 }
 
 resource "aws_sns_topic_subscription" "digitised_notifications_staging_new_subscribes_topic" {
-  topic_arn = aws_sns_topic.digitised_bag_notifications_workflow_staging.arn
+  topic_arn = data.aws_sns_topic.digitised_bag_notifications_workflow_staging.arn
   protocol  = "sqs"
   endpoint  = aws_sqs_queue.digitised_notifications_staging_new.arn
 }
