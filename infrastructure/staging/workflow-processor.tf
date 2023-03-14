@@ -91,13 +91,13 @@ resource "aws_iam_role_policy" "workflowprocessor_publish_invalidate_api_topic" 
 }
 
 resource "aws_iam_role_policy" "workflowprocessor_read_from_born_digital_notifications_staging_queue" {
-  name   = "workflowprocessor-read-from-born-digital-notifications-staging-new-queue"
+  name   = "workflowprocessor-read-from-born-digital-notifications-staging-queue"
   role   = module.workflow_processor.task_role_name
   policy = data.aws_iam_policy_document.born_digital_notifications_staging_read_from_queue.json
 }
 
 resource "aws_iam_role_policy" "workflowprocessor_read_from_digitised_notifications_staging_queue" {
-  name   = "workflowprocessor-read-from-digitised-notifications-staging-new-queue"
+  name   = "workflowprocessor-read-from-digitised-notifications-staging-queue"
   role   = module.workflow_processor.task_role_name
   policy = data.aws_iam_policy_document.digitised_notifications_staging_read_from_queue.json
 }
@@ -196,13 +196,13 @@ resource "aws_iam_role_policy" "workflowprocessorstgprd_publish_invalidate_api_t
 }
 
 resource "aws_iam_role_policy" "workflowprocessor_read_from_born_digital_notifications_staging_prod_queue" {
-  name   = "workflowprocessor-read-from-born-digital-notifications-staging-new-queue"
+  name   = "workflowprocessor-read-from-born-digital-notifications-staging-queue"
   role   = module.workflow_processor.task_role_name
   policy = data.aws_iam_policy_document.born_digital_notifications_staging_prod_read_from_queue.json
 }
 
 resource "aws_iam_role_policy" "workflowprocessor_read_from_digitised_notifications_staging_prod_queue" {
-  name   = "workflowprocessor-read-from-digitised-notifications-staging-new-queue"
+  name   = "workflowprocessor-read-from-digitised-notifications-staging-queue"
   role   = module.workflow_processor.task_role_name
   policy = data.aws_iam_policy_document.digitised_notifications_staging_prod_read_from_queue.json
 }
