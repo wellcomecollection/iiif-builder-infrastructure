@@ -1,3 +1,4 @@
+
 # born-digital, staging
 
 resource "aws_sqs_queue" "born_digital_notifications_staging" {
@@ -89,6 +90,81 @@ data "aws_iam_policy_document" "born_digital_notifications_staging_prod_read_fro
 
     resources = [
       aws_sqs_queue.born_digital_notifications_staging_prod.arn
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "born_digital_notifications_staging_prod_write_to_queue" {
+  statement {
+    actions = [
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl",
+      "sqs:ListQueues",
+      "sqs:SendMessage",
+    ]
+
+    resources = [
+      aws_sqs_queue.born_digital_notifications_staging_prod.arn
+    ]
+  }
+}
+
+
+# digitised, staging
+
+resource "aws_sqs_queue" "digitised_notifications_staging" {
+  name = "digitised-notifications-staging-dds"  # while the other one still exists
+  message_retention_seconds  = 7200
+}
+
+data "aws_iam_policy_document" "digitised_notifications_staging_read_from_queue" {
+  statement {
+    actions = [
+      "sqs:DeleteMessage",
+      "sqs:ReceiveMessage",
+      "sqs:GetQueueUrl",
+    ]
+
+    resources = [
+      aws_sqs_queue.digitised_notifications_staging.arn
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "digitised_notifications_staging_write_to_queue" {
+  statement {
+    actions = [
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl",
+      "sqs:ListQueues",
+      "sqs:SendMessage",
+    ]
+
+    resources = [
+      aws_sqs_queue.digitised_notifications_staging.arn
+    ]
+  }
+}
+
+
+# born-digital, staging-prod
+
+resource "aws_sqs_queue" "born_digital_notifications_staging_prod" {
+  name = "born-digital-notifications-staging-prod"
+  message_retention_seconds  = 7200
+}
+
+data "aws_iam_policy_document" "born_digital_notifications_staging_prod_read_from_queue" {
+  statement {
+    actions = [
+      "sqs:DeleteMessage",
+      "sqs:ReceiveMessage",
+      "sqs:GetQueueUrl",
+    ]
+
+    resources = [
+      aws_sqs_queue.born_digital_notifications_staging_prod.arn
+      aws_sqs_queue.digitised_notifications_staging_prod.arn
     ]
   }
 }
