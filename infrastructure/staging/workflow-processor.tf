@@ -90,11 +90,18 @@ resource "aws_iam_role_policy" "workflowprocessor_publish_invalidate_api_topic" 
   policy = data.aws_iam_policy_document.api_stage_invalidate_cache_publish.json
 }
 
-resource "aws_iam_role_policy" "workflowprocessor_read_born_digital_notifications_staging_queue" {
-  name   = "workflowprocessor-read-born-digital-notifications-staging-queue"
+resource "aws_iam_role_policy" "workflowprocessor_read_from_born_digital_notifications_staging_queue" {
+  name   = "workflowprocessor-read-from-born-digital-notifications-staging-queue"
   role   = module.workflow_processor.task_role_name
   policy = data.aws_iam_policy_document.born_digital_notifications_staging_read_from_queue.json
 }
+
+resource "aws_iam_role_policy" "workflowprocessor_read_from_digitised_notifications_staging_queue" {
+  name   = "workflowprocessor-read-from-digitised-notifications-staging-queue"
+  role   = module.workflow_processor.task_role_name
+  policy = data.aws_iam_policy_document.digitised_notifications_staging_read_from_queue.json
+}
+
 
 # workflow processor, staging pointing at prod storage
 module "workflow_processor_stageprod" {
@@ -188,8 +195,14 @@ resource "aws_iam_role_policy" "workflowprocessorstgprd_publish_invalidate_api_t
   policy = data.aws_iam_policy_document.api_stage_invalidate_cache_publish.json
 }
 
-resource "aws_iam_role_policy" "workflowprocessorstgprd_read_born_digital_notifications_prod_queue" {
-  name   = "workflowprocessorstgprd-read-born-digital-notifications-prod-queue"
-  role   = module.workflow_processor_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.born_digital_notifications_prod_read_from_queue.json
+resource "aws_iam_role_policy" "workflowprocessor_read_from_born_digital_notifications_staging_prod_queue" {
+  name   = "workflowprocessor-read-from-born-digital-notifications-staging-queue"
+  role   = module.workflow_processor.task_role_name
+  policy = data.aws_iam_policy_document.born_digital_notifications_staging_prod_read_from_queue.json
+}
+
+resource "aws_iam_role_policy" "workflowprocessor_read_from_digitised_notifications_staging_prod_queue" {
+  name   = "workflowprocessor-read-from-digitised-notifications-staging-queue"
+  role   = module.workflow_processor.task_role_name
+  policy = data.aws_iam_policy_document.digitised_notifications_staging_prod_read_from_queue.json
 }
