@@ -2,35 +2,18 @@ resource "aws_route53_zone" "wellcomecollection_digirati_io" {
   name = local.domain
 }
 
-# SSL Cert + Validation
-resource "aws_acm_certificate" "cert" {
-  domain_name       = local.domain
-  validation_method = "DNS"
+module "cert" {
+  source = "github.com/wellcomecollection/terraform-aws-acm-certificate?ref=v1.0.0"
+
+  domain_name = local.domain
 
   subject_alternative_names = [
     "*.${local.domain}"
   ]
 
-  tags = local.common_tags
+  zone_id = aws_route53_zone.wellcomecollection_digirati_io.zone_id
 
-  lifecycle {
-    create_before_destroy = true
+  providers = {
+    aws.dns = aws
   }
-}
-
-resource "aws_route53_record" "cert_validation" {
-  for_each = {
-    for dvo in aws_acm_certificate.cert.domain_validation_options : dvo.domain_name => {
-      name   = dvo.resource_record_name
-      record = dvo.resource_record_value
-      type   = dvo.resource_record_type
-    }
-  }
-
-  allow_overwrite = true
-  name            = each.value.name
-  records         = [each.value.record]
-  ttl             = 300
-  type            = each.value.type
-  zone_id         = aws_route53_zone.wellcomecollection_digirati_io.zone_id
 }
