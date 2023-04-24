@@ -99,11 +99,11 @@ resource "aws_sns_topic_subscription" "born_digital_notifications_subscribes_top
   endpoint  = aws_sqs_queue.born_digital_notifications.arn
 }
 
-# resource "aws_sns_topic_subscription" "digitised_notifications_subscribes_topic" {
-#   topic_arn = aws_sns_topic.digitised_bag_notifications.arn
-#   protocol  = "sqs"
-#   endpoint  = aws_sqs_queue.digitised_notifications.arn
-# }
+resource "aws_sns_topic_subscription" "digitised_notifications_subscribes_topic" {
+  topic_arn = data.aws_sns_topic.digitised_bag_notifications.arn
+  protocol  = "sqs"
+  endpoint  = aws_sqs_queue.digitised_notifications.arn
+}
 
 # And allow those topics to write to them:
 resource "aws_sqs_queue_policy" "platform_born_digital_bag_notifications_write_to_queue" {
@@ -140,36 +140,36 @@ data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to
   }
 }
 
-# resource "aws_sqs_queue_policy" "platform_digitised_bag_notifications_write_to_queue" {
-#   queue_url = aws_sqs_queue.digitised_notifications.id
-#   policy    = data.aws_iam_policy_document.platform_digitised_bag_notifications_write_to_queue.json
-# }
+resource "aws_sqs_queue_policy" "platform_digitised_bag_notifications_write_to_queue" {
+  queue_url = aws_sqs_queue.digitised_notifications.id
+  policy    = data.aws_iam_policy_document.platform_digitised_bag_notifications_write_to_queue.json
+}
 
-# data "aws_iam_policy_document" "platform_digitised_bag_notifications_write_to_queue" {
-#   statement {
-#     effect = "Allow"
+data "aws_iam_policy_document" "platform_digitised_bag_notifications_write_to_queue" {
+  statement {
+    effect = "Allow"
 
-#     principals {
-#       type        = "AWS"
-#       identifiers = ["*"]
-#     }
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
 
-#     actions = [
-#       "sqs:SendMessage",
-#     ]
+    actions = [
+      "sqs:SendMessage",
+    ]
 
-#     resources = [
-#       aws_sqs_queue.digitised_notifications.arn,
-#     ]
+    resources = [
+      aws_sqs_queue.digitised_notifications.arn,
+    ]
 
-#     condition {
-#       test     = "ArnEquals"
-#       variable = "aws:SourceArn"
+    condition {
+      test     = "ArnEquals"
+      variable = "aws:SourceArn"
 
 
-#       values = [
-#         data.aws_sns_topic.digitised_bag_notifications.arn
-#       ]
-#     }
-#   }
-# }
+      values = [
+        data.aws_sns_topic.digitised_bag_notifications.arn
+      ]
+    }
+  }
+}

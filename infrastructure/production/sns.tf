@@ -31,8 +31,8 @@ data "aws_sns_topic" "born_digital_bag_notifications" {
   name = "born-digital-bag-notifications-prod"
 }
 
-# data "aws_sns_topic" "digitised_bag_notifications" {
-#   provider = aws.workflow
+data "aws_sns_topic" "digitised_bag_notifications" {
+  provider = aws.workflow
 
-#   name = "digitised-bag-notifications-workflow-prod"
-# }
+  name = "digitised-bag-notifications-workflow-prod"
+}
