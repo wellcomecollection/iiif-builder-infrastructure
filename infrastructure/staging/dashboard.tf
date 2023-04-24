@@ -157,14 +157,21 @@ module "dashboard_stageprod" {
     AzureAd__ClientId                     = "iiif-builder/common/azuread-clientid"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
-    Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
-    Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
+    # the /staging-new/ api key is for Protagonist 
+    Dlcs__ApiKey    = "iiif-builder/staging-new/dlcs-apikey"
+    Dlcs__ApiSecret = "iiif-builder/staging-new/dlcs-apisecret"
   }
 
   env_vars = {
     "ASPNETCORE_ENVIRONMENT"                    = "Staging-Prod"
     "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_test_invalidate_cache.arn
     "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_invalidate_cache.arn
+    "Dlcs__SkeletonNamedQueryTemplate"          = "https://neworchestrator.dlcs.io/iiif-resource/wellcome/preview/{0}/{1}"
+    "Dlcs__SingleAssetManifestTemplate"         = "https://neworchestrator.dlcs.io/iiif-manifest/wellcome/{0}/{1}"
+    "Dlcs__InternalResourceEntryPoint"          = "https://neworchestrator.dlcs.io/"
+    "Dlcs__SupportsDeliveryChannels"            = true
+    "Dlcs__ApiEntryPoint"                       = "https://newapi.dlcs.io/"
+    "Dlcs__CustomerDefaultSpace"                = 7
   }
 }
 
