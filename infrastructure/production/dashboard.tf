@@ -47,6 +47,8 @@ module "dashboard" {
 
   env_vars = {
     "ASPNETCORE_ENVIRONMENT"                    = "Production"
+    "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_invalidate_cache.arn
+    "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_invalidate_cache.arn
   }
 }
 
@@ -80,3 +82,21 @@ resource "aws_iam_role_policy" "dashboard_read_anno_bucket" {
   role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.annotations_read.json
 }
+
+resource "aws_iam_role_policy" "dashboard_publish_invalidate_topic" {
+  name   = "dashboard-publish-invalidate-sns-topic"
+  role   = module.dashboard.task_role_name
+  policy = data.aws_iam_policy_document.invalidate_cache_publish.json
+}
+
+resource "aws_iam_role_policy" "dashboard_write_to_born_digital_notifications_queue" {
+  name   = "dashboard-write-to-born-digital-notifications-queue"
+  role   = module.dashboard.task_role_name
+  policy = data.aws_iam_policy_document.born_digital_notifications_write_to_queue.json
+}
+
+resource "aws_iam_role_policy" "dashboard_write_to_digitised_notifications_queue" {
+  name   = "dashboard-write-to-digitised-notifications-queue"
+  role   = module.dashboard.task_role_name
+  policy = data.aws_iam_policy_document.digitised_notifications_write_to_queue.json
+}	

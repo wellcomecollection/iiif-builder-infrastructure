@@ -76,3 +76,15 @@ resource "aws_iam_role_policy" "workflowprocessor_publish_invalidate_topic" {
   role   = module.workflow_processor.task_role_name
   policy = data.aws_iam_policy_document.invalidate_cache_publish.json
 }
+
+resource "aws_iam_role_policy" "workflowprocessor_read_from_born_digital_notifications_queue" {
+  name   = "workflowprocessor-read-from-born-digital-notifications-queue"
+  role   = module.workflow_processor.task_role_name
+  policy = data.aws_iam_policy_document.born_digital_notifications_read_from_queue.json
+}
+
+resource "aws_iam_role_policy" "workflowprocessor_read_from_digitised_notifications_queue" {
+  name   = "workflowprocessor-read-from-digitised-notifications-queue"
+  role   = module.workflow_processor.task_role_name
+  policy = data.aws_iam_policy_document.digitised_notifications_read_from_queue.json
+}

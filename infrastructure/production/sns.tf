@@ -1,11 +1,11 @@
 data "aws_sns_topic" "iiif_invalidate_cache" {
-  provider = aws.storage
+  provider = aws.platform
 
   name = "iiif-prod-cloudfront-invalidate"
 }
 
 data "aws_sns_topic" "api_invalidate_cache" {
-  provider = aws.storage
+  provider = aws.platform
 
   name = "api-prod-cloudfront-invalidate"
 }
@@ -23,4 +23,16 @@ data "aws_iam_policy_document" "invalidate_cache_publish" {
       data.aws_sns_topic.api_invalidate_cache.arn
     ]
   }
+}
+
+data "aws_sns_topic" "born_digital_bag_notifications" {
+  provider = aws.storage
+
+  name = "born-digital-bag-notifications-prod"
+}
+
+data "aws_sns_topic" "digitised_bag_notifications" {
+  provider = aws.workflow
+
+  name = "digitised-bag-notifications-workflow-prod"
 }
