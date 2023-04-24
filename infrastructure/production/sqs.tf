@@ -1,6 +1,6 @@
 resource "aws_sqs_queue" "born_digital_notifications" {
-  name = "born-digital-notifications"
-  message_retention_seconds  = 1209600 # 14d
+  name                      = "born-digital-notifications"
+  message_retention_seconds = 1209600 # 14d
   redrive_policy = jsonencode({
     deadLetterTargetArn = aws_sqs_queue.born_digital_notifications_dlq.arn
     maxReceiveCount     = 4
@@ -11,7 +11,7 @@ resource "aws_sqs_queue" "born_digital_notifications_dlq" {
   name = "born-digital-notifications-dlq"
   redrive_allow_policy = jsonencode({
     redrivePermission = "byQueue",
-    sourceQueueArns   = [ "arn:aws:sqs:${var.region}:${local.account_id}:born_digital_notifications" ]
+    sourceQueueArns   = ["arn:aws:sqs:${var.region}:${local.account_id}:born-digital-notifications"]
   })
 }
 
@@ -46,8 +46,8 @@ data "aws_iam_policy_document" "born_digital_notifications_write_to_queue" {
 
 
 resource "aws_sqs_queue" "digitised_notifications" {
-  name = "digitised-notifications"
-  message_retention_seconds  = 1209600 # 14d
+  name                      = "digitised-notifications"
+  message_retention_seconds = 1209600 # 14d
   redrive_policy = jsonencode({
     deadLetterTargetArn = aws_sqs_queue.digitised_notifications_dlq.arn
     maxReceiveCount     = 4
@@ -55,10 +55,12 @@ resource "aws_sqs_queue" "digitised_notifications" {
 }
 
 resource "aws_sqs_queue" "digitised_notifications_dlq" {
-  name = "digitised-notifications-dlq"
+  name                      = "digitised-notifications-dlq"
+  message_retention_seconds = 1209600 # 14d
+
   redrive_allow_policy = jsonencode({
     redrivePermission = "byQueue",
-    sourceQueueArns   = [ "arn:aws:sqs:${var.region}:${local.account_id}:digitised_notifications" ]
+    sourceQueueArns   = ["arn:aws:sqs:${var.region}:${local.account_id}:digitised-notifications"]
   })
 }
 
