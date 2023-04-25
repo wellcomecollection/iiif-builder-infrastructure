@@ -92,9 +92,7 @@ module "job_processor_stageprod" {
   }
 
   env_vars = {
-    "ASPNETCORE_ENVIRONMENT"     = "Staging-Prod"
-    "Dlcs__ApiEntryPoint"        = "https://newapi.dlcs.io/"
-    "Dlcs__CustomerDefaultSpace" = 7
+    "ASPNETCORE_ENVIRONMENT" = "Staging-Prod"
   }
 
   healthcheck = {

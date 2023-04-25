@@ -134,9 +134,6 @@ module "workflow_processor_stageprod" {
     "ASPNETCORE_ENVIRONMENT"                    = "Staging-Prod"
     "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_test_invalidate_cache.arn
     "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_invalidate_cache.arn
-    "Dlcs__SupportsDeliveryChannels"            = true
-    "Dlcs__ApiEntryPoint"                       = "https://newapi.dlcs.io/"
-    "Dlcs__CustomerDefaultSpace"                = 7
   }
 
   healthcheck = {

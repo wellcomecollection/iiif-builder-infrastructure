@@ -136,8 +136,6 @@ module "iiif_builder_stageprod" {
     "ASPNETCORE_ENVIRONMENT"                  = "Staging-Prod"
     "FeatureManagement__TextServices"         = "False"
     "FeatureManagement__PresentationServices" = "True"
-    "Dlcs__ApiEntryPoint"                     = "https://newapi.dlcs.io/"
-    "Dlcs__CustomerDefaultSpace"              = 7
   }
 }
 
