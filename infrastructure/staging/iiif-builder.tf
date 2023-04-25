@@ -68,22 +68,22 @@ resource "aws_iam_role_policy" "iiifbuilder_read_wellcomecollection_storage_stag
   policy = data.aws_iam_policy_document.wellcomecollection_storage_staging_bucket_read.json
 }
 
-resource "aws_iam_role_policy" "iiifbuilder_readwrite_storagemaps_bucket" {
+resource "aws_iam_role_policy" "iiifbuilder_readwrite_storagemaps_stage_bucket" {
   name   = "iiifbuilder-stage-readwrite-stage-storagemaps-bucket"
   role   = module.iiif_builder.task_role_name
-  policy = data.aws_iam_policy_document.storagemaps_readwrite.json
+  policy = data.aws_iam_policy_document.storagemaps_stage_readwrite.json
 }
 
-resource "aws_iam_role_policy" "iiifbuilder_read_presentation_bucket" {
+resource "aws_iam_role_policy" "iiifbuilder_read_presentation_stage_bucket" {
   name   = "iiifbuilder-stage-read-stage-presentation-bucket"
   role   = module.iiif_builder.task_role_name
-  policy = data.aws_iam_policy_document.presentation_read.json
+  policy = data.aws_iam_policy_document.presentation_stage_read.json
 }
 
-resource "aws_iam_role_policy" "iiifbuilder_read_anno_bucket" {
+resource "aws_iam_role_policy" "iiifbuilder_read_anno_stage_bucket" {
   name   = "iiifbuilder-stage-read-stage-anno-bucket"
   role   = module.iiif_builder.task_role_name
-  policy = data.aws_iam_policy_document.annotations_read.json
+  policy = data.aws_iam_policy_document.annotations_stage_read.json
 }
 
 
@@ -154,20 +154,20 @@ resource "aws_iam_role_policy" "iiifbuilderstgprd_read_wellcomecollection_storag
 }
 
 # storage maps
-resource "aws_iam_role_policy" "iiifbuilderstgprd_readwrite_storagemaps_bucket" {
-  name   = "iiifbuilder-stageprd-readwrite-stage-storagemaps-bucket"
+resource "aws_iam_role_policy" "iiifbuilderstgprd_readwrite_storagemaps_test_bucket" {
+  name   = "iiifbuilder-stageprd-readwrite-test-storagemaps-bucket"
   role   = module.iiif_builder_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.storagemaps_readwrite.json
+  policy = data.aws_iam_policy_document.storagemaps_test_readwrite.json
 }
 
-resource "aws_iam_role_policy" "iiifbuilderstgprd_read_presentation_bucket" {
-  name   = "iiifbuilder-stageprd-read-stage-presentation-bucket"
+resource "aws_iam_role_policy" "iiifbuilderstgprd_read_presentation_test_bucket" {
+  name   = "iiifbuilder-stageprd-read-test-presentation-bucket"
   role   = module.iiif_builder_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.presentation_read.json
+  policy = data.aws_iam_policy_document.presentation_test_read.json
 }
 
-resource "aws_iam_role_policy" "iiifbuilderstgprd_read_anno_bucket" {
-  name   = "iiifbuilder-stageprd-read-stage-anno-bucket"
+resource "aws_iam_role_policy" "iiifbuilderstgprd_read_anno_test_bucket" {
+  name   = "iiifbuilder-stageprd-read-test-anno-bucket"
   role   = module.iiif_builder_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.annotations_read.json
+  policy = data.aws_iam_policy_document.annotations_test_read.json
 }

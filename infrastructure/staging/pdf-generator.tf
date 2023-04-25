@@ -40,8 +40,8 @@ module "pdf_generator" {
   }
 }
 
-resource "aws_iam_role_policy" "pdf_generator_read_presentation_bucket" {
+resource "aws_iam_role_policy" "pdf_generator_read_presentation_stage_bucket" {
   name   = "pdf-generator-stage-read-stage-presentation-bucket"
   role   = module.pdf_generator.task_role_name
-  policy = data.aws_iam_policy_document.presentation_read.json
+  policy = data.aws_iam_policy_document.presentation_stage_read.json
 }

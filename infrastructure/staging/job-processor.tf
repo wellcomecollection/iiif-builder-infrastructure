@@ -52,16 +52,16 @@ resource "aws_iam_role_policy" "jobprocessor_read_wellcomecollection_storage_sta
   policy = data.aws_iam_policy_document.wellcomecollection_storage_staging_bucket_read.json
 }
 
-resource "aws_iam_role_policy" "jobprocessor_readwrite_storagemaps_bucket" {
+resource "aws_iam_role_policy" "jobprocessor_readwrite_storagemaps_stage_bucket" {
   name   = "jobprocessor-stage-readwrite-stage-storagemaps-bucket"
   role   = module.job_processor.task_role_name
-  policy = data.aws_iam_policy_document.storagemaps_readwrite.json
+  policy = data.aws_iam_policy_document.storagemaps_stage_readwrite.json
 }
 
-resource "aws_iam_role_policy" "jobprocessor_readwrite_presentation_bucket" {
+resource "aws_iam_role_policy" "jobprocessor_readwrite_presentation_stage_bucket" {
   name   = "jobprocessor-stage-readwrite-stage-presentation-bucket"
   role   = module.job_processor.task_role_name
-  policy = data.aws_iam_policy_document.presentation_readwrite.json
+  policy = data.aws_iam_policy_document.presentation_stage_readwrite.json
 }
 
 # dlcsjobprocessor, staging hosted pointing at Prod storage
@@ -118,14 +118,14 @@ resource "aws_iam_role_policy" "jobprocessorstgprd_read_wellcomecollection_stora
   policy = data.aws_iam_policy_document.wellcomecollection_storage_bucket_read.json
 }
 
-resource "aws_iam_role_policy" "jobprocessorstgprd_readwrite_storagemaps_bucket" {
-  name   = "jobprocessor-stageprd-readwrite-stage-storagemaps-bucket"
+resource "aws_iam_role_policy" "jobprocessorstgprd_readwrite_storagemaps_test_bucket" {
+  name   = "jobprocessor-stageprd-readwrite-test-storagemaps-bucket"
   role   = module.job_processor_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.storagemaps_readwrite.json
+  policy = data.aws_iam_policy_document.storagemaps_test_readwrite.json
 }
 
-resource "aws_iam_role_policy" "jobprocessorstgprd_readwrite_presentation_bucket" {
-  name   = "jobprocessor-stageprd-readwrite-stage-presentation-bucket"
+resource "aws_iam_role_policy" "jobprocessorstgprd_readwrite_presentation_test_bucket" {
+  name   = "jobprocessor-stageprd-readwrite-test-presentation-bucket"
   role   = module.job_processor_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.presentation_readwrite.json
+  policy = data.aws_iam_policy_document.presentation_test_readwrite.json
 }
