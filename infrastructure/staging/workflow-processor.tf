@@ -197,12 +197,12 @@ resource "aws_iam_role_policy" "workflowprocessorstgprd_publish_invalidate_api_t
 
 resource "aws_iam_role_policy" "workflowprocessor_read_from_born_digital_notifications_staging_prod_queue" {
   name   = "workflowprocessor-read-from-born-digital-notifications-staging-prod-queue"
-  role   = module.workflow_processor.task_role_name
+  role   = module.workflow_processor_stageprod.task_role_name
   policy = data.aws_iam_policy_document.born_digital_notifications_staging_prod_read_from_queue.json
 }
 
 resource "aws_iam_role_policy" "workflowprocessor_read_from_digitised_notifications_staging_prod_queue" {
   name   = "workflowprocessor-read-from-digitised-notifications-staging-prod-queue"
-  role   = module.workflow_processor.task_role_name
+  role   = module.workflow_processor_stageprod.task_role_name
   policy = data.aws_iam_policy_document.digitised_notifications_staging_prod_read_from_queue.json
 }
