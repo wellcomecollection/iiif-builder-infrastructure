@@ -66,28 +66,28 @@ resource "aws_iam_role_policy" "dashboard_read_wellcomecollection_storage_stagin
   policy = data.aws_iam_policy_document.wellcomecollection_storage_staging_bucket_read.json
 }
 
-resource "aws_iam_role_policy" "dashboard_readwrite_storagemaps_stage_bucket" {
+resource "aws_iam_role_policy" "dashboard_readwrite_storagemaps_bucket" {
   name   = "dashboard-stage-readwrite-stage-storagemaps-bucket"
   role   = module.dashboard.task_role_name
-  policy = data.aws_iam_policy_document.storagemaps_stage_readwrite.json
+  policy = data.aws_iam_policy_document.storagemaps_readwrite.json
 }
 
-resource "aws_iam_role_policy" "dashboard_read_presentation_stage_bucket" {
+resource "aws_iam_role_policy" "dashboard_read_presentation_bucket" {
   name   = "dashboard-stage-read-stage-presentation-bucket"
   role   = module.dashboard.task_role_name
-  policy = data.aws_iam_policy_document.presentation_stage_read.json
+  policy = data.aws_iam_policy_document.presentation_read.json
 }
 
-resource "aws_iam_role_policy" "dashboard_read_text_stage_bucket" {
+resource "aws_iam_role_policy" "dashboard_read_text_bucket" {
   name   = "dashboard-stage-read-stage-text-bucket"
   role   = module.dashboard.task_role_name
-  policy = data.aws_iam_policy_document.text_stage_read.json
+  policy = data.aws_iam_policy_document.text_read.json
 }
 
-resource "aws_iam_role_policy" "dashboard_read_anno_stage_bucket" {
+resource "aws_iam_role_policy" "dashboard_read_anno_bucket" {
   name   = "dashboard-stage-read-stage-anno-bucket"
   role   = module.dashboard.task_role_name
-  policy = data.aws_iam_policy_document.annotations_stage_read.json
+  policy = data.aws_iam_policy_document.annotations_read.json
 }
 
 resource "aws_iam_role_policy" "dashboard_publish_invalidate_iiif_topic_staging" {

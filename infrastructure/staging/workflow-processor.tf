@@ -54,28 +54,28 @@ resource "aws_iam_role_policy" "workflowprocessor_read_wellcomecollection_storag
   policy = data.aws_iam_policy_document.wellcomecollection_storage_staging_bucket_read.json
 }
 
-resource "aws_iam_role_policy" "workflowprocessor_readwrite_storagemaps_stage_bucket" {
+resource "aws_iam_role_policy" "workflowprocessor_readwrite_storagemaps_bucket" {
   name   = "workflowprocessor-stage-readwrite-stage-storagemaps-bucket"
   role   = module.workflow_processor.task_role_name
-  policy = data.aws_iam_policy_document.storagemaps_stage_readwrite.json
+  policy = data.aws_iam_policy_document.storagemaps_readwrite.json
 }
 
-resource "aws_iam_role_policy" "workflowprocessor_readwrite_presentation_stage_bucket" {
+resource "aws_iam_role_policy" "workflowprocessor_readwrite_presentation_bucket" {
   name   = "workflowprocessor-stage-readwrite-stage-presentation-bucket"
   role   = module.workflow_processor.task_role_name
-  policy = data.aws_iam_policy_document.presentation_stage_readwrite.json
+  policy = data.aws_iam_policy_document.presentation_readwrite.json
 }
 
-resource "aws_iam_role_policy" "workflowprocessor_readwrite_text_stage_bucket" {
+resource "aws_iam_role_policy" "workflowprocessor_readwrite_text_bucket" {
   name   = "workflowprocessor-stage-readwrite-stage-text-bucket"
   role   = module.workflow_processor.task_role_name
-  policy = data.aws_iam_policy_document.text_stage_readwrite.json
+  policy = data.aws_iam_policy_document.text_readwrite.json
 }
 
-resource "aws_iam_role_policy" "workflowprocessor_readwrite_anno_stage_bucket" {
+resource "aws_iam_role_policy" "workflowprocessor_readwrite_anno_bucket" {
   name   = "workflowprocessor-stage-readwrite-stage-anno-bucket"
   role   = module.workflow_processor.task_role_name
-  policy = data.aws_iam_policy_document.annotations_stage_readwrite.json
+  policy = data.aws_iam_policy_document.annotations_readwrite.json
 }
 
 resource "aws_iam_role_policy" "workflowprocessor_publish_invalidate_iiif_topic" {

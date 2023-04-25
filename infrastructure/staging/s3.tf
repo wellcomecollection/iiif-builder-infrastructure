@@ -29,11 +29,11 @@ data "aws_iam_policy_document" "wellcomecollection_storage_staging_bucket_read" 
 }
 
 # Storage Maps
-resource "aws_s3_bucket" "storagemaps_stage" {
+resource "aws_s3_bucket" "storagemaps" {
   bucket = "wellcomecollection-stage-iiif-storagemaps"
 }
 
-data "aws_iam_policy_document" "storagemaps_stage_readwrite" {
+data "aws_iam_policy_document" "storagemaps_readwrite" {
   statement {
     actions = [
       "s3:*Object",
@@ -41,13 +41,13 @@ data "aws_iam_policy_document" "storagemaps_stage_readwrite" {
     ]
 
     resources = [
-      aws_s3_bucket.storagemaps_stage.arn,
-      "${aws_s3_bucket.storagemaps_stage.arn}/*",
+      aws_s3_bucket.storagemaps.arn,
+      "${aws_s3_bucket.storagemaps.arn}/*",
     ]
   }
 }
 
-data "aws_iam_policy_document" "storagemaps_stage_read" {
+data "aws_iam_policy_document" "storagemaps_read" {
   statement {
     actions = [
       "s3:GetObject",
@@ -56,8 +56,8 @@ data "aws_iam_policy_document" "storagemaps_stage_read" {
     ]
 
     resources = [
-      aws_s3_bucket.storagemaps_stage.arn,
-      "${aws_s3_bucket.storagemaps_stage.arn}/*",
+      aws_s3_bucket.storagemaps.arn,
+      "${aws_s3_bucket.storagemaps.arn}/*",
     ]
   }
 }
@@ -90,17 +90,17 @@ data "aws_iam_policy_document" "storagemaps_test_read" {
 
     resources = [
       aws_s3_bucket.storagemaps_test.arn,
-      "${aws_s3_bucket.storagemaps_stage.arn}/*",
+      "${aws_s3_bucket.storagemaps_test.arn}/*",
     ]
   }
 }
 
 # Presentation
-resource "aws_s3_bucket" "presentation_stage" {
+resource "aws_s3_bucket" "presentation" {
   bucket = "wellcomecollection-stage-iiif-presentation"
 }
 
-data "aws_iam_policy_document" "presentation_stage_readwrite" {
+data "aws_iam_policy_document" "presentation_readwrite" {
   statement {
     actions = [
       "s3:*Object",
@@ -108,13 +108,13 @@ data "aws_iam_policy_document" "presentation_stage_readwrite" {
     ]
 
     resources = [
-      aws_s3_bucket.presentation_stage.arn,
-      "${aws_s3_bucket.presentation_stage.arn}/*",
+      aws_s3_bucket.presentation.arn,
+      "${aws_s3_bucket.presentation.arn}/*",
     ]
   }
 }
 
-data "aws_iam_policy_document" "presentation_stage_read" {
+data "aws_iam_policy_document" "presentation_read" {
   statement {
     actions = [
       "s3:GetObject",
@@ -123,8 +123,8 @@ data "aws_iam_policy_document" "presentation_stage_read" {
     ]
 
     resources = [
-      aws_s3_bucket.presentation_stage.arn,
-      "${aws_s3_bucket.presentation_stage.arn}/*",
+      aws_s3_bucket.presentation.arn,
+      "${aws_s3_bucket.presentation.arn}/*",
     ]
   }
 }
@@ -163,11 +163,11 @@ data "aws_iam_policy_document" "presentation_test_read" {
 }
 
 # Text
-resource "aws_s3_bucket" "text_stage" {
+resource "aws_s3_bucket" "text" {
   bucket = "wellcomecollection-stage-iiif-text"
 }
 
-data "aws_iam_policy_document" "text_stage_readwrite" {
+data "aws_iam_policy_document" "text_readwrite" {
   statement {
     actions = [
       "s3:*Object",
@@ -175,13 +175,13 @@ data "aws_iam_policy_document" "text_stage_readwrite" {
     ]
 
     resources = [
-      aws_s3_bucket.text_stage.arn,
-      "${aws_s3_bucket.text_stage.arn}/*",
+      aws_s3_bucket.text.arn,
+      "${aws_s3_bucket.text.arn}/*",
     ]
   }
 }
 
-data "aws_iam_policy_document" "text_stage_read" {
+data "aws_iam_policy_document" "text_read" {
   statement {
     actions = [
       "s3:GetObject",
@@ -190,8 +190,8 @@ data "aws_iam_policy_document" "text_stage_read" {
     ]
 
     resources = [
-      aws_s3_bucket.text_stage.arn,
-      "${aws_s3_bucket.text_stage.arn}/*",
+      aws_s3_bucket.text.arn,
+      "${aws_s3_bucket.text.arn}/*",
     ]
   }
 }
@@ -230,11 +230,11 @@ data "aws_iam_policy_document" "text_test_read" {
 }
 
 # Annotations - per manifest anno lists
-resource "aws_s3_bucket" "annotations_stage" {
+resource "aws_s3_bucket" "annotations" {
   bucket = "wellcomecollection-stage-iiif-annotations"
 }
 
-data "aws_iam_policy_document" "annotations_stage_readwrite" {
+data "aws_iam_policy_document" "annotations" {
   statement {
     actions = [
       "s3:*Object",
@@ -242,13 +242,13 @@ data "aws_iam_policy_document" "annotations_stage_readwrite" {
     ]
 
     resources = [
-      aws_s3_bucket.annotations_stage.arn,
-      "${aws_s3_bucket.annotations_stage.arn}/*",
+      aws_s3_bucket.annotations.arn,
+      "${aws_s3_bucket.annotations.arn}/*",
     ]
   }
 }
 
-data "aws_iam_policy_document" "annotations_stage_read" {
+data "aws_iam_policy_document" "annotations" {
   statement {
     actions = [
       "s3:GetObject",
@@ -257,8 +257,8 @@ data "aws_iam_policy_document" "annotations_stage_read" {
     ]
 
     resources = [
-      aws_s3_bucket.annotations_stage.arn,
-      "${aws_s3_bucket.annotations_stage.arn}/*",
+      aws_s3_bucket.annotations.arn,
+      "${aws_s3_bucket.annotations.arn}/*",
     ]
   }
 }
