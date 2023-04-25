@@ -234,7 +234,7 @@ resource "aws_s3_bucket" "annotations" {
   bucket = "wellcomecollection-stage-iiif-annotations"
 }
 
-data "aws_iam_policy_document" "annotations" {
+data "aws_iam_policy_document" "annotations_readwrite" {
   statement {
     actions = [
       "s3:*Object",
@@ -248,7 +248,7 @@ data "aws_iam_policy_document" "annotations" {
   }
 }
 
-data "aws_iam_policy_document" "annotations" {
+data "aws_iam_policy_document" "annotations_read" {
   statement {
     actions = [
       "s3:GetObject",
