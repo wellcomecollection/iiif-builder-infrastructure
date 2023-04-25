@@ -35,7 +35,7 @@ module "pdf_generator" {
   }]
 
   env_vars = {
-    "MANIFEST_BUCKET" = aws_s3_bucket.presentation_stage.id
+    "MANIFEST_BUCKET" = aws_s3_bucket.presentation.id
     "KEY_PREFIX"      = "v3"
   }
 }
