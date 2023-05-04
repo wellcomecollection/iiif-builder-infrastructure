@@ -85,7 +85,7 @@ resource "aws_iam_role_policy" "dashboard_read_text_bucket" {
 }
 
 resource "aws_iam_role_policy" "dashboard_read_anno_bucket" {
-  name   = "dashboard-stageprd-read-stage-anno-bucket"
+  name   = "dashboard-stage-read-stage-anno-bucket"
   role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.annotations_read.json
 }
@@ -157,14 +157,17 @@ module "dashboard_stageprod" {
     AzureAd__ClientId                     = "iiif-builder/common/azuread-clientid"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
-    Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
-    Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
+    # the /staging-new/ api key is for Protagonist 
+    Dlcs__ApiKey    = "iiif-builder/staging-new/dlcs-apikey"
+    Dlcs__ApiSecret = "iiif-builder/staging-new/dlcs-apisecret"
   }
 
   env_vars = {
     "ASPNETCORE_ENVIRONMENT"                    = "Staging-Prod"
     "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_test_invalidate_cache.arn
     "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_invalidate_cache.arn
+    "TZ"                                        = "Europe/London"
+    "LANG"                                      = "en_GB.UTF8"
   }
 }
 
@@ -182,28 +185,28 @@ resource "aws_iam_role_policy" "dashboardstgprd_read_wellcomecollection_storage_
   policy = data.aws_iam_policy_document.wellcomecollection_storage_bucket_read.json
 }
 
-resource "aws_iam_role_policy" "dashboardstgprd_readwrite_storagemaps_bucket" {
-  name   = "dashboard-stageprd-readwrite-stage-storagemaps-bucket"
+resource "aws_iam_role_policy" "dashboardstgprd_readwrite_storagemaps_test_bucket" {
+  name   = "dashboard-stageprd-readwrite-test-storagemaps-bucket"
   role   = module.dashboard_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.storagemaps_readwrite.json
+  policy = data.aws_iam_policy_document.storagemaps_test_readwrite.json
 }
 
-resource "aws_iam_role_policy" "dashboardstgprd_read_presentation_bucket" {
-  name   = "dashboard-stageprd-read-stage-presentation-bucket"
+resource "aws_iam_role_policy" "dashboardstgprd_read_presentation_test_bucket" {
+  name   = "dashboard-stageprd-read-test-presentation-bucket"
   role   = module.dashboard_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.presentation_read.json
+  policy = data.aws_iam_policy_document.presentation_test_read.json
 }
 
-resource "aws_iam_role_policy" "dashboardstgprd_read_text_bucket" {
-  name   = "dashboard-stageprd-read-stage-text-bucket"
+resource "aws_iam_role_policy" "dashboardstgprd_read_text_test_bucket" {
+  name   = "dashboard-stageprd-read-test-text-bucket"
   role   = module.dashboard_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.text_read.json
+  policy = data.aws_iam_policy_document.text_test_read.json
 }
 
-resource "aws_iam_role_policy" "dashboardstgprd_read_anno_bucket" {
-  name   = "dashboard-stageprd-read-stage-anno-bucket"
+resource "aws_iam_role_policy" "dashboardstgprd_read_anno_test_bucket" {
+  name   = "dashboard-stageprd-read-test-anno-bucket"
   role   = module.dashboard_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.annotations_read.json
+  policy = data.aws_iam_policy_document.annotations_test_read.json
 }
 
 resource "aws_iam_role_policy" "dashboardstgprd_publish_invalidate_iiif_topic" {
@@ -220,12 +223,12 @@ resource "aws_iam_role_policy" "dashboardstgprd_publish_invalidate_api_topic" {
 
 resource "aws_iam_role_policy" "dashboard_write_to_born_digital_notifications_staging_prod_queue" {
   name   = "dashboard-write-to-born-digital-notifications-staging-prod-queue"
-  role   = module.dashboard.task_role_name
+  role   = module.dashboard_stageprod.task_role_name
   policy = data.aws_iam_policy_document.born_digital_notifications_staging_prod_write_to_queue.json
 }
 
 resource "aws_iam_role_policy" "dashboard_write_to_digitised_notifications_staging_prod_queue" {
   name   = "dashboard-write-to-digitised-notifications-staging-prod-queue"
-  role   = module.dashboard.task_role_name
+  role   = module.dashboard_stageprod.task_role_name
   policy = data.aws_iam_policy_document.digitised_notifications_staging_prod_write_to_queue.json
 }

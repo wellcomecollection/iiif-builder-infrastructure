@@ -2,8 +2,8 @@
 # born-digital, staging
 
 resource "aws_sqs_queue" "born_digital_notifications_staging" {
-  name = "born-digital-notifications-staging-dds"  # while the other one still exists
-  message_retention_seconds  = 7200
+  name                      = "born-digital-notifications-staging-dds" # while the other one still exists
+  message_retention_seconds = 7200
 }
 
 data "aws_iam_policy_document" "born_digital_notifications_staging_read_from_queue" {
@@ -39,8 +39,8 @@ data "aws_iam_policy_document" "born_digital_notifications_staging_write_to_queu
 # digitised, staging
 
 resource "aws_sqs_queue" "digitised_notifications_staging" {
-  name = "digitised-notifications-staging-dds"  # while the other one still exists
-  message_retention_seconds  = 7200
+  name                      = "digitised-notifications-staging-dds" # while the other one still exists
+  message_retention_seconds = 7200
 }
 
 data "aws_iam_policy_document" "digitised_notifications_staging_read_from_queue" {
@@ -76,8 +76,8 @@ data "aws_iam_policy_document" "digitised_notifications_staging_write_to_queue" 
 # born-digital, staging-prod
 
 resource "aws_sqs_queue" "born_digital_notifications_staging_prod" {
-  name = "born-digital-notifications-staging-prod"
-  message_retention_seconds  = 7200
+  name                      = "born-digital-notifications-staging-prod"
+  message_retention_seconds = 7200
 }
 
 data "aws_iam_policy_document" "born_digital_notifications_staging_prod_read_from_queue" {
@@ -113,8 +113,8 @@ data "aws_iam_policy_document" "born_digital_notifications_staging_prod_write_to
 # digitised, staging-prod
 
 resource "aws_sqs_queue" "digitised_notifications_staging_prod" {
-  name = "digitised-notifications-staging-prod"
-  message_retention_seconds  = 7200
+  name                      = "digitised-notifications-staging-prod"
+  message_retention_seconds = 7200
 }
 
 data "aws_iam_policy_document" "digitised_notifications_staging_prod_read_from_queue" {
@@ -145,7 +145,6 @@ data "aws_iam_policy_document" "digitised_notifications_staging_prod_write_to_qu
     ]
   }
 }
-
 
 
 # subscribe our queues to the PLATFORM and WORKFLOW topics and allow the topics to write to them
@@ -284,42 +283,42 @@ data "aws_iam_policy_document" "platform_born_digital_bag_notifications_write_to
 
 # digitised, staging_prod
 
-# resource "aws_sns_topic_subscription" "digitised_notifications_staging_prod_subscribes_topic" {
-#   topic_arn = data.aws_sns_topic.digitised_bag_notifications_workflow_staging.arn
-#   protocol  = "sqs"
-#   endpoint  = aws_sqs_queue.digitised_notifications_staging_prod.arn
-# }
+resource "aws_sns_topic_subscription" "digitised_notifications_staging_prod_subscribes_topic" {
+  topic_arn = data.aws_sns_topic.digitised_bag_notifications_workflow_prod.arn
+  protocol  = "sqs"
+  endpoint  = aws_sqs_queue.digitised_notifications_staging_prod.arn
+}
 
-# resource "aws_sqs_queue_policy" "workflow_digitised_bag_notifications_prod_write_to_test_queue" {
-#   queue_url = aws_sqs_queue.digitised_notifications_staging_prod.id
-#   policy    = data.aws_iam_policy_document.workflow_digitised_bag_notifications_prod_write_to_test_queue.json
-# }
+resource "aws_sqs_queue_policy" "workflow_digitised_bag_notifications_prod_write_to_test_queue" {
+  queue_url = aws_sqs_queue.digitised_notifications_staging_prod.id
+  policy    = data.aws_iam_policy_document.workflow_digitised_bag_notifications_prod_write_to_test_queue.json
+}
 
-# data "aws_iam_policy_document" "workflow_digitised_bag_notifications_prod_write_to_test_queue" {
-#   statement {
-#     effect = "Allow"
+data "aws_iam_policy_document" "workflow_digitised_bag_notifications_prod_write_to_test_queue" {
+  statement {
+    effect = "Allow"
 
-#     principals {
-#       type        = "AWS"
-#       identifiers = ["*"]
-#     }
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
 
-#     actions = [
-#       "sqs:SendMessage",
-#     ]
+    actions = [
+      "sqs:SendMessage",
+    ]
 
-#     resources = [
-#       aws_sqs_queue.digitised_notifications_staging_prod.arn,
-#     ]
+    resources = [
+      aws_sqs_queue.digitised_notifications_staging_prod.arn,
+    ]
 
-#     condition {
-#       test     = "ArnEquals"
-#       variable = "aws:SourceArn"
+    condition {
+      test     = "ArnEquals"
+      variable = "aws:SourceArn"
 
 
-#       values = [
-#         data.aws_sns_topic.digitised_bag_notifications_workflow_prod.arn
-#       ]
-#     }
-#   }
-# }
+      values = [
+        data.aws_sns_topic.digitised_bag_notifications_workflow_prod.arn
+      ]
+    }
+  }
+}

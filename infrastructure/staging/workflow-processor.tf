@@ -126,8 +126,8 @@ module "workflow_processor_stageprod" {
     ConnectionStrings__Dds                = "iiif-builder/staging/ddsstgprd-connstr"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
-    Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
-    Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
+    Dlcs__ApiKey                          = "iiif-builder/staging-new/dlcs-apikey"
+    Dlcs__ApiSecret                       = "iiif-builder/staging-new/dlcs-apisecret"
   }
 
   env_vars = {
@@ -159,28 +159,28 @@ resource "aws_iam_role_policy" "workflowprocessorstgprd_read_wellcomecollection_
   policy = data.aws_iam_policy_document.wellcomecollection_storage_bucket_read.json
 }
 
-resource "aws_iam_role_policy" "workflowprocessorstgprd_readwrite_storagemaps_bucket" {
-  name   = "workflowprocessor-stageprd-readwrite-stage-storagemaps-bucket"
+resource "aws_iam_role_policy" "workflowprocessorstgprd_readwrite_storagemaps_test_bucket" {
+  name   = "workflowprocessor-stageprd-readwrite-test-storagemaps-bucket"
   role   = module.workflow_processor_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.storagemaps_readwrite.json
+  policy = data.aws_iam_policy_document.storagemaps_test_readwrite.json
 }
 
-resource "aws_iam_role_policy" "workflowprocessorstgprd_readwrite_presentation_bucket" {
-  name   = "workflowprocessor-stageprd-readwrite-stage-presentation-bucket"
+resource "aws_iam_role_policy" "workflowprocessorstgprd_readwrite_presentation_test_bucket" {
+  name   = "workflowprocessor-stageprd-readwrite-test-presentation-bucket"
   role   = module.workflow_processor_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.presentation_readwrite.json
+  policy = data.aws_iam_policy_document.presentation_test_readwrite.json
 }
 
-resource "aws_iam_role_policy" "workflowprocessorstgprd_readwrite_text_bucket" {
-  name   = "workflowprocessor-stageprd-readwrite-stage-text-bucket"
+resource "aws_iam_role_policy" "workflowprocessorstgprd_readwrite_text_test_bucket" {
+  name   = "workflowprocessor-stageprd-readwrite-test-text-bucket"
   role   = module.workflow_processor_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.text_readwrite.json
+  policy = data.aws_iam_policy_document.text_test_readwrite.json
 }
 
-resource "aws_iam_role_policy" "workflowprocessorstgprd_readwrite_anno_bucket" {
-  name   = "workflowprocessor-stageprd-readwrite-stage-anno-bucket"
+resource "aws_iam_role_policy" "workflowprocessorstgprd_readwrite_anno_test_bucket" {
+  name   = "workflowprocessor-stageprd-readwrite-test-anno-bucket"
   role   = module.workflow_processor_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.annotations_readwrite.json
+  policy = data.aws_iam_policy_document.annotations_test_readwrite.json
 }
 
 resource "aws_iam_role_policy" "workflowprocessorstgprd_publish_invalidate_iiif_topic" {
@@ -197,12 +197,12 @@ resource "aws_iam_role_policy" "workflowprocessorstgprd_publish_invalidate_api_t
 
 resource "aws_iam_role_policy" "workflowprocessor_read_from_born_digital_notifications_staging_prod_queue" {
   name   = "workflowprocessor-read-from-born-digital-notifications-staging-prod-queue"
-  role   = module.workflow_processor.task_role_name
+  role   = module.workflow_processor_stageprod.task_role_name
   policy = data.aws_iam_policy_document.born_digital_notifications_staging_prod_read_from_queue.json
 }
 
 resource "aws_iam_role_policy" "workflowprocessor_read_from_digitised_notifications_staging_prod_queue" {
   name   = "workflowprocessor-read-from-digitised-notifications-staging-prod-queue"
-  role   = module.workflow_processor.task_role_name
+  role   = module.workflow_processor_stageprod.task_role_name
   policy = data.aws_iam_policy_document.digitised_notifications_staging_prod_read_from_queue.json
 }

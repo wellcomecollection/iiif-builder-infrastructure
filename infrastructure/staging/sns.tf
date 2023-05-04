@@ -34,11 +34,11 @@ data "aws_sns_topic" "digitised_bag_notifications_workflow_staging" {
   name = "digitised-bag-notifications-workflow-staging"
 }
 
-# data "aws_sns_topic" "digitised_bag_notifications_workflow_prod" {
-#   provider = aws.platform
+data "aws_sns_topic" "digitised_bag_notifications_workflow_prod" {
+  provider = aws.workflow
 
-#   name = "digitised-bag-notifications-workflow-prod"
-# }
+  name = "digitised-bag-notifications-workflow-prod"
+}
 
 # access to SNS topic for iiif-test.wc.org cache-invalidation
 data "aws_iam_policy_document" "iiif_test_invalidate_cache_publish" {

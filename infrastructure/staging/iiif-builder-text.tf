@@ -115,8 +115,8 @@ module "iiif_builder_text_stageprod" {
     ConnectionStrings__Dds                = "iiif-builder/staging/ddsstgprd-connstr"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
-    Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
-    Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
+    Dlcs__ApiKey                          = "iiif-builder/staging-new/dlcs-apikey"
+    Dlcs__ApiSecret                       = "iiif-builder/staging-new/dlcs-apisecret"
   }
 
   env_vars = {
@@ -140,14 +140,14 @@ resource "aws_iam_role_policy" "iiifbuilderstgprd_text_read_wellcomecollection_s
   policy = data.aws_iam_policy_document.wellcomecollection_storage_bucket_read.json
 }
 
-resource "aws_iam_role_policy" "iiifbuilderstgprd_text_readwrite_storagemaps_bucket" {
-  name   = "iiifbuilder-text-stageprd-readwrite-stage-storagemaps-bucket"
+resource "aws_iam_role_policy" "iiifbuilderstgprd_text_readwrite_storagemaps_test_bucket" {
+  name   = "iiifbuilder-text-stageprd-readwrite-test-storagemaps-bucket"
   role   = module.iiif_builder_text_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.storagemaps_readwrite.json
+  policy = data.aws_iam_policy_document.storagemaps_test_readwrite.json
 }
 
-resource "aws_iam_role_policy" "iiifbuilderstgprd_text_read_text_bucket" {
-  name   = "iiifbuilder-text-stageprd-read-stage-text-bucket"
+resource "aws_iam_role_policy" "iiifbuilderstgprd_text_read_text_test_bucket" {
+  name   = "iiifbuilder-text-stageprd-read-test-text-bucket"
   role   = module.iiif_builder_text_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.text_read.json
+  policy = data.aws_iam_policy_document.text_test_read.json
 }

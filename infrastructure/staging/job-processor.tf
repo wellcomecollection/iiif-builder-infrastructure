@@ -87,8 +87,8 @@ module "job_processor_stageprod" {
     ConnectionStrings__Dds                = "iiif-builder/staging/ddsstgprd-connstr"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
-    Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
-    Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
+    Dlcs__ApiKey                          = "iiif-builder/staging-new/dlcs-apikey"
+    Dlcs__ApiSecret                       = "iiif-builder/staging-new/dlcs-apisecret"
   }
 
   env_vars = {
@@ -118,14 +118,14 @@ resource "aws_iam_role_policy" "jobprocessorstgprd_read_wellcomecollection_stora
   policy = data.aws_iam_policy_document.wellcomecollection_storage_bucket_read.json
 }
 
-resource "aws_iam_role_policy" "jobprocessorstgprd_readwrite_storagemaps_bucket" {
-  name   = "jobprocessor-stageprd-readwrite-stage-storagemaps-bucket"
+resource "aws_iam_role_policy" "jobprocessorstgprd_readwrite_storagemaps_test_bucket" {
+  name   = "jobprocessor-stageprd-readwrite-test-storagemaps-bucket"
   role   = module.job_processor_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.storagemaps_readwrite.json
+  policy = data.aws_iam_policy_document.storagemaps_test_readwrite.json
 }
 
-resource "aws_iam_role_policy" "jobprocessorstgprd_readwrite_presentation_bucket" {
-  name   = "jobprocessor-stageprd-readwrite-stage-presentation-bucket"
+resource "aws_iam_role_policy" "jobprocessorstgprd_readwrite_presentation_test_bucket" {
+  name   = "jobprocessor-stageprd-readwrite-test-presentation-bucket"
   role   = module.job_processor_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.presentation_readwrite.json
+  policy = data.aws_iam_policy_document.presentation_test_readwrite.json
 }
