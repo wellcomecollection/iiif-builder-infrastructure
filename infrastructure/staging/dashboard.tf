@@ -157,9 +157,8 @@ module "dashboard_stageprod" {
     AzureAd__ClientId                     = "iiif-builder/common/azuread-clientid"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
-    # the /staging-new/ api key is for Protagonist 
-    Dlcs__ApiKey    = "iiif-builder/staging-new/dlcs-apikey"
-    Dlcs__ApiSecret = "iiif-builder/staging-new/dlcs-apisecret"
+    Dlcs__ApiKey                          = "iiif-builder/stage-prd/dlcs-apikey"
+    Dlcs__ApiSecret                       = "iiif-builder/stage-prd/dlcs-apisecret"
   }
 
   env_vars = {
