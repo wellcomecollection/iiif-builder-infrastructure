@@ -17,8 +17,8 @@ module "job_processor" {
   service_security_group_ids     = [data.terraform_remote_state.common.outputs.production_security_group_id, ]
 
   secret_env_vars = {
-    ConnectionStrings__DdsInstrumentation = "iiif-builder/production/ddsinstrumentation-connstr"
-    ConnectionStrings__Dds                = "iiif-builder/production/dds-connstr"
+    ConnectionStrings__DdsInstrumentation = "iiif-builder/production/ddsinstrumentation-connstr-new"
+    ConnectionStrings__Dds                = "iiif-builder/production/dds-connstr-new"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
     Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"

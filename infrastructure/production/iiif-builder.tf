@@ -35,16 +35,12 @@ module "iiif_builder" {
   }]
 
   secret_env_vars = {
-    ConnectionStrings__DdsInstrumentation = "iiif-builder/production/ddsinstrumentation-connstr"
-    ConnectionStrings__Dds                = "iiif-builder/production/dds-connstr"
+    ConnectionStrings__DdsInstrumentation = "iiif-builder/production/ddsinstrumentation-connstr-new"
+    ConnectionStrings__Dds                = "iiif-builder/production/dds-connstr-new"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
     Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
     Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
-    SierraRestAPI__ClientId               = "iiif-builder/common/sierra/clientid"
-    SierraRestAPI__ClientSecret           = "iiif-builder/common/sierra/clientsecret"
-    Dds__DlcsOriginUsername               = "iiif-builder/common/dlcs/origin-username"
-    Dds__DlcsOriginPassword               = "iiif-builder/common/dlcs/origin-password"
   }
 
   env_vars = {
