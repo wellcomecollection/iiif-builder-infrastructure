@@ -87,8 +87,8 @@ module "job_processor_stageprod" {
     ConnectionStrings__Dds                = "iiif-builder/staging/ddsstgprd-connstr"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
-    Dlcs__ApiKey                          = "iiif-builder/staging-new/dlcs-apikey"
-    Dlcs__ApiSecret                       = "iiif-builder/staging-new/dlcs-apisecret"
+    Dlcs__ApiKey                          = "iiif-builder/stage-prd/dlcs-apikey"
+    Dlcs__ApiSecret                       = "iiif-builder/stage-prd/dlcs-apisecret"
   }
 
   env_vars = {
