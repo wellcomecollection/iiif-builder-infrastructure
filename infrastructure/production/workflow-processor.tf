@@ -29,6 +29,8 @@ module "workflow_processor" {
     "ASPNETCORE_ENVIRONMENT"                    = "Production"
     "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_invalidate_cache.arn
     "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_invalidate_cache.arn
+    "Dds__WorkflowMessageListenQueues__0"       = aws_sqs_queue.born_digital_notifications.name
+    "Dds__WorkflowMessageListenQueues__1"       = aws_sqs_queue.digitised_notifications.name
   }
 
   healthcheck = {
