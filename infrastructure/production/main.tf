@@ -7,9 +7,9 @@ data "aws_subnet" "private_subnets" {
 module "rds" {
   source = "../modules/rds"
 
-  name               = local.name
-  environment        = local.environment
-  vpc_id             = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
+  name        = local.name
+  environment = local.environment
+  vpc_id      = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
 
   db_engine_version = "12.14"
   db_instance_class = "db.m4.large"

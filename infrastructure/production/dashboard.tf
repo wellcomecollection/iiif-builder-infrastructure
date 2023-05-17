@@ -35,8 +35,10 @@ module "dashboard" {
   }]
 
   secret_env_vars = {
-    ConnectionStrings__DdsInstrumentation = "iiif-builder/production/ddsinstrumentation-connstr-new"
-    ConnectionStrings__Dds                = "iiif-builder/production/dds-connstr-new"
+    #ConnectionStrings__DdsInstrumentation = "iiif-builder/production/ddsinstrumentation-connstr-new"
+    #ConnectionStrings__Dds                = "iiif-builder/production/dds-connstr-new"
+    ConnectionStrings__DdsInstrumentation = "iiif-builder/production/ddsinstrumentation-connstr"
+    ConnectionStrings__Dds                = "iiif-builder/production/dds-connstr"
     AzureAd__TenantId                     = "iiif-builder/common/azuread-tenantid"
     AzureAd__ClientId                     = "iiif-builder/common/azuread-clientid"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
@@ -49,6 +51,14 @@ module "dashboard" {
     "ASPNETCORE_ENVIRONMENT"                    = "Production"
     "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_invalidate_cache.arn
     "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_invalidate_cache.arn
+
+    "Dlcs__CustomerDefaultSpace"        = 5
+    "Dlcs__SkeletonNamedQueryTemplate"  = "https://neworchestrator.dlcs.io/iiif-resource/wellcome/preview/{0}/{1}"
+    "Dlcs__ApiEntryPoint"               = "https://newapi.dlcs.io/"
+    "Dlcs__SingleAssetManifestTemplate" = "https://neworchestrator.dlcs.io/iiif-manifest/wellcome/{0}/{1}"
+    "Dlcs__InternalResourceEntryPoint"  = "https://neworchestrator.dlcs.io/"
+    "Dlcs__ResourceEntryPoint"          = "https://iiif-test.wellcomecollection.org/"
+    "Dlcs__SupportsDeliveryChannels"    = true
   }
 }
 
@@ -99,4 +109,4 @@ resource "aws_iam_role_policy" "dashboard_write_to_digitised_notifications_queue
   name   = "dashboard-write-to-digitised-notifications-queue"
   role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.digitised_notifications_write_to_queue.json
-}	
+}
