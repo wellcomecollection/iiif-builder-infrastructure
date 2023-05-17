@@ -51,14 +51,6 @@ module "dashboard" {
     "ASPNETCORE_ENVIRONMENT"                    = "Production"
     "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_invalidate_cache.arn
     "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_invalidate_cache.arn
-
-    "Dlcs__CustomerDefaultSpace"        = 5
-    "Dlcs__SkeletonNamedQueryTemplate"  = "https://neworchestrator.dlcs.io/iiif-resource/wellcome/preview/{0}/{1}"
-    "Dlcs__ApiEntryPoint"               = "https://newapi.dlcs.io/"
-    "Dlcs__SingleAssetManifestTemplate" = "https://neworchestrator.dlcs.io/iiif-manifest/wellcome/{0}/{1}"
-    "Dlcs__InternalResourceEntryPoint"  = "https://neworchestrator.dlcs.io/"
-    "Dlcs__ResourceEntryPoint"          = "https://iiif-test.wellcomecollection.org/"
-    "Dlcs__SupportsDeliveryChannels"    = true
   }
 }
 
