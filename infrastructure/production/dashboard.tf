@@ -35,10 +35,8 @@ module "dashboard" {
   }]
 
   secret_env_vars = {
-    #ConnectionStrings__DdsInstrumentation = "iiif-builder/production/ddsinstrumentation-connstr-new"
-    #ConnectionStrings__Dds                = "iiif-builder/production/dds-connstr-new"
-    ConnectionStrings__DdsInstrumentation = "iiif-builder/production/ddsinstrumentation-connstr"
-    ConnectionStrings__Dds                = "iiif-builder/production/dds-connstr"
+    ConnectionStrings__DdsInstrumentation = "iiif-builder/production/ddsinstrumentation-connstr-new"
+    ConnectionStrings__Dds                = "iiif-builder/production/dds-connstr-new"
     AzureAd__TenantId                     = "iiif-builder/common/azuread-tenantid"
     AzureAd__ClientId                     = "iiif-builder/common/azuread-clientid"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
