@@ -7,12 +7,13 @@ data "aws_subnet" "private_subnets" {
 module "rds" {
   source = "../modules/rds"
 
-  name               = local.name
-  environment        = local.environment
-  vpc_id             = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
+  name        = local.name
+  environment = local.environment
+  vpc_id      = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
 
+  identifier_postfix = "-1"
   db_engine_version = "12.14"
-  db_instance_class = "db.m4.large"
+  db_instance_class = "db.m6g.large"
   db_storage        = 250
   db_subnets        = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_private_subnets
   db_ingress_cidrs  = [for s in data.aws_subnet.private_subnets : s.cidr_block]

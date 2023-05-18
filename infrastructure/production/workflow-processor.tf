@@ -17,8 +17,8 @@ module "workflow_processor" {
   service_security_group_ids     = [data.terraform_remote_state.common.outputs.production_security_group_id, ]
 
   secret_env_vars = {
-    ConnectionStrings__DdsInstrumentation = "iiif-builder/production/ddsinstrumentation-connstr"
-    ConnectionStrings__Dds                = "iiif-builder/production/dds-connstr"
+    ConnectionStrings__DdsInstrumentation = "iiif-builder/production/ddsinstrumentation-connstr-new"
+    ConnectionStrings__Dds                = "iiif-builder/production/dds-connstr-new"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
     Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
@@ -29,6 +29,8 @@ module "workflow_processor" {
     "ASPNETCORE_ENVIRONMENT"                    = "Production"
     "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_invalidate_cache.arn
     "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_invalidate_cache.arn
+    "Dds__WorkflowMessageListenQueues__0"       = aws_sqs_queue.born_digital_notifications.name
+    "Dds__WorkflowMessageListenQueues__1"       = aws_sqs_queue.digitised_notifications.name
   }
 
   healthcheck = {

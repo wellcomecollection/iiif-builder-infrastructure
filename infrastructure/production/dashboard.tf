@@ -35,8 +35,8 @@ module "dashboard" {
   }]
 
   secret_env_vars = {
-    ConnectionStrings__DdsInstrumentation = "iiif-builder/production/ddsinstrumentation-connstr"
-    ConnectionStrings__Dds                = "iiif-builder/production/dds-connstr"
+    ConnectionStrings__DdsInstrumentation = "iiif-builder/production/ddsinstrumentation-connstr-new"
+    ConnectionStrings__Dds                = "iiif-builder/production/dds-connstr-new"
     AzureAd__TenantId                     = "iiif-builder/common/azuread-tenantid"
     AzureAd__ClientId                     = "iiif-builder/common/azuread-clientid"
     Storage__ClientId                     = "iiif-builder/common/storage/clientid"
@@ -99,4 +99,4 @@ resource "aws_iam_role_policy" "dashboard_write_to_digitised_notifications_queue
   name   = "dashboard-write-to-digitised-notifications-queue"
   role   = module.dashboard.task_role_name
   policy = data.aws_iam_policy_document.digitised_notifications_write_to_queue.json
-}	
+}
