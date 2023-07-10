@@ -72,10 +72,10 @@ resource "aws_iam_role_policy" "dashboard_readwrite_storagemaps_bucket" {
   policy = data.aws_iam_policy_document.storagemaps_readwrite.json
 }
 
-resource "aws_iam_role_policy" "dashboard_read_presentation_bucket" {
-  name   = "dashboard-stage-read-stage-presentation-bucket"
+resource "aws_iam_role_policy" "dashboard_readwrite_presentation_bucket" {
+  name   = "dashboard-stage-readwrite-stage-presentation-bucket"
   role   = module.dashboard.task_role_name
-  policy = data.aws_iam_policy_document.presentation_read.json
+  policy = data.aws_iam_policy_document.presentation_readwrite.json
 }
 
 resource "aws_iam_role_policy" "dashboard_read_text_bucket" {
@@ -190,10 +190,10 @@ resource "aws_iam_role_policy" "dashboardstgprd_readwrite_storagemaps_test_bucke
   policy = data.aws_iam_policy_document.storagemaps_test_readwrite.json
 }
 
-resource "aws_iam_role_policy" "dashboardstgprd_read_presentation_test_bucket" {
-  name   = "dashboard-stageprd-read-test-presentation-bucket"
+resource "aws_iam_role_policy" "dashboardstgprd_readwrite_presentation_test_bucket" {
+  name   = "dashboard-stageprd-readwrite-test-presentation-bucket"
   role   = module.dashboard_stageprod.task_role_name
-  policy = data.aws_iam_policy_document.presentation_test_read.json
+  policy = data.aws_iam_policy_document.presentation_test_readwrite.json
 }
 
 resource "aws_iam_role_policy" "dashboardstgprd_read_text_test_bucket" {

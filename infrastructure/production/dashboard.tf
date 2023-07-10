@@ -65,10 +65,10 @@ resource "aws_iam_role_policy" "dashboard_readwrite_storagemaps_bucket" {
   policy = data.aws_iam_policy_document.storagemaps_readwrite.json
 }
 
-resource "aws_iam_role_policy" "dashboard_read_presentation_bucket" {
-  name   = "dashboard-read-presentation-bucket"
+resource "aws_iam_role_policy" "dashboard_readwrite_presentation_bucket" {
+  name   = "dashboard-readwrite-presentation-bucket"
   role   = module.dashboard.task_role_name
-  policy = data.aws_iam_policy_document.presentation_read.json
+  policy = data.aws_iam_policy_document.presentation_readwrite.json
 }
 
 resource "aws_iam_role_policy" "dashboard_read_text_bucket" {
