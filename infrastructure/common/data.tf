@@ -6,7 +6,7 @@ data "terraform_remote_state" "platform_infra" {
 
   config = {
     bucket   = "wellcomecollection-platform-infra"
-    key      = "terraform/platform-infrastructure/accounts/digirati.tfstate"
+    key      = "terraform/aws-account-infrastructure/digirati.tfstate"
     region   = "eu-west-1"
     role_arn = "arn:aws:iam::760097843905:role/platform-read_only"
 
