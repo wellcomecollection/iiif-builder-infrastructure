@@ -10,7 +10,7 @@ module "iiif_builder" {
   container_port = 80
 
   cpu    = 512
-  memory = 3072
+  memory = 4096
 
   ecs_cluster_arn                = aws_ecs_cluster.iiif_builder.arn
   service_discovery_namespace_id = data.terraform_remote_state.common.outputs.service_discovery_namespace_id
