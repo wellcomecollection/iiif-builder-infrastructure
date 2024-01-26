@@ -42,6 +42,8 @@ resource "aws_db_instance" "postgres" {
   auto_minor_version_upgrade = false
   publicly_accessible        = false
   ca_cert_identifier         = "rds-ca-2019"
+  
+  performance_insights_enabled = true
 
   vpc_security_group_ids = concat(
     var.db_security_group_ids,
