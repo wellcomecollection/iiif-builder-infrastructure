@@ -77,6 +77,8 @@ resource "aws_launch_configuration" "bastion" {
   instance_type        = var.instance_type
   iam_instance_profile = aws_iam_instance_profile.bastion.name
   key_name             = var.key_name
+  
+  associate_public_ip_address = true
 
   security_groups = concat(
     var.service_security_group_ids,
