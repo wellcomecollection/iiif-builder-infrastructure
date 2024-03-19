@@ -26,12 +26,21 @@ resource "aws_key_pair" "auth" {
   }
 }
 
+data "aws_ami" "bastion_host_ami" {
+  most_recent = true
+  owners      = ["self"]
+  filter {
+    name   = "name"
+    values = ["weco-amzn2-hvm-x86_64*"]
+  }
+}
+
 module "bastion" {
   source = "../modules/ec2/bastion"
 
   name          = "iiif-builder"
   instance_type = "t2.micro"
-  ami           = "ami-047bb4163c506cd98"
+  ami           = data.aws_ami.bastion_host_ami.id
 
   vpc_id                     = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
   subnets                    = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_public_subnets
