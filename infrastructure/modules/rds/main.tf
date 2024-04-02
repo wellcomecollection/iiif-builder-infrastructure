@@ -41,7 +41,7 @@ resource "aws_db_instance" "postgres" {
   backup_window              = "02:47-03:17"
   auto_minor_version_upgrade = false
   publicly_accessible        = false
-  ca_cert_identifier         = "rds-ca-2019"
+  ca_cert_identifier         = var.db_cert_authority
   
   performance_insights_enabled = true
 

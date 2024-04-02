@@ -58,3 +58,9 @@ variable "identifier_postfix" {
   description = "Postfix to add to DB name, useful when doing rolling updates"
   default     = ""
 }
+
+variable "db_cert_authority" {
+  type        = string
+  description = "Certificate authority identifier"
+  default     = "rds-ca-2019"
+}
