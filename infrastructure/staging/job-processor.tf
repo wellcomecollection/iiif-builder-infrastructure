@@ -91,7 +91,8 @@ module "job_processor_stageprod" {
     Dlcs__ApiSecret                       = "iiif-builder/stage-prd/dlcs-apisecret"
   }
 
-  env_vars = {
+  env_vars = {    
+    "ASPNETCORE_URLS"        = "http://[::]:80"
     "ASPNETCORE_ENVIRONMENT" = "Staging-Prod"
   }
 
