@@ -122,6 +122,7 @@ module "iiif_builder_text_stageprod" {
   env_vars = {
     "ASPNETCORE_ENVIRONMENT"                  = "Staging-Prod"
     "ASPNETCORE_URLS"                         = "http://[::]:80"
+    "ASPNETCORE_HTTP_PORTS"                   = "80"
     "FeatureManagement__TextServices"         = "True"
     "FeatureManagement__PresentationServices" = "False"
   }
