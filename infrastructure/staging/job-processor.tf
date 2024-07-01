@@ -92,8 +92,8 @@ module "job_processor_stageprod" {
   }
 
   env_vars = {    
-    "ASPNETCORE_URLS"        = "http://[::]:80"
     "ASPNETCORE_ENVIRONMENT" = "Staging-Prod"
+    "ASPNETCORE_URLS"        = "http://[::]:80"
   }
 
   healthcheck = {
