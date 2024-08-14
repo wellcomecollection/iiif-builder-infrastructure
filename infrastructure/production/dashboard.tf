@@ -47,6 +47,7 @@ module "dashboard" {
 
   env_vars = {
     "ASPNETCORE_ENVIRONMENT"                    = "Production"
+    "ASPNETCORE_URLS"                           = "http://*:80"
     "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_invalidate_cache.arn
     "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_invalidate_cache.arn
   }
