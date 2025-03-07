@@ -27,6 +27,8 @@ module "workflow_processor" {
 
   env_vars = {
     "ASPNETCORE_ENVIRONMENT"                    = "Staging"
+    "ASPNETCORE_URLS"                           = "http://*:80"
+    "ASPNETCORE_HTTP_PORTS"                     = "80"
     "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_stage_invalidate_cache.arn
     "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_invalidate_cache.arn
   }
@@ -132,8 +134,11 @@ module "workflow_processor_stageprod" {
 
   env_vars = {
     "ASPNETCORE_ENVIRONMENT"                    = "Staging-Prod"
+    "ASPNETCORE_URLS"                           = "http://*:80"
+    "ASPNETCORE_HTTP_PORTS"                     = "80"
     "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_test_invalidate_cache.arn
     "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_invalidate_cache.arn
+    "Dds__WorkflowMessagePoll"                  = "False"
   }
 
   healthcheck = {

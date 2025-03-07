@@ -27,6 +27,8 @@ module "job_processor" {
 
   env_vars = {
     "ASPNETCORE_ENVIRONMENT" = "Production"
+    "ASPNETCORE_URLS"        = "http://*:80"
+    "ASPNETCORE_HTTP_PORTS"  = "80"
   }
 
   healthcheck = {
