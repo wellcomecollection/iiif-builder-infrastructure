@@ -11,7 +11,9 @@ module "rds" {
   environment = local.environment
   vpc_id      = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
 
-  db_engine_version = "12.18"
+  identifier_postfix = "-1"
+
+  db_engine_version = "13.18"
   db_instance_class = "db.m6g.large"
   db_storage        = 250
   db_subnets        = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_private_subnets

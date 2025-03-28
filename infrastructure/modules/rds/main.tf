@@ -43,6 +43,7 @@ resource "aws_db_instance" "postgres" {
   publicly_accessible        = false
   ca_cert_identifier         = var.db_cert_authority
   
+  deletion_protection          = var.deletion_protection
   performance_insights_enabled = true
 
   vpc_security_group_ids = concat(

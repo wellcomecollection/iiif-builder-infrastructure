@@ -64,3 +64,9 @@ variable "db_cert_authority" {
   description = "Certificate authority identifier"
   default     = "rds-ca-2019"
 }
+
+variable "deletion_protection" {
+  type        = bool
+  description = "Whether delete protection should be enabled on RDS instance"
+  default     = true
+}
