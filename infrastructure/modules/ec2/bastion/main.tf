@@ -66,6 +66,15 @@ resource "aws_iam_role_policy_attachment" "bastion_abilities" {
   policy_arn = aws_iam_policy.bastion_abilities.arn
 }
 
+data "aws_iam_policy" "ssm_managed" {
+  name = "AmazonSSMManagedInstanceCore"
+}
+
+resource "aws_iam_role_policy_attachment" "bastion_ssm" {
+  role       = aws_iam_role.bastion.name
+  policy_arn = data.aws_iam_policy.ssm_managed.arn
+}
+
 resource "aws_iam_instance_profile" "bastion" {
   name = "${var.name}-bastion"
   role = aws_iam_role.bastion.name

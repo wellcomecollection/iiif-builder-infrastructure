@@ -1,22 +1,16 @@
 provider "aws" {
-  assume_role {
-    role_arn = "arn:aws:iam::653428163053:role/digirati-developer"
-  }
-
   region = var.region
 
   profile = "wcdev"
 }
 
 terraform {
-  required_version = ">= 1.0"
+  required_version = ">= 1.8"
 
   backend "s3" {
     bucket = "dlcs-remote-state"
     key    = "iiif-builder/common/terraform.tfstate"
     region = "eu-west-1"
-
-    role_arn = "arn:aws:iam::653428163053:role/digirati-developer"
 
     profile = "wcdev"
   }
