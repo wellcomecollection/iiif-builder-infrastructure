@@ -134,13 +134,13 @@ module "iiif_builder_stageprod" {
     Dlcs__ApiSecret                       = "iiif-builder/stage-prd/dlcs-apisecret"
   }
 
-  env_vars = {
+  env_vars = merge(local.stage_prod_temp_envvars, {
     "ASPNETCORE_ENVIRONMENT"                  = "Staging-Prod"
     "ASPNETCORE_URLS"                         = "http://*:80"
     "ASPNETCORE_HTTP_PORTS"                   = "80"
     "FeatureManagement__TextServices"         = "False"
     "FeatureManagement__PresentationServices" = "True"
-  }
+  })
 }
 
 module "iiif_builder_stageprod_scaling" {

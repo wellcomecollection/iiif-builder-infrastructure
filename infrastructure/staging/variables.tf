@@ -15,6 +15,13 @@ locals {
   }
 
   account_id = data.aws_caller_identity.current.account_id
+
+  stage_prod_temp_envvars = {
+    Dlcs__SkeletonNamedQueryTemplate  = "https://porch.dlcs.io/iiif-resource/wellcome/preview/{0}/{1}"
+    Dlcs__SingleAssetManifestTemplate = "https://porch.dlcs.io/iiif-manifest/wellcome/{0}/{1}"
+    Dlcs__ApiEntryPoint               = "https://papi.dlcs.io/"
+    Dlcs__InternalResourceEntryPoint  = "https://porch.dlcs.io/"
+  }
 }
 
 variable "region" {

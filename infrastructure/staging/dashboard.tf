@@ -162,14 +162,14 @@ module "dashboard_stageprod" {
     Dlcs__ApiSecret                       = "iiif-builder/stage-prd/dlcs-apisecret"
   }
 
-  env_vars = {
+  env_vars = merge(local.stage_prod_temp_envvars, {
     "ASPNETCORE_ENVIRONMENT"                    = "Staging-Prod"
     "ASPNETCORE_URLS"                           = "http://*:80"
     "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_test_invalidate_cache.arn
     "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_invalidate_cache.arn
     "TZ"                                        = "Europe/London"
-    "LANG"                                      = "en_GB.UTF8"    
-  }
+    "LANG"                                      = "en_GB.UTF8"
+  })
 }
 
 module "dashboard_stageprod_scaling" {

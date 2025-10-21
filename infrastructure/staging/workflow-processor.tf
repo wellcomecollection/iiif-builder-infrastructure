@@ -132,14 +132,14 @@ module "workflow_processor_stageprod" {
     Dlcs__ApiSecret                       = "iiif-builder/stage-prd/dlcs-apisecret"
   }
 
-  env_vars = {
+  env_vars = merge(local.stage_prod_temp_envvars, {
     "ASPNETCORE_ENVIRONMENT"                    = "Staging-Prod"
     "ASPNETCORE_URLS"                           = "http://*:80"
     "ASPNETCORE_HTTP_PORTS"                     = "80"
     "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_test_invalidate_cache.arn
     "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_invalidate_cache.arn
     "Dds__WorkflowMessagePoll"                  = "False"
-  }
+  })
 
   healthcheck = {
     command     = ["CMD-SHELL", "curl -f http://localhost:80/management/healthcheck"]
