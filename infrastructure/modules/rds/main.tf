@@ -42,6 +42,8 @@ resource "aws_db_instance" "postgres" {
   auto_minor_version_upgrade = false
   publicly_accessible        = false
   ca_cert_identifier         = var.db_cert_authority
+
+  allow_major_version_upgrade = var.allow_major_version_upgrade
   
   deletion_protection          = var.deletion_protection
   performance_insights_enabled = true

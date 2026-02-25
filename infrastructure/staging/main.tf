@@ -17,7 +17,8 @@ module "rds" {
   db_subnets        = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_private_subnets
   db_ingress_cidrs  = [for s in data.aws_subnet.private_subnets : s.cidr_block]
 
-  maintenance_window = "thu:04:50-thu:05:20"
+  maintenance_window          = "thu:04:50-thu:05:20"
+  allow_major_version_upgrade = true
 
   db_security_group_ids = [
     data.terraform_remote_state.common.outputs.staging_security_group_id,
