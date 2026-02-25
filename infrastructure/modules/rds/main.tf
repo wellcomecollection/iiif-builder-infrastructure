@@ -37,7 +37,7 @@ resource "aws_db_instance" "postgres" {
   storage_type               = "gp2"
   backup_retention_period    = "7"
   skip_final_snapshot        = true
-  maintenance_window         = "sun:01:50-sun:02:20"
+  maintenance_window         = var.maintenance_window
   backup_window              = "02:47-03:17"
   auto_minor_version_upgrade = false
   publicly_accessible        = false
