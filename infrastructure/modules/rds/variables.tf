@@ -70,3 +70,13 @@ variable "deletion_protection" {
   description = "Whether delete protection should be enabled on RDS instance"
   default     = true
 }
+
+variable "maintenance_window" {
+  description = "The window to perform maintenance in"
+  default     = "sun:01:50-sun:02:20"
+}
+
+variable "allow_major_version_upgrade" {
+  description = "Indicates that major version upgrades are allowed."
+  default     = false
+}

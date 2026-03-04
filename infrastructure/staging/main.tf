@@ -11,11 +11,14 @@ module "rds" {
   vpc_id      = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_id
 
   db_cert_authority = "rds-ca-rsa4096-g1"
-  db_engine_version = "13.18"
+  db_engine_version = "14.21"
   db_instance_class = "db.m6g.large"
   db_storage        = 250
   db_subnets        = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_private_subnets
   db_ingress_cidrs  = [for s in data.aws_subnet.private_subnets : s.cidr_block]
+
+  maintenance_window          = "thu:04:50-thu:05:20"
+  allow_major_version_upgrade = true
 
   db_security_group_ids = [
     data.terraform_remote_state.common.outputs.staging_security_group_id,
