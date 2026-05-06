@@ -75,24 +75,72 @@ resource "aws_iam_role_policy_attachment" "bastion_ssm" {
   policy_arn = data.aws_iam_policy.ssm_managed.arn
 }
 
+data "aws_iam_policy_document" "scheduler_assume_role" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    principals {
+      type        = "Service"
+      identifiers = ["scheduler.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "bastion_refresh_scheduler" {
+  name               = "${var.name}-bastion-refresh-scheduler"
+  assume_role_policy = data.aws_iam_policy_document.scheduler_assume_role.json
+}
+
+resource "aws_iam_role_policy" "bastion_refresh_scheduler" {
+  role = aws_iam_role.bastion_refresh_scheduler.name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = "autoscaling:StartInstanceRefresh"
+      Resource = aws_autoscaling_group.bastion.arn
+    }]
+  })
+}
+
+resource "aws_scheduler_schedule" "bastion_refresh" {
+  name       = "${var.name}-bastion-refresh"
+  group_name = "default"
+
+  flexible_time_window { mode = "OFF" }
+
+  schedule_expression = var.refresh_schedule
+
+  target {
+    arn      = "arn:aws:scheduler:::aws-sdk:autoscaling:startInstanceRefresh"
+    role_arn = aws_iam_role.bastion_refresh_scheduler.arn
+    input = jsonencode({
+      AutoScalingGroupName = aws_autoscaling_group.bastion.name
+    })
+  }
+}
+
 resource "aws_iam_instance_profile" "bastion" {
   name = "${var.name}-bastion"
   role = aws_iam_role.bastion.name
 }
 
-resource "aws_launch_configuration" "bastion" {
-  name_prefix          = "${var.name}-bastion"
-  image_id             = var.ami
-  instance_type        = var.instance_type
-  iam_instance_profile = aws_iam_instance_profile.bastion.name
-  key_name             = var.key_name
-  
-  associate_public_ip_address = true
+resource "aws_launch_template" "bastion" {
+  name_prefix   = "${var.name}-bastion"
+  image_id      = var.ami
+  instance_type = var.instance_type
+  key_name      = var.key_name
 
-  security_groups = concat(
-    var.service_security_group_ids,
-    [aws_security_group.bastion.id],
-  )
+  iam_instance_profile {
+    name = aws_iam_instance_profile.bastion.name
+  }
+
+  network_interfaces {
+    associate_public_ip_address = true
+    security_groups = concat(
+      var.service_security_group_ids,
+      [aws_security_group.bastion.id],
+    )
+  }
 
   lifecycle {
     create_before_destroy = true
@@ -100,14 +148,25 @@ resource "aws_launch_configuration" "bastion" {
 }
 
 resource "aws_autoscaling_group" "bastion" {
-  name                 = "${var.name}-bastion"
-  launch_configuration = aws_launch_configuration.bastion.name
+  name = "${var.name}-bastion"
+
+  launch_template {
+    id      = aws_launch_template.bastion.id
+    version = "$Latest"
+  }
 
   max_size            = "1"
   min_size            = "1"
   vpc_zone_identifier = var.subnets
 
   default_cooldown = 0
+
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 0
+    }
+  }
 
   lifecycle {
     create_before_destroy = true
