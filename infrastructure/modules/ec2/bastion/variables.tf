@@ -33,3 +33,8 @@ variable "key_name" {}
 variable "ip_whitelist" {
   description = "List of IP addresses to allow access"
 }
+
+variable "refresh_schedule" {
+  description = "EventBridge Scheduler cron expression for periodic instance refresh"
+  default     = "cron(0 2 ? * SUN *)"
+}
