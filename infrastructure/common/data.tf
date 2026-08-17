@@ -16,3 +16,16 @@ data "terraform_remote_state" "platform_infra" {
     profile = "wellcome-az"
   }
 }
+
+# remote-state for DLCS infra
+data "terraform_remote_state" "dlcs" {
+  backend = "s3"
+
+  config = {
+    bucket = "dlcs-remote-state"
+    key    = "terraform.tfstate"
+    region = "eu-west-1"
+
+    profile = "wcdev"
+  }
+}
