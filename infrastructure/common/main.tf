@@ -37,10 +37,7 @@ module "bastion" {
   subnets                    = data.terraform_remote_state.platform_infra.outputs.digirati_vpc_public_subnets
   service_security_group_ids = [aws_security_group.staging.id, aws_security_group.production.id]
   key_name                   = "iiif-builder"
-  ip_whitelist = [
-    "62.254.125.26/31", # Glasgow
-    "62.254.125.28/30", # Glasgow
-  ]
+  ip_whitelist               = data.terraform_remote_state.dlcs.outputs.digirati_egress
 }
 
 resource "aws_service_discovery_private_dns_namespace" "iiif_builder" {
