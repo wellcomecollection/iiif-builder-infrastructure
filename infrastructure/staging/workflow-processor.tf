@@ -23,6 +23,7 @@ module "workflow_processor" {
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
     Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
     Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
+    IdentifiersApi__ApiKey                = "wellcome/identifiers_api/digirati/stage/api_key"
   }
 
   env_vars = {
@@ -31,6 +32,7 @@ module "workflow_processor" {
     "ASPNETCORE_HTTP_PORTS"                     = "80"
     "CacheInvalidation__InvalidateIIIFTopicArn" = data.aws_sns_topic.iiif_stage_invalidate_cache.arn
     "CacheInvalidation__InvalidateApiTopicArn"  = data.aws_sns_topic.api_stage_invalidate_cache.arn
+    "IdentifiersApi__BaseUrl"                   = "https://api-stage.wellcomecollection.org/identifiers/v1"
   }
 
   healthcheck = {

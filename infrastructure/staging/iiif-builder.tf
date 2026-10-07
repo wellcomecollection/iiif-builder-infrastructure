@@ -45,6 +45,7 @@ module "iiif_builder" {
     SierraRestAPI__ClientSecret           = "iiif-builder/common/sierra/clientsecret"
     Dds__DlcsOriginUsername               = "iiif-builder/common/dlcs/origin-username"
     Dds__DlcsOriginPassword               = "iiif-builder/common/dlcs/origin-password"
+    IdentifiersApi__ApiKey                = "wellcome/identifiers_api/digirati/stage/api_key"
   }
 
   env_vars = {
@@ -53,6 +54,7 @@ module "iiif_builder" {
     "ASPNETCORE_HTTP_PORTS"                   = "80"
     "FeatureManagement__TextServices"         = "False"
     "FeatureManagement__PresentationServices" = "True"
+    "IdentifiersApi__BaseUrl"                 = "https://api-stage.wellcomecollection.org/identifiers/v1"
   }
 }
 
