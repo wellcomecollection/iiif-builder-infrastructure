@@ -43,6 +43,7 @@ module "dashboard" {
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
     Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
     Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
+    IdentifiersApi__ApiKey                = "wellcome/identifiers_api/digirati/stage/api_key"
   }
 
   env_vars = {
