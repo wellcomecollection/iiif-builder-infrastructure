@@ -23,12 +23,14 @@ module "job_processor" {
     Storage__ClientSecret                 = "iiif-builder/common/storage/clientsecret"
     Dlcs__ApiKey                          = "iiif-builder/common/dlcs-apikey"
     Dlcs__ApiSecret                       = "iiif-builder/common/dlcs-apisecret"
+    IdentifiersApi__ApiKey                = "wellcome/identifiers_api/digirati/stage/api_key"
   }
 
   env_vars = {
-    "ASPNETCORE_ENVIRONMENT" = "Staging"
-    "ASPNETCORE_URLS"        = "http://*:80"
-    "ASPNETCORE_HTTP_PORTS"  = "80"
+    "ASPNETCORE_ENVIRONMENT"  = "Staging"
+    "ASPNETCORE_URLS"         = "http://*:80"
+    "ASPNETCORE_HTTP_PORTS"   = "80"
+    "IdentifiersApi__BaseUrl" = "https://api-stage.wellcomecollection.org/identifiers/v1"
   }
 
   healthcheck = {
