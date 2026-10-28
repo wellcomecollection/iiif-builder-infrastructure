@@ -85,12 +85,11 @@ async def get_random_words(session, bnum, word_count=4):
 
 
 @click.command()
-    @click.option("--bnumbers", default=10, help="Number of bnumbers to process")
-    @click.option("--terms", default=5, help="Number of terms per bnumber")
-    @click.option("--workers", default=5, help="Number of consecutive workers")
+@click.option("--bnumbers", default=10, help="Number of bnumbers to process")
+@click.option("--terms", default=5, help="Number of terms per bnumber")
+@click.option("--workers", default=5, help="Number of consecutive workers")
 def check_iiif(bnumbers, terms, workers):
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(search_test(bnumbers, terms, workers))
+    asyncio.run(search_test(bnumbers, terms, workers))
 
 
 if __name__ == '__main__':
