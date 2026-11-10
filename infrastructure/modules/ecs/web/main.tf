@@ -1,7 +1,13 @@
 # Logging container using fluentbit
+data "aws_ssm_parameter" "fluentbit_tag" {
+  name = "/platform/sidecars/fluentbit/prod"
+}
+
 module "log_router_container" {
   source    = "git::https://github.com/wellcomecollection/terraform-aws-ecs-service.git//modules/firelens?ref=v3.13.1"
   namespace = local.full_name
+
+  container_tag = data.aws_ssm_parameter.fluentbit_tag.insecure_value
 }
 
 module "log_router_permissions" {
