@@ -28,11 +28,11 @@ Both Staging and Production share common infrastructure, including LoadBalancer.
 | 1        | iiif.wellcomecollection.org/dash* -> dashboard-prod                                 |
 | 3        | iiif-stage.wellcomecollection.org/dash* -> dashboard-stage                          |
 | 5        | iiif-test.wellcomecollection.org/dash* -> dashboard-stageprd                        |
-| 6        | pdf-stage.wellcomecollection.digirati.io -> pdf-generator-stage                     |
+| 6        | pdf-stage.wellcomecollection.digirati.io/pdf-cover* -> iiif-builder-stage           |
 | 8        | dash-stage.wellcomecollection.digirati.io -> dashboard-stage                        |
 | 10       | dash-test.wellcomecollection.digirati.io -> dashboard-stageprd                      |
 | 24       | dash.wellcomecollection.digirati.io -> dashboard-prod                               |
-| 25       | pdf.wellcomecollection.digirati.io -> pdf-generator-prod                            |
+| 25       | pdf.wellcomecollection.digirati.io/pdf-cover* -> iiif-builder-prod                  |
 | 30       | dds-stage.wellcomecollection.digirati.io/text* -> iiif-builder-text-stage           |
 | 31       | dds-stage.wellcomecollection.digirati.io/search* -> iiif-builder-text-stage         |
 | 32       | iiif-stage.wellcomecollection.org/text* -> iiif-builder-text-stage                  |
