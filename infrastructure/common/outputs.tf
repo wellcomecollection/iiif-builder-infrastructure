@@ -14,10 +14,6 @@ output "job_processor_url" {
   value = aws_ecr_repository.job_processor.repository_url
 }
 
-output "pdf_generator_url" {
-  value = aws_ecr_repository.pdf_generator.repository_url
-}
-
 output "staging_security_group_id" {
   value = aws_security_group.staging.id
 }
