@@ -29,13 +29,3 @@ resource "aws_ecr_repository" "job_processor" {
     Project   = "iiif-builder"
   }
 }
-
-resource "aws_ecr_repository" "pdf_generator" {
-  name = "pdf-generator"
-  # Step 1 of 2: lets Terraform delete the repository with its images in it (step 2 removes it)
-  force_delete = true
-  tags = {
-    Terraform = true
-    Project   = "iiif-builder"
-  }
-}
